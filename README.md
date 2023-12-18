@@ -14,7 +14,7 @@
   <tr>
     <td>converter</td>
     <td>another python script to transfer kmz to gpx with icons</td>    
-    <td><a href="https://github.com/mariush444/gmapIcons2osmand"> github </a> </td>
+    <td><a href="https://github.com/tmusolf/KMLtoOSMAndGPX"> github </a> </td>
   </tr>
   <tr>
     <td>converter</td>
