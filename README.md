@@ -18,6 +18,11 @@
   </tr>
   <tr>
     <td>converter</td>
+    <td>Garmin Basecamp to Osmand</td>    
+    <td><a href="https://github.com/maurizioandreotti/GPX-Basecamp-2-OsmAnd"> github </a> </td>
+  </tr>
+  <tr>
+    <td>converter</td>
     <td>convert geoPDF, geoTiff, ozi for Osmand </td>    
     <td><a href="https://github.com/mariush444/raster2osmand"> github </a> </td>
   </tr>
