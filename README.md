@@ -46,8 +46,7 @@
     <td>set of maps </td>    
     <td>French web site <a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-pour-applications-mobiles#h.lrtz21a2dinu"> Gravel Roads Seeker </a> </td>
   </tr>
-    </tr>
-    <tr>
+  <tr>
     <td>online maps</td>
     <td>set of maps </td>    
     <td><a href="http://anygis.ru/Web/Html/Osmand_en"> AnyGis </a> </td>
