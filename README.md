@@ -36,6 +36,11 @@
     <td>enduro, MTB and hiking </td>    
     <td><a href="https://github.com/cmoffroad/osmand-outdoor-explorer-plugin"> github </a>  </td>
   </tr>
+  <tr>
+    <td>offline maps</td>
+    <td>improved addresses for some countries </td>    
+    <td><a href="https://opensupermaps.com"> OpenSuperMap </a> </td>
+  </tr>
     <tr>
     <td>online maps</td>
     <td>set of maps </td>    
