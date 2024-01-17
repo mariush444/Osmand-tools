@@ -52,3 +52,5 @@
     <td><a href="http://anygis.ru/Web/Html/Osmand_en"> AnyGis </a> </td>
   </tr>
 </table>
+
+<a href="https://github.com/mariush444/Osmand-tools/issues"> Inform about new one </a>
