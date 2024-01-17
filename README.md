@@ -29,7 +29,7 @@
   <tr>
     <td>map style</td>
     <td>gravel roads </td>    
-    <td>French web site <a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-pour-applications-mobiles#h.vuowwyk2a6ei"> Gravel Roads Seeker </a>     </td>
+    <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-pour-applications-mobiles#h.vuowwyk2a6ei"> Gravel Roads Seeker </a> (in French)    </td>
   </tr>
     <tr>
     <td>map style</td>
@@ -44,7 +44,7 @@
     <tr>
     <td>online maps</td>
     <td>set of maps </td>    
-    <td>French web site <a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-pour-applications-mobiles#h.lrtz21a2dinu"> Gravel Roads Seeker </a> </td>
+    <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-pour-applications-mobiles#h.lrtz21a2dinu"> Gravel Roads Seeker </a> (in French)   </td>
   </tr>
   <tr>
     <td>online maps</td>
