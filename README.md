@@ -28,8 +28,8 @@
   </tr>
   <tr>
     <td>map style</td>
-    <td>gravel roads </td>    
-    <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-pour-applications-mobiles#h.vuowwyk2a6ei"> Gravel Roads Seeker </a> (in French)    </td>
+    <td>gravel roads (webpage in French)</td>    
+    <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-pour-applications-mobiles#h.vuowwyk2a6ei"> Gravel Roads Seeker </a> </td>
   </tr>
     <tr>
     <td>map style</td>
@@ -39,7 +39,7 @@
   <tr>
     <td>map style</td>
     <td>Topo with Hide All Water option </td>    
-    <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/TopoHAWater.osf"> github </a>  </td>
+    <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/TopoHAWater.osf"> plugin </a>  </td>
   </tr>
   <tr>
     <td>offline maps</td>
@@ -48,8 +48,13 @@
   </tr>
     <tr>
     <td>online maps</td>
-    <td>set of maps </td>    
-    <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-pour-applications-mobiles#h.lrtz21a2dinu"> Gravel Roads Seeker </a> (in French)   </td>
+    <td>set of maps (webpage in French)</td>    
+    <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-pour-applications-mobiles#h.lrtz21a2dinu"> Gravel Roads Seeker </a> </td>
+  </tr>
+  <tr>
+    <td>online maps</td>
+    <td><a href="https://www.rainviewer.com/api/weather-maps-api.html"> RainViewer</a>  map with various <a href="https://www.rainviewer.com/api/color-schemes.html"> color schema</a> </td>    
+    <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/RainViewer.osf"> plugin </td>
   </tr>
   <tr>
     <td>online maps</td>
