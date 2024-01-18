@@ -42,6 +42,26 @@
     <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/TopoHAWater.osf"> plugin </a>  </td>
   </tr>
   <tr>
+    <td>map style</td>
+    <td>UniMap - some color optimalization </td>    
+    <td><a href="https://github.com/basings/OsmAnd-custom-map-styles"> github </a>  </td>
+  </tr>
+  <tr>
+    <td>map style</td>
+    <td>OsmAndRailwayStyles - optimalization for <a href="https://www.openrailwaymap.org/"> OpenRailwayMap </a></td>    
+    <td><a href="https://github.com/fuzzysolutions/OsmAndRailwayStyles"> github </a>  </td>
+  </tr>
+  <tr>
+    <td>map style</td>
+    <td>Hiking - optimalizated Topo </a></td>    
+    <td><a href="https://github.com/Louis-LJ/OsmAnd_Hiking_Map/blob/main/README-EN.md"> github </a>  </td>
+  </tr>
+  <tr>
+    <td>map style</td>
+    <td>CycloRoute - optimalization for bikes</a></td>    
+    <td><a href="https://github.com/Louis-LJ/OsmAnd_Cycling_Map/blob/main/README_EN.md"> github </a>  </td>
+  </tr>
+  <tr>
     <td>offline maps</td>
     <td>improved addresses for some countries </td>    
     <td><a href="https://opensupermaps.com"> OpenSuperMap </a> </td>
