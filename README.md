@@ -39,7 +39,7 @@
   <tr>
     <td>map style</td>
     <td>Topo with Hide All Water option </td>    
-    <td><a href="https://github.com/mariush444/Osmand-tools/blob/main/TopoHAWater.osf"> github </a>  </td>
+    <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/TopoHAWater.osf"> github </a>  </td>
   </tr>
   <tr>
     <td>offline maps</td>
