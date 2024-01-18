@@ -57,5 +57,7 @@
     <td><a href="http://anygis.ru/Web/Html/Osmand_en"> AnyGis </a> </td>
   </tr>
 </table>
-
-<a href="https://github.com/mariush444/Osmand-tools/issues"> Let me know if something is missing </a>
+<h6>
+<a href="https://github.com/mariush444/Osmand-tools/issues"> Let me know if something is missing </a> <br>
+If you have no account on github just leave message in osmand group on telegram or reddit or fb.
+</h6>
