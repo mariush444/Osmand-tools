@@ -1,4 +1,4 @@
-#  Tools , plugins, scripts .... for Osmand created by users
+#  Tools , plugins, scripts ... for Osmand created by users
 
 <table>
   <tr>
