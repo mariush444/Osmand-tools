@@ -37,6 +37,11 @@
     <td><a href="https://github.com/cmoffroad/osmand-outdoor-explorer-plugin"> github </a>  </td>
   </tr>
   <tr>
+    <td>map style</td>
+    <td>Topo with Hide All Water option </td>    
+    <td><a href="https://github.com/mariush444/Osmand-tools/blob/main/TopoHAWater.osf"> github </a>  </td>
+  </tr>
+  <tr>
     <td>offline maps</td>
     <td>improved addresses for some countries </td>    
     <td><a href="https://opensupermaps.com"> OpenSuperMap </a> </td>
@@ -53,4 +58,4 @@
   </tr>
 </table>
 
-<a href="https://github.com/mariush444/Osmand-tools/issues"> Inform about new one </a>
+<a href="https://github.com/mariush444/Osmand-tools/issues"> Let me know if something is missing </a>
