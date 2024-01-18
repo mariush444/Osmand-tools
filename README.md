@@ -54,7 +54,7 @@
   <tr>
     <td>online maps</td>
     <td><a href="https://www.rainviewer.com/api/weather-maps-api.html"> RainViewer</a>  map with various <a href="https://www.rainviewer.com/api/color-schemes.html"> color schema</a> </td>    
-    <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/RainViewer.osf"> plugin </td>
+    <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/RainViewer.osf"> plugin </a> </td>
   </tr>
   <tr>
     <td>online maps</td>
