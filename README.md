@@ -1,6 +1,6 @@
 #  Tools , plugins, scripts ... for Osmand created by users
 
-<table style="background-color:#FF8C00;">
+<table>
   <tr>
     <th>Type</th>
     <th>Description</th>
