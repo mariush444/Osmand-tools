@@ -1,11 +1,6 @@
-
-  <head>
-    <link rel="shortcut icon" type="image/svg" href="https://osmand.net/img/logo.svg">
-  </head>
-
 #  Tools , plugins, scripts ... for Osmand created by users
 
-<table>
+<table style="background-color:#FF8C00;">
   <tr>
     <th>Type</th>
     <th>Description</th>
