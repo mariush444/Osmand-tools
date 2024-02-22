@@ -31,7 +31,7 @@
     <td>gravel roads (webpage in French)</td>    
     <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-pour-applications-mobiles#h.vuowwyk2a6ei"> Gravel Roads Seeker </a> </td>
   </tr>
-    <tr>
+  <tr>
     <td>map style</td>
     <td>enduro, MTB and hiking </td>    
     <td><a href="https://github.com/cmoffroad/osmand-outdoor-explorer-plugin"> github </a>  </td>
@@ -71,7 +71,7 @@
     <td>improved searching addresses for some countries </td>    
     <td><a href="https://opensupermaps.com"> OpenSuperMap </a> </td>
   </tr>
-    <tr>
+  <tr>
     <td>online maps</td>
     <td>set of maps (webpage in French)</td>    
     <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-pour-applications-mobiles#h.lrtz21a2dinu"> Gravel Roads Seeker </a> </td>
