@@ -38,6 +38,11 @@
   </tr>
   <tr>
     <td>map style</td>
+    <td>set of rendering: moto, cycle, hiking  </td>    
+    <td><a href="https://github.com/OsmAnd-Rendering"> github </a>  </td>
+  </tr>
+  <tr>
+    <td>map style</td>
     <td>Topo with Hide All Water option </td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/TopoHAWater.osf"> plugin </a>  </td>
   </tr>
@@ -53,17 +58,17 @@
   </tr>
   <tr>
     <td>map style</td>
-    <td>Hiking - optimalizated Topo </a></td>    
+    <td>Hiking - optimalizated Topo /td>    
     <td><a href="https://github.com/Louis-LJ/OsmAnd_Hiking_Map/blob/main/README-EN.md"> github </a>  </td>
   </tr>
   <tr>
     <td>map style</td>
-    <td>CycloRoute - optimalization for bikes</a></td>    
+    <td>CycloRoute - optimalization for bikes </td>    
     <td><a href="https://github.com/Louis-LJ/OsmAnd_Cycling_Map/blob/main/README_EN.md"> github </a>  </td>
   </tr>
   <tr>
     <td>offline maps</td>
-    <td>improved addresses for some countries </td>    
+    <td>improved searching addresses for some countries </td>    
     <td><a href="https://opensupermaps.com"> OpenSuperMap </a> </td>
   </tr>
     <tr>
