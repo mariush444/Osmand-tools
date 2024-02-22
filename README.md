@@ -58,7 +58,7 @@
   </tr>
   <tr>
     <td>map style</td>
-    <td>Hiking - optimalizated Topo /td>    
+    <td>Hiking - optimalizated Topo </td>    
     <td><a href="https://github.com/Louis-LJ/OsmAnd_Hiking_Map/blob/main/README-EN.md"> github </a>  </td>
   </tr>
   <tr>
