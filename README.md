@@ -82,28 +82,28 @@
     <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/RainViewer.osf"> plugin </a> </td>
   </tr>
   <tr>
-    <td style="border-top: 5px solid black;">online maps</td>
+    <td>online maps</td>
     <td>set of maps </td>    
     <td><a href="http://anygis.ru/Web/Html/Osmand_en"> AnyGis </a> </td>
   </tr>
   <tr>
-    <td> </td>
-    <td style="text-align: center;">--- hardware ---</td>    
-    <td> </td>
+    <td style="border-top: 5px solid black; text-align: center;">-hardware-</td>
+    <td style="border-top: 5px solid black; text-align: center;">!!! there are business companies but the links are NOT affiliated !!!</td>    
+    <td style="border-top: 5px solid black; text-align: center;">---</td>
   </tr>
   <tr>
     <td>barbuttons</td>
     <td>
-      https://jaxeadv.com/barbuttons/ <br>
-      https://www.arnrally.com/arn-rally/es/arn-rally-productos/arn-rally-mandos <br>
-      https://www.silverfoxcontrollers.com/ <br>
-      https://www.remotek.no <br>
-      https://7solid.myshopify.com/en <br>
-      https://www.thorkracing.com/produto/dmd-remote1/ <br>
-      https://summiot.com/en/ <br>
-      https://ursaesystem.com <br>
-      https://carpe-iter.eu <br>
-      https://hesaparts.com/en/categoria-producto/remote-12v-en-en/ <br>
+      <a href="https://jaxeadv.com/barbuttons">JaxeADV</a> <br>
+      <a href="https://www.arnrally.com/arn-rally/en/products/remotes">ARN Rally</a> <br>
+      <a href="https://www.silverfoxcontrollers.com/">SilverFox </a> <br>
+      <a href="https://www.remotek.no">Remotek</a> <br>
+      <a href="https://7solid.myshopify.com/en">7SOLID</a> <br>
+      <a href="https://www.thorkracing.com/produto/dmd-remote1/">THORK RACING</a> <br>
+      <a href="https://summiot.com/en/">summiot</a> <br>
+      <a href="https://ursaesystem.com">URSAE system</a> <br>
+      <a href="https://carpe-iter.eu">Carpe Iter</a> <br>
+      <a href="https://hesaparts.com/en/categoria-producto/remote-12v-en-en/">HEASA PARTS</a> <br>
     </td>    
     <td></td>
   </tr>
