@@ -82,12 +82,34 @@
     <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/RainViewer.osf"> plugin </a> </td>
   </tr>
   <tr>
-    <td>online maps</td>
+    <td style="border-top: 5px solid black;">online maps</td>
     <td>set of maps </td>    
     <td><a href="http://anygis.ru/Web/Html/Osmand_en"> AnyGis </a> </td>
+  </tr>
+  <tr>
+    <td> </td>
+    <td style="text-align: center;">--- hardware ---</td>    
+    <td> </td>
+  </tr>
+  <tr>
+    <td>barbuttons</td>
+    <td>
+      https://jaxeadv.com/barbuttons/ <br>
+      https://www.arnrally.com/arn-rally/es/arn-rally-productos/arn-rally-mandos <br>
+      https://www.silverfoxcontrollers.com/ <br>
+      https://www.remotek.no <br>
+      https://7solid.myshopify.com/en <br>
+      https://www.thorkracing.com/produto/dmd-remote1/ <br>
+      https://summiot.com/en/ <br>
+      https://ursaesystem.com <br>
+      https://carpe-iter.eu <br>
+      https://hesaparts.com/en/categoria-producto/remote-12v-en-en/ <br>
+    </td>    
+    <td></td>
   </tr>
 </table>
 <h6>
 <a href="https://github.com/mariush444/Osmand-tools/issues"> Let me know if something is missing </a> <br>
-If you have no account on github just leave message in osmand group on telegram or reddit or fb.
+If you have no account on github just leave message in osmand group on telegram or reddit or fb. <br> <br>
+updated 01.03.2024
 </h6>
