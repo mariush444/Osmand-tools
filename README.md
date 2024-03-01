@@ -111,6 +111,6 @@
 <h6>
 <a href="https://github.com/mariush444/Osmand-tools/issues"> Let me know if something is missing </a> <br>
 If you have no account on github just leave message in osmand group on telegram or reddit or fb. <br> <br>
-updated 01.03.2024
+updated 01.03.2024 --- 
 If you like it you can buy me <a href="https://buy.stripe.com/5kA5nP7B27OQdFK7sv"> 🍷 </a> or <a href="https://buy.stripe.com/5kA6rTcVm8SUeJOeUW"> ☕ </a>
 </h6>
