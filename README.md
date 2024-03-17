@@ -78,6 +78,11 @@
   </tr>
   <tr>
     <td>online maps</td>
+    <td>set of maps</td>    
+    <td><a href="https://github.com/OsmAnd-Rendering/Online-Maps/blob/main/README_EN.md"> github </a> </td>
+  </tr>  
+  <tr>
+    <td>online maps</td>
     <td><a href="https://www.rainviewer.com/api/weather-maps-api.html"> RainViewer</a>  map with various <a href="https://www.rainviewer.com/api/color-schemes.html"> color schema</a> </td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/RainViewer.osf"> plugin </a> </td>
   </tr>
@@ -88,7 +93,7 @@
   </tr>
   <tr>
     <td style="border-top: 5px solid black; text-align: center;">-hardware-</td>
-    <td style="border-top: 5px solid black; text-align: center;">!!! there are business companies but the links are NOT affiliated !!!</td>    
+    <td style="border-top: 5px solid black; text-align: center;">!!! there are commercial companies but the links are NOT affiliated !!!</td>    
     <td style="border-top: 5px solid black; text-align: center;">---</td>
   </tr>
   <tr>
