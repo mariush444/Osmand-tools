@@ -86,6 +86,14 @@
     <td><a href="https://www.rainviewer.com/api/weather-maps-api.html"> RainViewer</a>  map with various <a href="https://www.rainviewer.com/api/color-schemes.html"> color schema</a> </td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/RainViewer.osf"> plugin </a> </td>
   </tr>
+
+  <tr>
+    <td>online maps</td>
+    <td>Map of Austria based on <a href="https://basemap.at/en/"> basemap.at WMTS</a> </td>    
+    <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/🇦🇹 Austria-basemap.osf"> plugin </a> </td>
+  </tr>
+
+  
   <tr>
     <td>online maps</td>
     <td>set of maps </td>    
@@ -116,6 +124,6 @@
 <h6>
 <a href="https://github.com/mariush444/Osmand-tools/issues"> Let me know if something is missing </a> <br>
 If you have no account on github just leave message in osmand group on telegram or reddit or fb. <br> <br>
-updated 01.03.2024 --- 
+updated 20.03.2024 --- 
 If you like it you can buy me <a href="https://buy.stripe.com/5kA5nP7B27OQdFK7sv"> 🍷 </a> or <a href="https://buy.stripe.com/5kA6rTcVm8SUeJOeUW"> ☕ </a>
 </h6>
