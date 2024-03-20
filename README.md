@@ -89,7 +89,7 @@
 
   <tr>
     <td>online maps</td>
-    <td>Map of Austria based on <a href="https://basemap.at/en/"> basemap.at WMTS</a> </td>    
+    <td>Set of maps of Austria based on <a href="https://basemap.at/en/"> basemap.at WMTS</a> </td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/🇦🇹 Austria-basemap.osf"> plugin </a> </td>
   </tr>
 
