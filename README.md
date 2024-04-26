@@ -27,6 +27,11 @@
     <td><a href="https://github.com/mariush444/raster2osmand"> github </a> </td>
   </tr>
   <tr>
+    <td>converter</td>
+    <td>convert Osmand gpx to KML with icons </td>    
+    <td><a href="https://github.com/mariush444/osmand2kml"> github </a> </td>
+  </tr>
+  <tr>
     <td>map style</td>
     <td>gravel roads (webpage in French)</td>    
     <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-offline"> Gravel Roads Seeker </a> </td>
@@ -124,6 +129,6 @@
 <h6>
 <a href="https://github.com/mariush444/Osmand-tools/issues"> Let me know if something is missing </a> <br>
 If you have no account on github just leave message in osmand group on <a href="https://t.me/OsmAndMaps"> telegram</a> or <a href="https://www.reddit.com/r/OsmAnd"> reddit</a> or <a href="https://www.facebook.com/groups/osmandusers/"> fb </a>a. <br> <br>
-updated 20.03.2024 --- 
+updated 26.04.2024 --- 
 If you like it you can buy me <a href="https://buy.stripe.com/5kA5nP7B27OQdFK7sv"> 🍷 </a> or <a href="https://buy.stripe.com/5kA6rTcVm8SUeJOeUW"> ☕ </a>
 </h6>
