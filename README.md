@@ -77,6 +77,11 @@
     <td><a href="https://opensupermaps.com"> OpenSuperMap </a> </td>
   </tr>
   <tr>
+    <td>offline maps</td>
+    <td><a href="https://ump.waw.pl/"> UMP-pcPL </a> - alternative map of Poland </td>    
+    <td><a href="https://github.com/mariush444/Osmand-tools/blob/main/UMP-PL-OsmAnd_v4_plugin.osf"> github </a> </td>
+  </tr>
+  <tr>
     <td>online maps</td>
     <td>set of maps (webpage in French)</td>    
     <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-pour-applications-mobiles#h.lrtz21a2dinu"> Gravel Roads Seeker </a> </td>
@@ -129,6 +134,6 @@
 <h6>
 <a href="https://github.com/mariush444/Osmand-tools/issues"> Let me know if something is missing </a> <br>
 If you have no account on github just leave message in osmand group on <a href="https://t.me/OsmAndMaps"> telegram</a> or <a href="https://www.reddit.com/r/OsmAnd"> reddit</a> or <a href="https://www.facebook.com/groups/osmandusers/"> fb </a>a. <br> <br>
-updated 26.04.2024 --- 
+updated 28.04.2024 --- 
 If you like it you can buy me <a href="https://buy.stripe.com/5kA5nP7B27OQdFK7sv"> 🍷 </a> or <a href="https://buy.stripe.com/5kA6rTcVm8SUeJOeUW"> ☕ </a>
 </h6>
