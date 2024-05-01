@@ -83,7 +83,7 @@
   </tr>
   <tr>
     <td>offline maps</td>
-    <td>fuel prices at gas station in France - pyhton script cretes obf </td>    
+    <td>fuel prices at gas stations in France - pyhton script cretes obf </td>    
     <td><a href="https://github.com/cbosdo/osmand-fuel-price"> github </a> </td>
   </tr>
   <tr>
