@@ -101,14 +101,16 @@
     <td><a href="https://www.rainviewer.com/api/weather-maps-api.html"> RainViewer</a>  map with various <a href="https://www.rainviewer.com/api/color-schemes.html"> color schema</a> </td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/RainViewer.osf"> plugin </a> </td>
   </tr>
-
   <tr>
     <td>online maps</td>
     <td>Set of maps of Austria based on <a href="https://basemap.at/en/"> basemap.at WMTS</a> </td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/🇦🇹 Austria-basemap.osf"> plugin </a> </td>
   </tr>
-
-  
+  <tr>
+    <td>online maps</td>
+    <td>Set of maps of French geographical institute IGN </td>    
+    <td><a href="https://github.com/OSM-Plein-Air/OsmAnd-maps-IGN/releases"> github </a> </td>
+  </tr>
   <tr>
     <td>online maps</td>
     <td>set of maps </td>    
@@ -139,6 +141,6 @@
 <h6>
 <a href="https://github.com/mariush444/Osmand-tools/issues"> Let me know if something is missing </a> <br>
 If you have no account on github just leave message in osmand group on <a href="https://t.me/OsmAndMaps"> telegram</a> or <a href="https://www.reddit.com/r/OsmAnd"> reddit</a> or <a href="https://www.facebook.com/groups/osmandusers/"> fb </a>a. <br> <br>
-updated 28.04.2024 --- 
+updated 01.05.2024 --- 
 If you like it you can buy me <a href="https://buy.stripe.com/5kA5nP7B27OQdFK7sv"> 🍷 </a> or <a href="https://buy.stripe.com/5kA6rTcVm8SUeJOeUW"> ☕ </a>
 </h6>
