@@ -82,6 +82,11 @@
     <td><a href="https://github.com/mariush444/Osmand-tools/blob/main/UMP-PL-OsmAnd_v4_plugin.osf"> github </a> </td>
   </tr>
   <tr>
+    <td>offline maps</td>
+    <td>fuel prices at gas station in France - pyhton script cretes obf </td>    
+    <td><a href="https://github.com/cbosdo/osmand-fuel-price"> github </a> </td>
+  </tr>
+  <tr>
     <td>online maps</td>
     <td>set of maps (webpage in French)</td>    
     <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-pour-applications-mobiles#h.lrtz21a2dinu"> Gravel Roads Seeker </a> </td>
