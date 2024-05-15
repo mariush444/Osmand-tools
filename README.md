@@ -61,7 +61,7 @@
     <td>OsmAndRailwayStyles - optimalization for <a href="https://www.openrailwaymap.org/"> OpenRailwayMap </a></td>    
     <td><a href="https://github.com/fuzzysolutions/OsmAndRailwayStyles"> github </a>  </td>
   </tr>
-  <tr>
+  <!-- tr>
     <td>map style</td>
     <td>Hiking - optimalizated Topo </td>    
     <td><a href="https://github.com/Louis-LJ/OsmAnd_Hiking_Map/blob/main/README-EN.md"> github </a>  </td>
@@ -70,7 +70,7 @@
     <td>map style</td>
     <td>CycloRoute - optimalization for bikes </td>    
     <td><a href="https://github.com/Louis-LJ/OsmAnd_Cycling_Map/blob/main/README_EN.md"> github </a>  </td>
-  </tr>
+</tr -->
   <tr>
     <td>offline maps</td>
     <td>improved searching addresses for some countries </td>    
