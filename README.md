@@ -13,7 +13,7 @@
   </tr>
   <tr>
     <td>converter</td>
-    <td>another python script to transfer kmz to gpx with icons</td>    
+    <td>python script to transfer kml to gpx with icons <h6>look at other tools on this account</h6></td>    
     <td><a href="https://github.com/tmusolf/KMLtoOSMAndGPX"> github </a> </td>
   </tr>
   <tr>
@@ -141,6 +141,6 @@
 <h6>
 <a href="https://github.com/mariush444/Osmand-tools/issues"> Let me know if something is missing </a> <br>
 If you have no account on github just leave message in osmand group on <a href="https://t.me/OsmAndMaps"> telegram</a> or <a href="https://www.reddit.com/r/OsmAnd"> reddit</a> or <a href="https://www.facebook.com/groups/osmandusers/"> fb </a>a. <br> <br>
-updated 01.05.2024 --- 
+updated 18.05.2024 --- 
 If you like it you can buy me <a href="https://buy.stripe.com/5kA5nP7B27OQdFK7sv"> 🍷 </a> or <a href="https://buy.stripe.com/5kA6rTcVm8SUeJOeUW"> ☕ </a>
 </h6>
