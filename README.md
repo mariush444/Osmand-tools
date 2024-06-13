@@ -94,7 +94,7 @@
   <tr>
     <td>online maps</td>
     <td>set of maps</td>    
-    <td><a href="https://github.com/OsmAnd-Rendering/Online-Maps/blob/main/README_EN.md"> github </a> </td>
+    <td><a href="https://osmand-rendering.github.io/Online-Maps/index_EN.html"> github </a> </td>
   </tr>  
   <tr>
     <td>online maps</td>
