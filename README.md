@@ -32,6 +32,11 @@
     <td><a href="https://github.com/mariush444/osmand2kml"> github </a> </td>
   </tr>
   <tr>
+    <td>converter</td>
+    <td>convert exported iOverlander gpx to Osmand with icons </td>    
+    <td><a href="https://github.com/mariush444/Osmand-tools/blob/main/iOver.zip"> github </a> </td>
+  </tr>
+  <tr>
     <td>map style</td>
     <td>gravel roads (webpage in French)</td>    
     <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-offline"> Gravel Roads Seeker </a> </td>
