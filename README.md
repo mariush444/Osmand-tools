@@ -33,7 +33,7 @@
   </tr>
   <tr>
     <td>converter</td>
-    <td>exported iOverlander gpx to Osmand with icons </td>    
+    <td>python script to convert exported iOverlander gpx to Osmand with icons </td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/blob/main/iOver.zip"> github </a> </td>
   </tr>
   <tr>
