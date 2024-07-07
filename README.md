@@ -23,17 +23,17 @@
   </tr>
   <tr>
     <td>converter</td>
-    <td>convert geoPDF, geoTiff, ozi for Osmand </td>    
+    <td> geoPDF, geoTiff, ozi to Osmand </td>    
     <td><a href="https://github.com/mariush444/raster2osmand"> github </a> </td>
   </tr>
   <tr>
     <td>converter</td>
-    <td>convert Osmand gpx to KML with icons </td>    
+    <td>Osmand gpx to KML with icons </td>    
     <td><a href="https://github.com/mariush444/osmand2kml"> github </a> </td>
   </tr>
   <tr>
     <td>converter</td>
-    <td>convert exported iOverlander gpx to Osmand with icons </td>    
+    <td>exported iOverlander gpx to Osmand with icons </td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/blob/main/iOver.zip"> github </a> </td>
   </tr>
   <tr>
