@@ -126,6 +126,13 @@
     <td>set of maps </td>    
     <td><a href="http://anygis.ru/Web/Html/Osmand_en"> AnyGis </a> </td>
   </tr>
+
+  <tr>
+    <td>manual</td>
+    <td>1st steps in Italian </td>    
+    <td><a href="http://github.com/Max1234-Ita/GuidaOsmand"> github </a> </td>
+  </tr>
+  
   <tr>
     <td style="border-top: 5px solid black; text-align: center;">-hardware-</td>
     <td style="border-top: 5px solid black; text-align: center;">!!! there are commercial companies but the links are NOT affiliated !!!</td>    
