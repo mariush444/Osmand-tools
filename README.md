@@ -66,6 +66,11 @@
     <td>OsmAndRailwayStyles - optimalization for <a href="https://www.openrailwaymap.org/"> OpenRailwayMap </a></td>    
     <td><a href="https://github.com/fuzzysolutions/OsmAndRailwayStyles"> github </a>  </td>
   </tr>
+<tr>
+    <td>map style</td>
+    <td>Highlighted Admin Boundaries </td>      <td><a href="https://github.com/Max1234-Ita/GuidaOsmand/blob/main/risorse/rendering/en_highlighted_boundaries.md"> github </a>  </td>
+  </tr>
+  
   <!-- tr>
     <td>map style</td>
     <td>Hiking - optimalizated Topo </td>    
