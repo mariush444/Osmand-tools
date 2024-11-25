@@ -36,6 +36,11 @@
     <td>python script to convert exported iOverlander gpx to Osmand with icons </td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/blob/main/iOver.zip"> github </a> </td>
   </tr>
+    <tr>
+    <td>converter</td>
+    <td>Go script to convert exported iOverlander gpx to Osmand </td>    
+    <td><a href="https://github.com/cug/wp_converter"> github </a> </td>
+  </tr>
   <tr>
     <td>map style</td>
     <td>gravel roads (webpage in French)</td>    
