@@ -1,6 +1,6 @@
 #  Tools , plugins, scripts, maps, manuals ... created by users for Osmand 
 
-Most of tools are mentioned on the official website <a href="https://osmand.net/docs/user/troubleshooting/resources#converters"> <img src="https://osmand.net/img/logo.svg" alt=Osmand" style="width:48px;height:48px;> </a>, currently. <br>So I remove them from my list.
+Most of tools are mentioned on <a href="https://osmand.net/docs/user/troubleshooting/resources#converters"> the official website </a>, currently. <br>So I remove them from my list.
 
 <table>
   <tr>
