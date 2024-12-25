@@ -1,4 +1,6 @@
-#  Tools , plugins, scripts ... created by users for Osmand 
+#  Tools , plugins, scripts, maps, manuals ... created by users for Osmand 
+
+Most of tools are mentioned on the official website <a href="https://osmand.net/docs/user/troubleshooting/resources#converters"> <img src="https://osmand.net/img/logo.svg" alt=Osmand" style="width:48px;height:48px;> </a>, currently. <br>So I remove them from my list.
 
 <table>
   <tr>
@@ -6,7 +8,7 @@
     <th>Description</th>
     <th>Link</th>    
   </tr>
-  <tr>
+  <!-- tr>
     <td>converter</td>
     <td>python script to transfer kmz to gpx with icons</td>    
     <td><a href="https://github.com/mariush444/gmapIcons2osmand"> github </a></td>
@@ -35,27 +37,27 @@
     <td>converter</td>
     <td>python script to convert exported iOverlander gpx to Osmand with icons </td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/blob/main/iOver.zip"> github </a> </td>
-  </tr>
+</tr -->
     <tr>
     <td>converter</td>
     <td>Go script to convert exported iOverlander gpx to Osmand </td>    
     <td><a href="https://github.com/cug/wp_converter"> github </a> </td>
   </tr>
-  <tr>
+  <!-- tr>
     <td>map style</td>
     <td>gravel roads (webpage in French)</td>    
     <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-offline"> Gravel Roads Seeker </a> </td>
   </tr>
-  <tr>
+  < tr>
     <td>map style</td>
     <td>enduro, MTB and hiking </td>    
     <td><a href="https://github.com/cmoffroad/osmand-outdoor-explorer-plugin"> github </a>  </td>
-  </tr>
+</tr>
   <tr>
     <td>map style</td>
     <td>set of rendering: moto, cycle, hiking  </td>    
     <td><a href="https://github.com/OsmAnd-Rendering"> github </a>  </td>
-  </tr>
+</tr>
   <tr>
     <td>map style</td>
     <td>Topo with Hide All Water option </td>    
@@ -76,7 +78,7 @@
     <td>Highlighted Admin Boundaries </td>      <td><a href="https://github.com/Max1234-Ita/GuidaOsmand/blob/main/risorse/rendering/en_highlighted_boundaries.md"> github </a>  </td>
   </tr>
   
-  <!-- tr>
+  <tr>
     <td>map style</td>
     <td>Hiking - optimalizated Topo </td>    
     <td><a href="https://github.com/Louis-LJ/OsmAnd_Hiking_Map/blob/main/README-EN.md"> github </a>  </td>
@@ -85,7 +87,7 @@
     <td>map style</td>
     <td>CycloRoute - optimalization for bikes </td>    
     <td><a href="https://github.com/Louis-LJ/OsmAnd_Cycling_Map/blob/main/README_EN.md"> github </a>  </td>
-</tr -->
+</tr>
   <tr>
     <td>offline maps</td>
     <td>improved searching addresses for some countries </td>    
@@ -95,13 +97,13 @@
     <td>offline maps</td>
     <td><a href="https://ump.waw.pl/"> UMP-pcPL </a> - alternative map of Poland </td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/blob/main/UMP-PL-OsmAnd_v4_plugin.osf"> github </a> </td>
-  </tr>
+  </tr -->
   <tr>
     <td>offline maps</td>
     <td>fuel prices at gas stations in France - pyhton script cretes obf </td>    
     <td><a href="https://github.com/cbosdo/osmand-fuel-price"> github </a> </td>
   </tr>
-  <tr>
+  <!-- tr>
     <td>online maps</td>
     <td>set of maps (webpage in French)</td>    
     <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-pour-applications-mobiles#h.lrtz21a2dinu"> Gravel Roads Seeker </a> </td>
@@ -136,7 +138,7 @@
     <td>manual</td>
     <td>1st steps in Italian </td>    
     <td><a href="http://github.com/Max1234-Ita/GuidaOsmand"> github </a> </td>
-  </tr>
+  </tr-->
   
   <tr>
     <td style="border-top: 5px solid black; text-align: center;">-hardware-</td>
