@@ -77,7 +77,6 @@ Most of tools are mentioned on <a href="https://osmand.net/docs/user/troubleshoo
     <td>map style</td>
     <td>Highlighted Admin Boundaries </td>      <td><a href="https://github.com/Max1234-Ita/GuidaOsmand/blob/main/risorse/rendering/en_highlighted_boundaries.md"> github </a>  </td>
   </tr>
-  
   <tr>
     <td>map style</td>
     <td>Hiking - optimalizated Topo </td>    
@@ -97,13 +96,13 @@ Most of tools are mentioned on <a href="https://osmand.net/docs/user/troubleshoo
     <td>offline maps</td>
     <td><a href="https://ump.waw.pl/"> UMP-pcPL </a> - alternative map of Poland </td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/blob/main/UMP-PL-OsmAnd_v4_plugin.osf"> github </a> </td>
-  </tr -->
+  </tr>
   <tr>
     <td>offline maps</td>
     <td>fuel prices at gas stations in France - pyhton script cretes obf </td>    
     <td><a href="https://github.com/cbosdo/osmand-fuel-price"> github </a> </td>
   </tr>
-  <!-- tr>
+  <tr>
     <td>online maps</td>
     <td>set of maps (webpage in French)</td>    
     <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-pour-applications-mobiles#h.lrtz21a2dinu"> Gravel Roads Seeker </a> </td>
@@ -133,7 +132,6 @@ Most of tools are mentioned on <a href="https://osmand.net/docs/user/troubleshoo
     <td>set of maps </td>    
     <td><a href="http://anygis.ru/Web/Html/Osmand_en"> AnyGis </a> </td>
   </tr>
-
   <tr>
     <td>manual</td>
     <td>1st steps in Italian </td>    
