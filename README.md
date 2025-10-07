@@ -48,7 +48,7 @@ Currently, most of tools are additionally mentioned on <a href="https://osmand.n
     <td>gravel roads (webpage in French)</td>    
     <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-offline"> Gravel Roads Seeker </a> </td>
   </tr>
-  < tr>
+  <tr>
     <td>map style</td>
     <td>enduro, MTB and hiking </td>    
     <td><a href="https://github.com/cmoffroad/osmand-outdoor-explorer-plugin"> github </a>  </td>
