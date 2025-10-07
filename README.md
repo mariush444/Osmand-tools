@@ -1,12 +1,12 @@
 #  Tools , plugins, scripts, maps, manuals ... created by users for Osmand 
 
-Currently, most of tools are additionally mentioned on <a href="https://osmand.net/docs/user/troubleshooting/resources#converters"> the official website </a>, currently. <br>
+Currently, most of tools are additionally mentioned on <a href="https://osmand.net/docs/user/troubleshooting/resources#converters"> the official website </a><br>
 
 <table>
   <tr>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Link</th>    
+  <th>Type</th>
+  <th>Description</th>
+  <th>Link</th>    
   </tr>
   <tr>
     <td>converter</td>
