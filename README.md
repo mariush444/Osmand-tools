@@ -43,6 +43,14 @@ Currently, most of tools are additionally mentioned on <a href="https://osmand.n
     <td>Go script to convert exported iOverlander gpx to Osmand </td>    
     <td><a href="https://github.com/cug/wp_converter"> github </a> </td>
   </tr>
+
+<tr>
+    <td>converter</td>
+    <td>fuel prices at gas stations (classified by color icons) in France - pyhton script cretes gpx </td>    
+    <td><a href="https://github.com/mariush444/fuelFR2Osmand_gpx"> github </a> </td>
+  </tr>
+
+  
   <tr>
     <td>map style</td>
     <td>gravel roads (webpage in French)</td>    
@@ -164,6 +172,6 @@ Currently, most of tools are additionally mentioned on <a href="https://osmand.n
 <h6>
 <a href="https://github.com/mariush444/Osmand-tools/issues"> Let me know if something is missing </a> <br>
 If you have no account on github just leave message in osmand group on <a href="https://t.me/OsmAndMaps"> telegram</a> or <a href="https://www.reddit.com/r/OsmAnd"> reddit</a> or <a href="https://www.facebook.com/groups/osmandusers/"> fb </a>a. <br> <br>
-updated 01.12.2024 --- 
+updated 07.10.2025 --- 
 If you like it you can buy me <a href="https://buy.stripe.com/5kA5nP7B27OQdFK7sv"> 🍷 </a> or <a href="https://buy.stripe.com/5kA6rTcVm8SUeJOeUW"> ☕ </a>
 </h6>
