@@ -142,6 +142,13 @@ Currently, most of tools are additionally mentioned on <a href="https://osmand.n
     <td><a href="http://anygis.ru/Web/Html/Osmand_en"> AnyGis </a> </td>
   </tr>
   <tr>
+    <td>online maps</td>
+    <td>Hamburg Forstkarten</td>    
+    <td><a href="http://github.com/mariush444/Osmand-tools/blob/main/%F0%9F%87%A9%F0%9F%87%AA%20Hamburg%20Forstkarten.sqlitedb"> github </a> </td>
+  </tr>
+
+  
+  <tr>
     <td>manual</td>
     <td>1st steps in Italian </td>    
     <td><a href="http://github.com/Max1234-Ita/GuidaOsmand"> github </a> </td>
