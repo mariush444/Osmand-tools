@@ -46,7 +46,7 @@ Currently, most of tools are additionally mentioned on <a href="https://osmand.n
 
 <tr>
     <td>converter</td>
-    <td>fuel prices at gas stations (classified by color icons) in France - pyhton script cretes gpx </td>    
+    <td>🇫🇷 fuel prices at gas stations (classified by color icons) in France - pyhton script creates gpx </td>    
     <td><a href="https://github.com/mariush444/fuelFR2Osmand_gpx"> github </a> </td>
   </tr>
 
@@ -103,12 +103,12 @@ Currently, most of tools are additionally mentioned on <a href="https://osmand.n
   </tr>
   <tr>
     <td>offline maps</td>
-    <td><a href="https://ump.waw.pl/"> UMP-pcPL </a> - alternative map of Poland </td>    
+    <td><a href="https://ump.waw.pl/">🇵🇱 UMP-pcPL </a> - alternative map of Poland </td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/blob/main/UMP-PL-OsmAnd_v4_plugin.osf"> github </a> </td>
 </tr>
   <tr>
     <td>offline maps</td>
-    <td>fuel prices at gas stations in France - pyhton script cretes obf </td>    
+    <td>🇫🇷 fuel prices at gas stations in France - pyhton script creates obf </td>    
     <td><a href="https://github.com/cbosdo/gas-price/tree/osmand"> github </a> </td>
   </tr>
   <tr>
@@ -128,12 +128,12 @@ Currently, most of tools are additionally mentioned on <a href="https://osmand.n
   </tr>
   <tr>
     <td>online maps</td>
-    <td>Set of maps of Austria based on <a href="https://basemap.at/en/"> basemap.at WMTS</a> </td>    
+    <td>🇦🇹 Set of maps of Austria based on <a href="https://basemap.at/en/"> basemap.at WMTS</a> </td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/🇦🇹 Austria-basemap.osf"> plugin </a> </td>
   </tr>
   <tr>
     <td>online maps</td>
-    <td>Set of maps of French geographical institute IGN </td>    
+    <td>🇫🇷 Set of maps of French geographical institute IGN </td>    
     <td><a href="https://github.com/OSM-Plein-Air/OsmAnd-maps-IGN/releases"> github </a> </td>
   </tr>
   <tr>
@@ -143,13 +143,13 @@ Currently, most of tools are additionally mentioned on <a href="https://osmand.n
   </tr>
   <tr>
     <td>online maps</td>
-    <td>Hamburg Forstkarten</td>    
+    <td>🇩🇪 Hamburg Forstkarten</td>    
     <td><a href="http://github.com/mariush444/Osmand-tools/blob/main/%F0%9F%87%A9%F0%9F%87%AA%20Hamburg%20Forstkarten.sqlitedb"> github </a> </td>
   </tr>
 
   
   <tr>
-    <td>manual</td>
+    <td>🇮🇹 manual</td>
     <td>1st steps in Italian </td>    
     <td><a href="http://github.com/Max1234-Ita/GuidaOsmand"> github </a> </td>
   </tr>
