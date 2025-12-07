@@ -36,7 +36,7 @@ Currently, most of tools are additionally mentioned on <a href="https://osmand.n
   <tr>
     <td>converter</td>
     <td>python script to convert exported iOverlander gpx to Osmand with icons </td>    
-    <td><a href="https://github.com/mariush444/Osmand-tools/blob/main/iOver.zip"> github </a> </td>
+    <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/iOver.zip"> github </a> </td>
 </tr>
     <tr>
     <td>converter</td>
@@ -126,10 +126,10 @@ Currently, most of tools are additionally mentioned on <a href="https://osmand.n
     <td><a href="https://www.rainviewer.com/api/weather-maps-api.html"> RainViewer</a>  map with various <a href="https://www.rainviewer.com/api/color-schemes.html"> color schema</a> </td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/RainViewer.osf"> plugin </a> </td>
   </tr>
-    <tr>
+  <tr>
     <td>online maps</td>
-    <td>🇮🇹 Set of Italian IGN maps based on WMS servers</a> </td>    
-    <td><a href="https://github.com/mariush444/Osmand-tools/blob/main/IT_IGN.osf"> plugin </a> </td>
+    <td>🇮🇹 Set of Italian IGN maps based on WMS servers</td>    
+    <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/IT_IGN.osf"> plugin </a> </td>
   </tr>
   <tr>
     <td>online maps</td>
