@@ -1,6 +1,6 @@
 #  Tools , plugins, scripts, maps, manuals ... created by users for Osmand 
 
-Currently, most of tools are additionally mentioned on <a href="https://osmand.net/docs/user/troubleshooting/resources#converters"> the official website </a><br>
+Currently, most of tools are additionally mentioned on <a href="https://osmand.net/docs/user/troubleshooting/resources#converters"> the official Osmand's website </a><br>
 
 <table>
   <tr>
@@ -125,6 +125,11 @@ Currently, most of tools are additionally mentioned on <a href="https://osmand.n
     <td>online maps</td>
     <td><a href="https://www.rainviewer.com/api/weather-maps-api.html"> RainViewer</a>  map with various <a href="https://www.rainviewer.com/api/color-schemes.html"> color schema</a> </td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/RainViewer.osf"> plugin </a> </td>
+  </tr>
+    <tr>
+    <td>online maps</td>
+    <td>🇮🇹 Set of Italian IGN maps based on WMS servers</a> </td>    
+    <td><a href="https://github.com/mariush444/Osmand-tools/blob/main/IT_IGN.osf"> plugin </a> </td>
   </tr>
   <tr>
     <td>online maps</td>
