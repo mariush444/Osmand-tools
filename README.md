@@ -149,7 +149,7 @@ Currently, most of tools are additionally mentioned on <a href="https://osmand.n
   <tr>
     <td>online maps</td>
     <td>🇩🇪 Hamburg Forstkarten</td>    
-    <td><a href="http://github.com/mariush444/Osmand-tools/row/main/DE_HH.osf"> github </a> </td>
+    <td><a href="http://github.com/mariush444/Osmand-tools/row/main/DE_HH.osf"> plugin </a> </td>
   </tr>
 
   
