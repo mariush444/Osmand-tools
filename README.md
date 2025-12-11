@@ -133,6 +133,11 @@ Currently, most of tools are additionally mentioned on <a href="https://osmand.n
   </tr>
   <tr>
     <td>online maps</td>
+    <td>🇮🇹 Castore Fogli</td>    
+    <td><a href="https://github.com/mariush444/Osmand-tools/raw/refs/heads/main/IT_Castore_Fogli.osf"> plugin </a> </td>
+  </tr>
+  <tr>
+    <td>online maps</td>
     <td>🇦🇹 Set of maps of Austria based on <a href="https://basemap.at/en/"> basemap.at WMTS</a> </td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/🇦🇹 Austria-basemap.osf"> plugin </a> </td>
   </tr>
