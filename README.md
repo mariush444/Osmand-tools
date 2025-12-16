@@ -133,8 +133,8 @@ Currently, most of tools are additionally mentioned on <a href="https://osmand.n
   </tr>
   <tr>
     <td>online maps</td>
-    <td>🇮🇹 Castore Fogli</td>    
-    <td><a href="https://github.com/mariush444/Osmand-tools/raw/refs/heads/main/IT_Castore_Fogli.osf"> plugin </a> </td>
+    <td>🇮🇹 Toscana Castore Fogli</td>    
+    <td><a href="https://github.com/mariush444/Osmand-tools/raw/refs/heads/main/IT-52_Castore_Fogli.osf"> plugin </a> </td>
   </tr>
   <tr>
     <td>online maps</td>
