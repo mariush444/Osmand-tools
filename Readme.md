@@ -7,9 +7,9 @@ Currently, some of tools are additionally mentioned on <a href="https://osmand.n
   <th>Description</th>
   <th>Link</th>    
   </tr>
-    <tr>
+  <tr>
     <td>converter</td>
-    <td>python script to split a gpx file into country-specific gpx files<br><a href="https://mariush444.github.io/Osmand-tools/geo2cntr.html">on line tool</td>    
+    <td>python script to split a gpx file into country-specific gpx files<br><a href="https://mariush444.github.io/Osmand-tools/geo2cntr.html">on line tool</a></td>
     <td><a href="https://github.com/mariush444/geo2cntr"> github </a></td>
   </tr>
   <tr>
