@@ -137,7 +137,7 @@
                     progressBar.style.width = `${progressPercentage}%`;
 
                     // info about progress
-                    statusDiv.textContent = `Processed ${processedMatches} z ${totalMatches} wpts`;
+                    statusDiv.textContent = `Processed ${processedMatches} of ${totalMatches} wpts`;
 
                     // optimization
                     await new Promise(resolve => setTimeout(resolve, 0));
@@ -165,7 +165,15 @@ ${wpts.join("\n")}
                 zip.generateAsync({ type: "blob" }).then(function(content) {
                     // Get current date and time (format: YYYYMMDD-HHMMSS)
                     const date = new Date();
-                    const dateString = date.toISOString().replace(/[-T:.]/g, '').slice(0, 15);  // Format: YYYYMMDD-HHMMSS
+                    const year = date.getFullYear();
+                    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+                    const day = date.getDate().toString().padStart(2, '0');
+                    const hours = date.getHours().toString().padStart(2, '0');
+                    const minutes = date.getMinutes().toString().padStart(2, '0');
+                    const seconds = date.getSeconds().toString().padStart(2, '0');
+
+                    // Format the date as YYYYMMDD-HHMMSS
+                    const dateString = `${year}${month}${day}-${hours}${minutes}${seconds}`;
 
                     // zip for download with date in the filename
                     const link = document.createElement('a');
