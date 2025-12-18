@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GPX Splitter</title>
+    <style>
+        #progressBarContainer {
+            width: 100%;
+            background-color: #f3f3f3;
+            border: 1px solid #ddd;
+            margin-top: 10px;
+        }
+
+        #progressBar {
+            width: 0%;
+            height: 20px;
+            background-color: #4caf50;
+        }
+
+        #status {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Podziel plik GPX na pliki według krajów</h1>
+
+    <!-- Form to upload the GPX file -->
+    <input type="file" id="gpxFileInput" accept=".gpx" />
+    <button id="processButton">Przetwórz plik</button>
+
+    <!-- Progress bar -->
+    <div id="progressBarContainer" style="display:none;">
+        <div id="progressBar"></div>
+    </div>
+
+    <div id="status"></div>
+
+    <script>
+        async function getCountryCodeUsingNominatim(lat, lon) {
+            const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&addressdetails=1`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                const countryCode = data?.address?.country_code?.toUpperCase();
+                return countryCode;
+            } catch (error) {
+                console.error("Błąd w geolokalizacji:", error);
+                return null;
+            }
+        }
+
+        // converting file
+        async function processFile() {
+            const fileInput = document.getElementById('gpxFileInput');
+            const file = fileInput.files[0];
+            if (!file) {
+                alert("Choose GPX file.");
+                return;
+            }
+
+            const reader = new FileReader();
+            const progressBarContainer = document.getElementById('progressBarContainer');
+            const progressBar = document.getElementById('progressBar');
+            const statusDiv = document.getElementById('status');
+            progressBarContainer.style.display = 'block';  // progress bar
+            statusDiv.textContent = "reading file...";
+
+            reader.onload = async function(e) {
+                const text = e.target.result;
+
+                // Regex for <wpt> in GPX
+                const pattern = /<wpt.*?lat="([^"]+)" lon="([^"]+)".*?>(.*?)<\/wpt>/gs;
+                const countriesData = {};
+                let totalMatches = 0;
+
+                // counting <wpt>
+                while (pattern.exec(text) !== null) {
+                    totalMatches++;
+                }
+
+                // Resetowanie regex 
+                const patternReset = /<wpt.*?lat="([^"]+)" lon="([^"]+)".*?>(.*?)<\/wpt>/gs;
+
+                let match;
+                let processedMatches = 0;
+
+                //  <wpt> relations to countries
+                while ((match = patternReset.exec(text)) !== null) {
+                    const lat = parseFloat(match[1]);
+                    const lon = parseFloat(match[2]);
+                    const wptBlock = match[0];  // Cały blok <wpt>
+
+                    const countryCode = await getCountryCode(lat, lon);
+
+                    if (countryCode) {
+                        if (!countriesData[countryCode]) {
+                            countriesData[countryCode] = [];
+                        }
+                        countriesData[countryCode].push(wptBlock);
+                    }
+
+                    processedMatches++;
+
+                    // update progress bar
+                    const progressPercentage = Math.round((processedMatches / totalMatches) * 100);
+                    progressBar.style.width = `${progressPercentage}%`;
+
+                    // info about progress
+                    statusDiv.textContent = `Processed ${processedMatches} z ${totalMatches} wpts`;
+
+                    // otimization
+                    await new Promise(resolve => setTimeout(resolve, 0));
+                }
+
+                // end of process
+                statusDiv.textContent = "Creating GPX files...";
+
+                // file for country
+                for (const countryCode in countriesData) {
+                    const wpts = countriesData[countryCode];
+                    const fileContent = `<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<gpx version="1.1" xmlns="http://www.topografix.com/GPX/1/1">
+${wpts.join("\n")}
+</gpx>`;
+
+                    // file for download
+                    const blob = new Blob([fileContent], { type: "application/gpx+xml" });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${countryCode}.gpx`;  
+                    a.click();
+                    URL.revokeObjectURL(url);
+                }
+
+                
+                progressBar.style.width = '100%';  
+                statusDiv.textContent = "Proces zakończony!";
+            };
+
+            // read file
+            reader.readAsText(file);
+        }
+
+        // code after loading the page
+        document.addEventListener('DOMContentLoaded', function() {
+            const processButton = document.getElementById('processButton');
+            processButton.addEventListener('click', processFile);
+        });
+    </script>
+</body>
+</html>
