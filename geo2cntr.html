@@ -127,6 +127,7 @@
                     const lat = parseFloat(match[1]).toFixed(6); 
                     const lon = parseFloat(match[2]).toFixed(6); 
                     const wptBlock = match[0]; 
+                    const updatedWptBlock = wptBlock.replace(`lat="${match[1]}" lon="${match[2]}"`,`lat="${lat}" lon="${lon}"`);
 
                     const countryCode = await getCountryCode(lat, lon);
 
@@ -134,7 +135,7 @@
                         if (!countriesData[countryCode]) {
                             countriesData[countryCode] = [];
                         }
-                        countriesData[countryCode].push(wptBlock);
+                        countriesData[countryCode].push(updatedWptBlock);
                     }
 
                     processedMatches++;
