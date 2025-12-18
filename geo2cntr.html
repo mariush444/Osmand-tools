@@ -22,7 +22,7 @@
             margin-top: 10px;
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script> <!-- Dodajemy JSZip -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script> 
 </head>
 <body>
     <h1>split a gpx file into country-specific gpx files</h1>
@@ -92,7 +92,7 @@
                 while ((match = patternReset.exec(text)) !== null) {
                     const lat = parseFloat(match[1]);
                     const lon = parseFloat(match[2]);
-                    const wptBlock = match[0];  // Cały blok <wpt>
+                    const wptBlock = match[0]; 
 
                     const countryCode = await getCountryCode(lat, lon);
 
@@ -130,20 +130,20 @@
 ${wpts.join("\n")}
 </gpx>`;
 
-                    // Dodajemy plik do ZIP
+                    // ZIP file
                     zip.file(`${countryCode}.gpx`, fileContent);
                 }
 
-                // Generujemy ZIP
+                // creation of  ZIP
                 zip.generateAsync({ type: "blob" }).then(function(content) {
-                    // Tworzymy link do pobrania ZIP
+                    // zip for download
                     const link = document.createElement('a');
                     link.href = URL.createObjectURL(content);
-                    link.download = 'gpx_files.zip';  // Nazwa archiwum ZIP
+                    link.download = 'gpx_files.zip';  
                     link.textContent = 'Download ZIP';
                     
-                    // Dodajemy link do strony
-                    document.getElementById('downloadLink').innerHTML = '';  // Wyczyść poprzedni link
+                    // link
+                    document.getElementById('downloadLink').innerHTML = '';  
                     document.getElementById('downloadLink').appendChild(link);
                 });
 
