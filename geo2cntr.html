@@ -159,6 +159,7 @@
                 // file for country
                 for (const countryCode in countriesData) {
                     const wpts = countriesData[countryCode];
+                    const countryName = getCountryNameFromCode(countryCode);
                     const fileContent = `<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
 <gpx version='1.1' creator='AI+M444' xmlns='http://www.topografix.com/GPX/1/1' xmlns:osmand='https://osmand.net' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd'>
 <metadata><name>${countryName}</name><author><name>AI+M444</name><link href='https://mariush444.github.io/Osmand-tools/'/></author></metadata>
