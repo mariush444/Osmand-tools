@@ -38,7 +38,7 @@
     <div id="status"></div>
 
     <script>
-        async function getCountryCodeUsingNominatim(lat, lon) {
+        async function getCountryCode(lat, lon) {
             const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&addressdetails=1`;
 
             try {
