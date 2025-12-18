@@ -1,7 +1,6 @@
 #  Tools , plugins, scripts, maps, manuals ... created by users for Osmand 
 
 Currently, some of tools are additionally mentioned on <a href="https://osmand.net/docs/user/troubleshooting/resources#converters"> the official Osmand's website </a><br>
-
 <table>
   <tr>
   <th>Type</th>
