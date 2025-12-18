@@ -38,6 +38,9 @@
 
     <div id="status"></div>
 
+    <!-- Container for download link -->
+    <div id="downloadLink"></div> <!-- Dodajemy kontener na link do pobrania ZIP -->
+
     <script>
         async function getCountryCode(lat, lon) {
             const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&addressdetails=1`;
@@ -134,7 +137,7 @@ ${wpts.join("\n")}
                     zip.file(`${countryCode}.gpx`, fileContent);
                 }
 
-                // creation of  ZIP
+                // creation of ZIP
                 zip.generateAsync({ type: "blob" }).then(function(content) {
                     // zip for download
                     const link = document.createElement('a');
@@ -143,8 +146,8 @@ ${wpts.join("\n")}
                     link.textContent = 'Download ZIP';
                     
                     // link
-                    document.getElementById('downloadLink').innerHTML = '';  
-                    document.getElementById('downloadLink').appendChild(link);
+                    document.getElementById('downloadLink').innerHTML = '';  // Wyczyść poprzedni link
+                    document.getElementById('downloadLink').appendChild(link);  // Dodaj nowy link
                 });
 
                 progressBar.style.width = '100%';  
