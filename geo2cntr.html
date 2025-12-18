@@ -24,11 +24,11 @@
     </style>
 </head>
 <body>
-    <h1>Podziel plik GPX na pliki według krajów</h1>
+    <h1>split a gpx file into country-specific gpx files</h1>
 
     <!-- Form to upload the GPX file -->
     <input type="file" id="gpxFileInput" accept=".gpx" />
-    <button id="processButton">Przetwórz plik</button>
+    <button id="processButton">Process the file</button>
 
     <!-- Progress bar -->
     <div id="progressBarContainer" style="display:none;">
@@ -47,7 +47,7 @@
                 const countryCode = data?.address?.country_code?.toUpperCase();
                 return countryCode;
             } catch (error) {
-                console.error("Błąd w geolokalizacji:", error);
+                console.error("Geolocalization error:", error);
                 return null;
             }
         }
