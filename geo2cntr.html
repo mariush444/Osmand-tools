@@ -22,6 +22,7 @@
             margin-top: 10px;
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script> <!-- Dodajemy JSZip -->
 </head>
 <body>
     <h1>split a gpx file into country-specific gpx files</h1>
@@ -111,12 +112,15 @@
                     // info about progress
                     statusDiv.textContent = `Processed ${processedMatches} z ${totalMatches} wpts`;
 
-                    // otimization
+                    // optimization
                     await new Promise(resolve => setTimeout(resolve, 0));
                 }
 
                 // end of process
                 statusDiv.textContent = "Creating GPX files...";
+
+                // Tworzymy ZIP
+                const zip = new JSZip();
 
                 // file for country
                 for (const countryCode in countriesData) {
@@ -126,17 +130,23 @@
 ${wpts.join("\n")}
 </gpx>`;
 
-                    // file for download
-                    const blob = new Blob([fileContent], { type: "application/gpx+xml" });
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a');
-                    a.href = url;
-                    a.download = `${countryCode}.gpx`;  
-                    a.click();
-                    URL.revokeObjectURL(url);
+                    // Dodajemy plik do ZIP
+                    zip.file(`${countryCode}.gpx`, fileContent);
                 }
 
-                
+                // Generujemy ZIP
+                zip.generateAsync({ type: "blob" }).then(function(content) {
+                    // Tworzymy link do pobrania ZIP
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(content);
+                    link.download = 'gpx_files.zip';  // Nazwa archiwum ZIP
+                    link.textContent = 'Download ZIP';
+                    
+                    // Dodajemy link do strony
+                    document.getElementById('downloadLink').innerHTML = '';  // Wyczyść poprzedni link
+                    document.getElementById('downloadLink').appendChild(link);
+                });
+
                 progressBar.style.width = '100%';  
                 statusDiv.textContent = "Proces zakończony!";
             };
