@@ -22,8 +22,8 @@
             margin-top: 10px;
         }
 
-        /* Przycisk do pobrania ZIP */
-        #downloadButton {
+        /* Przyciski wyglądają podobnie */
+        button {
             margin-top: 15px;
             padding: 10px 20px;
             background-color: #4caf50;
@@ -33,9 +33,14 @@
             font-size: 16px;
         }
 
-        #downloadButton:disabled {
+        button:disabled {
             background-color: #aaa;
             cursor: not-allowed;
+        }
+
+        #gpxFileInput {
+            padding: 10px;
+            font-size: 16px;
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script> 
@@ -130,7 +135,7 @@
                     progressBar.style.width = `${progressPercentage}%`;
 
                     // info about progress
-                    statusDiv.textContent = `Processed ${processedMatches} z ${totalMatches} wpts`;
+                    statusDiv.textContent = `Processed ${processedMatches} of ${totalMatches} wpts`;
 
                     // optimization
                     await new Promise(resolve => setTimeout(resolve, 0));
@@ -156,9 +161,9 @@ ${wpts.join("\n")}
 
                 // generation of ZIP
                 zip.generateAsync({ type: "blob" }).then(function(content) {
-                    // Get current date and time
+                    // Get current date and time (format: YYYYMMDD-HHMMSS)
                     const date = new Date();
-                    const dateString = date.toISOString().replace(/[-T:.]/g, '').slice(0, 15); // Format: YYYYMMDDHHMMSS
+                    const dateString = date.toISOString().replace(/[-T:.]/g, '').slice(0, 15);  // Format: YYYYMMDD-HHMMSS
 
                     // zip for download with date in the filename
                     const link = document.createElement('a');
