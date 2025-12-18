@@ -142,7 +142,7 @@ ${wpts.join("\n")}
                     // zip for download
                     const link = document.createElement('a');
                     link.href = URL.createObjectURL(content);
-                    link.download = 'gpx_files.zip';  
+                    link.download = `gpx_files_${dateString}.zip`; 
                     link.textContent = 'Download ZIP';
                     
                     // link
