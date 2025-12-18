@@ -124,8 +124,8 @@
 
                 //  <wpt> relations to countries
                 while ((match = patternReset.exec(text)) !== null) {
-                    const lat = parseFloat(match[1]);
-                    const lon = parseFloat(match[2]);
+                    const lat = parseFloat(match[1]).toFixed(6); 
+                    const lon = parseFloat(match[2]).toFixed(6); 
                     const wptBlock = match[0]; 
 
                     const countryCode = await getCountryCode(lat, lon);
