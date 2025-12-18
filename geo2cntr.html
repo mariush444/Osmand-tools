@@ -29,7 +29,7 @@
 
     <!-- Form to upload the GPX file -->
     <input type="file" id="gpxFileInput" accept=".gpx" />
-    <button id="processButton">Process the file</button>
+    <!-- No need for the Process button anymore -->
 
     <!-- Progress bar -->
     <div id="progressBarContainer" style="display:none;">
@@ -39,7 +39,7 @@
     <div id="status"></div>
 
     <!-- Container for download link -->
-    <div id="downloadLink"></div> <!-- Dodajemy kontener na link do pobrania ZIP -->
+    <div id="downloadLink"></div> <!-- Kontener na link do pobrania ZIP -->
 
     <script>
         async function getCountryCode(lat, lon) {
@@ -158,11 +158,8 @@ ${wpts.join("\n")}
             reader.readAsText(file);
         }
 
-        // code after loading the page
-        document.addEventListener('DOMContentLoaded', function() {
-            const processButton = document.getElementById('processButton');
-            processButton.addEventListener('click', processFile);
-        });
+        // Start process as soon as the file is selected
+        document.getElementById('gpxFileInput').addEventListener('change', processFile);
     </script>
 </body>
 </html>
