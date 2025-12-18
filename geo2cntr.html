@@ -21,6 +21,22 @@
         #status {
             margin-top: 10px;
         }
+
+        /* Przycisk do pobrania ZIP */
+        #downloadButton {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #downloadButton:disabled {
+            background-color: #aaa;
+            cursor: not-allowed;
+        }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script> 
 </head>
@@ -38,8 +54,8 @@
 
     <div id="status"></div>
 
-    <!-- Container for download link -->
-    <div id="downloadLink"></div> <!-- Kontener na link do pobrania ZIP -->
+    <!-- Container for download button -->
+    <button id="downloadButton" style="display:none;" disabled>Download ZIP</button>
 
     <script>
         async function getCountryCode(lat, lon) {
@@ -69,6 +85,7 @@
             const progressBarContainer = document.getElementById('progressBarContainer');
             const progressBar = document.getElementById('progressBar');
             const statusDiv = document.getElementById('status');
+            const downloadButton = document.getElementById('downloadButton');
             progressBarContainer.style.display = 'block';  // progress bar
             statusDiv.textContent = "reading file...";
 
@@ -137,17 +154,23 @@ ${wpts.join("\n")}
                     zip.file(`${countryCode}.gpx`, fileContent);
                 }
 
-                // creation of ZIP
+                // generation of ZIP
                 zip.generateAsync({ type: "blob" }).then(function(content) {
-                    // zip for download
+                    // Get current date and time
+                    const date = new Date();
+                    const dateString = date.toISOString().replace(/[-T:.]/g, '').slice(0, 15); // Format: YYYYMMDDHHMMSS
+
+                    // zip for download with date in the filename
                     const link = document.createElement('a');
                     link.href = URL.createObjectURL(content);
                     link.download = `gpx_files_${dateString}.zip`; 
-                    link.textContent = 'Download ZIP';
-                    
-                    // link
-                    document.getElementById('downloadLink').innerHTML = '';  // clear link
-                    document.getElementById('downloadLink').appendChild(link);  // new link
+
+                    // Enable the download button and add link
+                    downloadButton.style.display = 'inline-block';  // Show the button
+                    downloadButton.disabled = false;  // Enable the button
+                    downloadButton.onclick = function() {
+                        link.click();  // Simulate a click on the link to download the file
+                    };
                 });
 
                 progressBar.style.width = '100%';  
