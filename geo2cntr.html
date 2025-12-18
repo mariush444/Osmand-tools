@@ -23,7 +23,7 @@
         }
 
         /* Ujednolicony wygląd obu przycisków */
-        button {
+        button, #gpxFileInput {
             margin-top: 15px;
             padding: 10px 20px;
             background-color: #4caf50;
@@ -32,6 +32,7 @@
             cursor: pointer;
             font-size: 16px;
             display: inline-block;
+            font-family: Arial, sans-serif;
         }
 
         button:disabled {
@@ -40,9 +41,13 @@
         }
 
         #gpxFileInput {
-            padding: 10px;
-            font-size: 16px;
-            display: inline-block;
+            cursor: pointer;
+            background-color: #4caf50;
+        }
+
+        /* Dla inputa */
+        input[type="file"] {
+            display: none;
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script> 
@@ -51,7 +56,9 @@
     <h1>split a gpx file into country-specific gpx files</h1>
 
     <!-- Form to upload the GPX file -->
+    <label for="gpxFileInput" class="choose-file-label">Choose File</label>
     <input type="file" id="gpxFileInput" accept=".gpx" />
+    
     <!-- No need for the Process button anymore -->
 
     <!-- Progress bar -->
