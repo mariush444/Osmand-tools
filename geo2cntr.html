@@ -22,7 +22,7 @@
             margin-top: 10px;
         }
 
-        /* Przyciski wyglądają podobnie */
+        /* Ujednolicony wygląd obu przycisków */
         button {
             margin-top: 15px;
             padding: 10px 20px;
@@ -31,6 +31,7 @@
             border: none;
             cursor: pointer;
             font-size: 16px;
+            display: inline-block;
         }
 
         button:disabled {
@@ -41,6 +42,7 @@
         #gpxFileInput {
             padding: 10px;
             font-size: 16px;
+            display: inline-block;
         }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script> 
@@ -135,7 +137,7 @@
                     progressBar.style.width = `${progressPercentage}%`;
 
                     // info about progress
-                    statusDiv.textContent = `Processed ${processedMatches} of ${totalMatches} wpts`;
+                    statusDiv.textContent = `Processed ${processedMatches} z ${totalMatches} wpts`;
 
                     // optimization
                     await new Promise(resolve => setTimeout(resolve, 0));
@@ -168,7 +170,7 @@ ${wpts.join("\n")}
                     // zip for download with date in the filename
                     const link = document.createElement('a');
                     link.href = URL.createObjectURL(content);
-                    link.download = `gpx_files_${dateString}.zip`; 
+                    link.download = `gpx_files_${dateString}.zip`;  // Dodanie daty i godziny do nazwy
 
                     // Enable the download button and add link
                     downloadButton.style.display = 'inline-block';  // Show the button
