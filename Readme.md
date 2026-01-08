@@ -116,6 +116,11 @@ Currently, some of tools are additionally mentioned on <a href="https://osmand.n
     <td><a href="https://github.com/cbosdo/gas-price/tree/osmand"> github </a> </td>
   </tr>
   <tr>
+  <td>online maps</td>
+    <td>🇫🇷 Set of maps of French geographical institute IGN </td>    
+    <td><a href="https://github.com/OSM-Plein-Air/OsmAnd-maps-IGN/releases"> github </a> </td>
+  </tr>
+  <tr>
     <td>online maps</td>
     <td>set of maps (webpage in French)</td>    
     <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-pour-applications-mobiles#h.lrtz21a2dinu"> Gravel Roads Seeker </a> </td>
@@ -144,11 +149,6 @@ Currently, some of tools are additionally mentioned on <a href="https://osmand.n
     <td>online maps</td>
     <td>🇦🇹 Set of maps of Austria based on <a href="https://basemap.at/en/"> basemap.at WMTS</a> </td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/raw/main/🇦🇹 Austria-basemap.osf"> plugin </a> </td>
-  </tr>
-  <tr>
-    <td>online maps</td>
-    <td>🇫🇷 Set of maps of French geographical institute IGN </td>    
-    <td><a href="https://github.com/OSM-Plein-Air/OsmAnd-maps-IGN/releases"> github </a> </td>
   </tr>
   <tr>
     <td>online maps</td>
