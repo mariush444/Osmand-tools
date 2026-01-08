@@ -156,11 +156,15 @@ Currently, some of tools are additionally mentioned on <a href="https://osmand.n
     <td><a href="http://anygis.ru/Web/Html/Osmand_en"> AnyGis </a> </td>
   </tr>
   <tr>
-    <td>online maps</td>
+  <td>online maps</td>
     <td>🇩🇪 Hamburg Forstkarten</td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/raw/refs/heads/main/DE_HH.osf"> plugin </a> </td>
   </tr>
-
+  <tr>
+  <td>online maps</td>
+    <td>🇩🇪 dipul - Unmanned Aviation</td>    
+    <td><a href="https://github.com/mariush444/Osmand-tools/raw/refs/heads/main/DE_dipul.osf"> plugin </a> </td>
+  </tr>
   
   <tr>
     <td>🇮🇹 manual</td>
@@ -193,6 +197,7 @@ Currently, some of tools are additionally mentioned on <a href="https://osmand.n
 <h6>
 <a href="https://github.com/mariush444/Osmand-tools/issues"> Let me know if something is missing </a> <br>
 If you have no account on github just leave message in osmand group on <a href="https://t.me/OsmAndMaps"> telegram</a> or <a href="https://www.reddit.com/r/OsmAnd"> reddit</a> or <a href="https://www.facebook.com/groups/osmandusers/"> fb </a> <br> <br>
-updated 18.12.2025 --- 
-If you like it you can buy me <a href="https://buy.stripe.com/5kA5nP7B27OQdFK7sv"> 🍷 </a> or <a href="https://buy.stripe.com/5kA6rTcVm8SUeJOeUW"> ☕ </a>
+updated 08.01.2026 --- 
+<!-- If you like it you can buy me <a href="https://buy.stripe.com/5kA5nP7B27OQdFK7sv"> 🍷 </a> or <a href="https://buy.stripe.com/5kA6rTcVm8SUeJOeUW"> ☕ </a>
 </h6>
+-->
