@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FR Fuel GPX Generator</title>
+    <!-- JSZip Library for unzipping -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        h1 { text-align: center; color: #333; }
+
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label { margin-bottom: 5px; font-weight: bold; }
+
+        select, input[type="checkbox"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+        }
+        button:hover { background-color: #0056b3; }
+        button:disabled { background-color: #ccc; cursor: not-allowed; }
+
+        #status {
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .status-ok { background-color: #d4edda; color: #155724; }
+        .status-err { background-color: #f8d7da; color: #721c24; }
+        .status-process { background-color: #fff3cd; color: #856404; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🇨🇵 Fuel Prices to GPX</h1>
+
+    <div class="form-group">
+        <label for="fuelType">Select Fuel Type:</label>
+        <select id="fuelType">
+            <option value="1">Gazole</option>
+            <option value="5">E10</option>
+            <option value="2">SP95</option>
+            <option value="6">SP98</option>
+            <option value="3">E85</option>
+            <option value="4">GPLc</option>
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label style="display: flex; align-items: center; cursor: pointer;">
+            <input type="checkbox" id="doBlack" style="width: 20px; height: 20px; margin-right: 10px;">
+            DOblack (Include stations without this fuel)
+        </label>
+    </div>
+
+    <button id="generateBtn" onclick="processData()">Download and Generate GPX</button>
+
+    <div id="status"></div>
+</div>
+
+<script>
+const URL = "https://donnees.roulez-eco.fr/opendata/instantane";
+
+const fuelTAB = {
+    1: "Gazole",
+    2: "SP95",
+    3: "E85",
+    4: "GPLc",
+    5: "E10",
+    6: "SP98"
+};
+
+const serviceEmojis = {
+    "Bar": "🍴",
+    "Restauration sur place": "🍴",
+    "Boutique alimentaire": "🛒",
+    "DAB (Distributeur automatique de billets)": "🏧",
+    "Douches": "🚿",
+    "Espace bébé": "🚼",
+    "Relais colis": "🎁",
+    "Services réparation / entretien": "🛠️",
+    "Station de gonflage": "𖥕",
+    "Toilettes publiques": "🚻",
+    "Wifi": "ᯤ"
+};
+
+function setStatus(msg, type) {
+    const el = document.getElementById('status');
+    el.innerText = msg;
+    el.className = 'status-' + type;
+}
+
+async function processData() {
+    const btn = document.getElementById('generateBtn');
+    const fuel = document.getElementById('fuelType').value;
+    const DOblack = document.getElementById('doBlack').checked;
+
+    btn.disabled = true;
+    setStatus("Downloading data...", "process");
+
+    try {
+        // 1. Download
+        const response = await fetch(URL);
+        if (!response.ok) throw new Error("Network response was not ok");
+
+        setStatus("Unzipping file...", "process");
+
+        // 2. Unzip
+        const zipData = await response.blob();
+        const zip = await JSZip.loadAsync(zipData);
+
+        // Find the XML file
+        let xmlContent = "";
+        zip.forEach((relativePath, zipEntry) => {
+            if (zipEntry.name.includes("PrixCarburants_instantane.xml")) {
+                zipEntry.async("string").then(function(data) {
+                    xmlContent = data;
+                });
+            }
+        });
+
+        // Hack to wait for async zip read in a loop or just wait a moment since forEach is sync
+        // A better way with JSZip is to find the file directly
+        const xmlFile = zip.file(/^PrixCarburants_instantane\.xml$/i)[0];
+        if (!xmlFile) throw new Error("XML file not found in ZIP");
+
+        xmlContent = await xmlFile.async("string");
+
+        setStatus("Parsing XML and calculating prices...", "process");
+
+        // 3. Parse XML
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlContent, "text/xml");
+        const stations = xmlDoc.getElementsByTagName("pdv");
+
+        // 4. Calculate Min/Max (First Pass)
+        let Pmin = 1000;
+        let Pmax = 0;
+        let date = "";
+        const selectedFuelId = fuel; // string
+
+        for (let i = 0; i < stations.length; i++) {
+            const prices = stations[i].getElementsByTagName("prix");
+            for (let j = 0; j < prices.length; j++) {
+                const p = prices[j];
+                if (p.getAttribute("id") === selectedFuelId) {
+                    const val = parseFloat(p.getAttribute("valeur"));
+                    const maj = p.getAttribute("maj");
+
+                    if (!isNaN(val)) {
+                        if (Pmin > val) Pmin = val;
+                        if (Pmax < val) Pmax = val;
+                    }
+                    const dateStr = maj.substring(0, 10);
+                    if (date < dateStr) date = dateStr;
+                }
+            }
+        }
+
+        if (Pmax === 0 && Pmin === 1000) {
+            throw new Error("No prices found for selected fuel type.");
+        }
+
+        const Prange = Math.round((Pmax - Pmin) * 1000) / 1000;
+
+        // Calculate thresholds
+        const thresholds = {
+            t0_5: Math.round((Pmin + Prange * 0.05) * 1000) / 1000,
+            t5_10: Math.round((Pmin + Prange * 0.10) * 1000) / 1000,
+            t11_20: Math.round((Pmin + Prange * 0.20) * 1000) / 1000,
+            t21_30: Math.round((Pmin + Prange * 0.30) * 1000) / 1000,
+            t31_40: Math.round((Pmin + Prange * 0.40) * 1000) / 1000,
+            t41_80: Math.round((Pmin + Prange * 0.80) * 1000) / 1000,
+            t81_90: Math.round((Pmin + Prange * 0.90) * 1000) / 1000
+        };
+
+        // 5. Generate GPX
+        setStatus("Generating GPX...", "process");
+        let gpxContent = `<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>\n`;
+        gpxContent += `<gpx version="1.1" creator="OsmAnd+Maryush444" xmlns="http://www.topografix.com/GPX/1/1" xmlns:osmand="https://osmand.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">\n`;
+        gpxContent += `<metadata><name>fuel FR</name></metadata>\n`;
+
+        for (let i = 0; i < stations.length; i++) {
+            const station = stations[i];
+            const latRaw = parseFloat(station.getAttribute("latitude"));
+            const lonRaw = parseFloat(station.getAttribute("longitude"));
+
+            // Convert lat/lon (Python logic: round/0)/100000)
+            const lat = (Math.round(latRaw) / 100000).toFixed(6);
+            const lon = (Math.round(lonRaw) / 100000).toFixed(6);
+
+            let name = "no " + fuelTAB[selectedFuelId] + " ";
+            let desc = "";
+            let thePrice = 0;
+            let color = "000001"; // black
+
+            const prices = station.getElementsByTagName("prix");
+            for (let j = 0; j < prices.length; j++) {
+                const p = prices[j];
+                const pId = p.getAttribute("id");
+                const pVal = p.getAttribute("valeur");
+                const pNom = p.getAttribute("nom");
+                const pMaj = p.getAttribute("maj");
+
+                desc += "\t" + pNom + " " + pVal + "€ " + pMaj.substring(2, 10) + "<br/>\n";
+
+                if (pId === selectedFuelId) {
+                    name = pNom + " " + pVal + " " + pMaj.substring(2, 10) + " ";
+                    thePrice = parseFloat(pVal);
+                }
+            }
+
+            // Emojis
+            const services = station.getElementsByTagName("service");
+            for (let k = 0; k < services.length; k++) {
+                const sText = services[k].textContent.trim();
+                if (serviceEmojis[sText]) {
+                    name += serviceEmojis[sText];
+                }
+            }
+
+            // Color Logic
+            if (thePrice > 0 && thePrice <= thresholds.t0_5) color = "10c0f0"; // light blue
+            else if (thePrice > thresholds.t0_5 && thePrice <= thresholds.t5_10) color = "00842b"; // dark green
+            else if (thePrice > thresholds.t5_10 && thePrice <= thresholds.t11_20) color = "88e030"; // light green
+            else if (thePrice > thresholds.t11_20 && thePrice <= thresholds.t21_30) color = "eecc22"; // yellow
+            else if (thePrice > thresholds.t21_30 && thePrice <= thresholds.t31_40) color = "ff8500"; // orange
+            else if (thePrice > thresholds.t31_40 && thePrice <= thresholds.t41_80) color = "d00d0d"; // red
+            else if (thePrice > thresholds.t41_80 && thePrice <= thresholds.t81_90) color = "a71de1"; // violet
+            else if (thePrice > thresholds.t81_90) color = "1010a0"; // blue navy
+
+            // Filter
+            if (DOblack === true || color !== "000001") {
+                gpxContent += ` <wpt lat="${lat}" lon="${lon}">\n`;
+                gpxContent += `\t<name>${name.trim()}</name>\n`;
+                gpxContent += `\t<desc>\n${desc}\t</desc>\n`;
+                if (color === "000001") gpxContent += `\t<type>Absence</type>\n`;
+                gpxContent += `\t<extensions>\n`;
+                gpxContent += `\t\t<osmand:color>#${color}</osmand:color>\n`;
+                gpxContent += `\t\t<osmand:icon>fuel</osmand:icon>\n`;
+                gpxContent += `\t\t<osmand:background>cirlce</osmand:background>\n`;
+                gpxContent += `\t</extensions>\n`;
+                gpxContent += `</wpt>\n`;
+            }
+        }
+
+        gpxContent += `</gpx>`;
+
+        // 6. Save File
+        const fileName = `🇨🇵-⛽-${fuelTAB[selectedFuelId]}-${DOblack ? "full" : "only"}-${date.replace(/-/g, '').substring(2)}.gpx`;
+        downloadFile(fileName, gpxContent);
+
+        setStatus("Done! GPX Downloaded.", "ok");
+        btn.disabled = false;
+
+    } catch (e) {
+        console.error(e);
+        setStatus("Error: " + e.message, "err");
+        btn.disabled = false;
+    }
+}
+
+function downloadFile(filename, content) {
+    const element = document.createElement('a');
+    element.setAttribute('href', 'data:application/gpx+xml;charset=utf-8,' + encodeURIComponent(content));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
+</script>
+
+</body>
+</html>
