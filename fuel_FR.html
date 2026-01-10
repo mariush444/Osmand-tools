@@ -6,9 +6,10 @@
     <title>FR Fuel GPX Generator</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <style>
-        body { font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f4f4f4; }
+        body { font-family: sans-serif; max-width: 700px; margin: 0 auto; padding: 20px; background-color: #f4f4f4; }
         .container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #333; }
+        h1 { text-align: center; color: #333; font-size: 1.5em; }
+
         .form-group { margin-bottom: 15px; display: flex; flex-direction: column; }
         label { margin-bottom: 5px; font-weight: bold; }
         select, input[type="checkbox"] { padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; }
@@ -16,6 +17,29 @@
         button:hover { background-color: #0056b3; }
         button:disabled { background-color: #ccc; cursor: not-allowed; }
         #status { margin-top: 20px; padding: 10px; border-radius: 4px; text-align: center; font-weight: bold; }
+
+        /* Legend Styles */
+        #legend-container {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #fff;
+            display: none; /* Hidden by default until data loads */
+        }
+        .legend-title { font-weight: bold; margin-bottom: 10px; text-decoration: underline; }
+        .legend-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            margin-bottom: 4px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .range-text { font-weight: bold; }
+
+        /* Status colors */
         .status-ok { background-color: #d4edda; color: #155724; }
         .status-err { background-color: #f8d7da; color: #721c24; }
         .status-process { background-color: #fff3cd; color: #856404; }
@@ -48,6 +72,15 @@
     <button id="generateBtn" onclick="processData()">Download and Generate GPX</button>
 
     <div id="status"></div>
+
+    <!-- Legend Section -->
+    <div id="legend-container">
+        <div class="legend-title">Ordered due to prices means:</div>
+        <div id="legend-rows"></div>
+        <div style="margin-top: 10px; font-size: 0.85em; color: #555;">
+            'Black' stations are defined as group 'Absence'. They can be excluded from view in Osmand or excluded from the file by unchecking 'DOblack'.
+        </div>
+    </div>
 </div>
 
 <script>
@@ -83,12 +116,51 @@ function setStatus(msg, type) {
     el.className = 'status-' + type;
 }
 
+function createLegend(Pmin, P0_5, P5_10, P11_20, P21_30, P31_40, P41_80, P81_90, Pmax, fuelName) {
+    const container = document.getElementById('legend-container');
+    const rows = document.getElementById('legend-rows');
+    rows.innerHTML = ""; // Clear previous
+
+    // Helper to make a row
+    const addRow = (low, high, color, textColor, label) => {
+        const div = document.createElement('div');
+        div.className = 'legend-row';
+        div.style.backgroundColor = color;
+        div.style.color = textColor;
+        div.innerHTML = `<span class="range-text">${low}€ - ${high}€</span> <span>${label}</span>`;
+        rows.appendChild(div);
+    };
+
+    const to3 = (n) => n.toFixed(3);
+    const next = (n) => (n + 0.001).toFixed(3);
+
+    addRow(to3(Pmin), to3(P0_5), "#10c0f0", "black", "Light Blue");
+    addRow(next(P0_5), to3(P5_10), "#00842b", "white", "Dark Green");
+    addRow(next(P5_10), to3(P11_20), "#88e030", "black", "Bright Green");
+    addRow(next(P11_20), to3(P21_30), "#eecc22", "black", "Yellow");
+    addRow(next(P21_30), to3(P31_40), "#ff8500", "white", "Orange");
+    addRow(next(P31_40), to3(P41_80), "#d00d0d", "white", "Red");
+    addRow(next(P41_80), to3(P81_90), "#a71de1", "white", "Violet");
+    addRow(next(P81_90), to3(Pmax), "#1010a0", "white", "Navy Blue");
+    // 9. Black
+    const blackDiv = document.createElement('div');
+    blackDiv.className = 'legend-row';
+    blackDiv.style.backgroundColor = "black";
+    blackDiv.style.color = "white";
+    blackDiv.innerHTML = `<span class="range-text">Absence</span> <span>Black (no ${fuelName})</span>`;
+    rows.appendChild(blackDiv);
+
+    container.style.display = "block";
+}
+
 async function processData() {
     const btn = document.getElementById('generateBtn');
     const fuel = document.getElementById('fuelType').value;
     const DOblack = document.getElementById('doBlack').checked;
+    const legendContainer = document.getElementById('legend-container');
 
     btn.disabled = true;
+    legendContainer.style.display = "none"; // Hide legend while processing
     setStatus("Downloading data via proxy...", "process");
 
     try {
@@ -172,7 +244,10 @@ async function processData() {
             t81_90: Math.round((Pmin + Prange * 0.90) * 1000) / 1000
         };
 
-        // 6. Generate GPX
+        // Generate Legend HTML
+        createLegend(Pmin, thresholds.t0_5, thresholds.t5_10, thresholds.t11_20, thresholds.t21_30, thresholds.t31_40, thresholds.t41_80, thresholds.t81_90, Pmax, fuelTAB[selectedFuelId]);
+
+        // Generate GPX
         setStatus("Generating GPX...", "process");
         let gpxContent = `<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>\n`;
         gpxContent += `<gpx version="1.1" creator="OsmAnd+Maryush444" xmlns="http://www.topografix.com/GPX/1/1" xmlns:osmand="https://osmand.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">\n`;
