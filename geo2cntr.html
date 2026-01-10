@@ -22,7 +22,7 @@
             margin-top: 10px;
         }
 
-        /* Ujednolicony wygląd obu przycisków */
+        /* button view */
         button, #gpxFileInput {
             margin-top: 15px;
             padding: 10px 20px;
@@ -154,7 +154,7 @@
                 // end of process
                 statusDiv.textContent = "Creating GPX files...";
 
-                // Tworzymy ZIP
+                //  ZIP creation
                 const zip = new JSZip();
 
                 // file for country
@@ -187,7 +187,7 @@ ${wpts.join("\n")}
                     // zip for download with date in the filename
                     const link = document.createElement('a');
                     link.href = URL.createObjectURL(content);
-                    link.download = `gpx_files_${dateString}.zip`;  // Dodanie daty i godziny do nazwy
+                    link.download = `gpx_files_${dateString}.zip`;  // date and time
 
                     // Enable the download button and add link
                     downloadButton.style.display = 'inline-block';  // Show the button
