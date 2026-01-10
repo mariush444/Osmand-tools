@@ -259,12 +259,10 @@ async function processData() {
             const latRaw = parseFloat(station.getAttribute("latitude"));
             const lonRaw = parseFloat(station.getAttribute("longitude"));
 
-            const latVal = Number(Math.round((latRaw / 100000)*100000))*100000;
-            const lonVal = Number(Math.round((lonRaw / 100000)*100000))*100000;
-            const lat = latVal;
-            const lon = lonVal;
-            // const lat = parseFloat(latVal.toFixed(5)).toString();
-            // const lon = parseFloat(lonVal.toFixed(5)).toString();
+            const latVal = Math.round(latRaw) / 100000;
+            const lonVal = Math.round(lonRaw) / 100000;
+            const lat = parseFloat(latVal.toFixed(5)).toString();
+            const lon = parseFloat(lonVal.toFixed(5)).toString();
 
             let name = "no " + fuelTAB[selectedFuelId] + " ";
             let desc = "";
