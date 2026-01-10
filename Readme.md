@@ -50,7 +50,8 @@ Currently, some of tools are additionally mentioned on <a href="https://osmand.n
 
 <tr>
     <td>converter</td>
-    <td>🇫🇷 fuel prices at gas stations (classified by color icons) in France - pyhton script creates gpx </td>    
+    <td>🇫🇷 fuel prices at gas stations (classified by color icons) in France - pyhton script creates gpx 
+    <br><a href="https://mariush444.github.io/Osmand-tools/fuel_FR.html">online tool</a></td>    
     <td><a href="https://github.com/mariush444/fuelFR2Osmand_gpx"> github </a> </td>
   </tr>
 
