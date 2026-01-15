@@ -3,12 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geo GPX Splitter</title>
+    <title>Geo GPX Splitter (BigDataCloud)</title>
     <style>
-        body { font-family: sans-serif; max-width: 700px; margin: 0 auto; padding: 20px; background-color: #f4f4f4; }
-        .container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        /* 1. FIX: Global Box Sizing */
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: sans-serif;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
         h1 { text-align: center; color: #333; font-size: 1.5em; }
-        
+
         #progressBarContainer {
             width: 100%;
             background-color: #f3f3f3;
@@ -20,56 +38,61 @@
             width: 0%;
             height: 20px;
             background-color: #4caf50;
+            transition: width 0.2s;
         }
 
         #status {
             margin-top: 10px;
+            font-size: 0.9em;
+            color: #555;
         }
 
-        /* button view */
+        /* 2. FIX: Button and Input Styling */
         button, #gpxFileInput {
+            width: 100%;
+            display: block;
             margin-top: 15px;
-            padding: 10px 20px;
+            padding: 12px;
             background-color: #4caf50;
             color: white;
             border: none;
+            border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
-            display: inline-block;
+            text-align: center;
             font-family: Arial, sans-serif;
+            text-decoration: none;
+            box-sizing: border-box; /* Ensure padding is included in width */
         }
 
-        button:disabled {
+        button:disabled, #gpxFileInput:disabled {
             background-color: #aaa;
             cursor: not-allowed;
         }
 
-        #gpxFileInput {
-            cursor: pointer;
-            background-color: #4caf50;
-        }
-
-        /* Dla inputa */
+        /* Hide ugly default file input text if you want a cleaner look,
+           but here we style the whole element as a button. */
         input[type="file"] {
-            display: none;
+            /* Kept visible to act as the main button */
         }
     </style>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
 </head>
 <body>
 <div class="container">
-<div id=logo>
-<a href="https://mariush444.github.io/Osmand-tools/">
-<img src="https://avatars.githubusercontent.com/u/66887280?v=4&size=64" alt="Main Page" style="width:30px;height:30px;">
-</a>
+<div id="logo">
+    <a href="https://mariush444.github.io/Osmand-tools/">
+        <img src="https://avatars.githubusercontent.com/u/66887280?v=4&size=64" alt="Main Page" style="width:30px;height:30px;">
+    </a>
 </div>
-    <h1>split a gpx file into country-specific gpx files</h1>
+    <h1>Split GPX by Country</h1>
+    <p style="text-align:center; font-size: 0.9em; color: #666;">
+        Uses BigDataCloud API (10k free queries)
+    </p>
 
     <!-- Form to upload the GPX file -->
     <label for="gpxFileInput" class="choose-file-label"></label>
     <input type="file" id="gpxFileInput" accept=".gpx" />
-    
-    <!-- No need for the Process button anymore -->
 
     <!-- Progress bar -->
     <div id="progressBarContainer" style="display:none;">
@@ -81,14 +104,36 @@
     <!-- Container for download button -->
     <button id="downloadButton" style="display:none;" disabled>Download ZIP</button>
 </div>
+
     <script>
+        // Cache for coordinates to avoid checking the same spot twice
+        const countryCache = {};
+
+        // 3. FIX: Using BigDataCloud for fast, CORS-friendly requests
         async function getCountryCode(lat, lon) {
-            const url = `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&addressdetails=1`;
+            const key = `${lat},${lon}`;
+
+            // Return cached result if available
+            if (countryCache[key]) {
+                return countryCache[key];
+            }
+
+            // BigDataCloud Free Reverse Geocode API
+            const url = `https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=en`;
 
             try {
                 const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`API Error: ${response.status}`);
+                }
+
                 const data = await response.json();
-                const countryCode = data?.address?.country_code?.toUpperCase();
+                const countryCode = data?.countryCode?.toUpperCase();
+
+                if (countryCode) {
+                    countryCache[key] = countryCode; // Save to cache
+                }
+
                 return countryCode;
             } catch (error) {
                 console.error("Geolocalization error:", error);
@@ -96,12 +141,11 @@
             }
         }
 
-        // converting file
         async function processFile() {
             const fileInput = document.getElementById('gpxFileInput');
             const file = fileInput.files[0];
             if (!file) {
-                alert("Choose GPX file.");
+                alert("Please choose a GPX file.");
                 return;
             }
 
@@ -110,8 +154,13 @@
             const progressBar = document.getElementById('progressBar');
             const statusDiv = document.getElementById('status');
             const downloadButton = document.getElementById('downloadButton');
-            progressBarContainer.style.display = 'block';  // progress bar
-            statusDiv.textContent = "reading file...";
+
+            // Reset UI
+            progressBarContainer.style.display = 'block';
+            progressBar.style.width = '0%';
+            statusDiv.textContent = "Reading file...";
+            downloadButton.style.display = 'none';
+            downloadButton.disabled = true;
 
             reader.onload = async function(e) {
                 const text = e.target.result;
@@ -121,24 +170,24 @@
                 const countriesData = {};
                 let totalMatches = 0;
 
-                // counting <wpt>
+                // Count total waypoints first
                 while (pattern.exec(text) !== null) {
                     totalMatches++;
                 }
 
-                // Reset regex 
+                // Reset regex index
                 const patternReset = /<wpt.*?lat="([^"]+)" lon="([^"]+)".*?>(.*?)<\/wpt>/gs;
-
                 let match;
                 let processedMatches = 0;
 
-                //  <wpt> relations to countries
+                // Process waypoints
                 while ((match = patternReset.exec(text)) !== null) {
-                    const lat = parseFloat(match[1]).toFixed(6); 
-                    const lon = parseFloat(match[2]).toFixed(6); 
-                    const wptBlock = match[0]; 
+                    const lat = parseFloat(match[1]).toFixed(6);
+                    const lon = parseFloat(match[2]).toFixed(6);
+                    const wptBlock = match[0];
                     const updatedWptBlock = wptBlock.replace(`lat="${match[1]}" lon="${match[2]}"`,`lat="${lat}" lon="${lon}"`);
 
+                    // Get country code (Fast API + Cache)
                     const countryCode = await getCountryCode(lat, lon);
 
                     if (countryCode) {
@@ -150,72 +199,55 @@
 
                     processedMatches++;
 
-                    // update progress bar
+                    // Update Progress
                     const progressPercentage = Math.round((processedMatches / totalMatches) * 100);
                     progressBar.style.width = `${progressPercentage}%`;
+                    statusDiv.textContent = `Processed ${processedMatches} of ${totalMatches} waypoints`;
 
-                    // info about progress
-                    statusDiv.textContent = `Processed ${processedMatches} of ${totalMatches} wpts`;
-
-                    // optimization
+                    // Optimization: allow UI to breathe (No long sleep needed for BigDataCloud)
                     await new Promise(resolve => setTimeout(resolve, 0));
                 }
 
-                // end of process
-                statusDiv.textContent = "Creating GPX files...";
-
-                //  ZIP creation
+                // ZIP Creation
+                statusDiv.textContent = "Creating ZIP file...";
                 const zip = new JSZip();
 
-                // file for country
                 for (const countryCode in countriesData) {
                     const wpts = countriesData[countryCode];
                     const fileContent = `<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
-<gpx version='1.1' creator='AI+M444' xmlns='http://www.topografix.com/GPX/1/1' xmlns:osmand='https://osmand.net' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd'>
-<metadata><name>${countryCode}</name><author><name>AI+M444</name><link href='https://mariush444.github.io/Osmand-tools/'/></author></metadata>
-${wpts.join("\n")}
+<gpx version='1.1' creator='GeoSplitter' xmlns='http://www.topografix.com/GPX/1/1' xmlns:osmand='https://osmand.net' xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance' xsi:schemaLocation='http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd'>
+<metadata><name>${countryCode}</name><author><name>GeoSplitter</name></author></metadata>
+ ${wpts.join("\n")}
 </gpx>`;
 
-                    // ZIP file
                     zip.file(`${countryCode}.gpx`, fileContent);
                 }
 
-                // generation of ZIP
+                // Generate ZIP
                 zip.generateAsync({ type: "blob" }).then(function(content) {
-                    // Get current date and time (format: YYYYMMDD-HHMMSS)
+                    // Date Format YYYYMMDD-HHMMSS
                     const date = new Date();
-                    const year = date.getFullYear();
-                    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-                    const day = date.getDate().toString().padStart(2, '0');
-                    const hours = date.getHours().toString().padStart(2, '0');
-                    const minutes = date.getMinutes().toString().padStart(2, '0');
-                    const seconds = date.getSeconds().toString().padStart(2, '0');
+                    const dateString = date.toISOString().replace(/[:.]/g, '-').slice(0, 19);
 
-                    // Format the date as YYYYMMDD-HHMMSS
-                    const dateString = `${year}${month}${day}-${hours}${minutes}${seconds}`;
-
-                    // zip for download with date in the filename
                     const link = document.createElement('a');
                     link.href = URL.createObjectURL(content);
-                    link.download = `gpx_files_${dateString}.zip`;  // date and time
+                    link.download = `gpx_split_${dateString}.zip`;
 
-                    // Enable the download button and add link
-                    downloadButton.style.display = 'inline-block';  // Show the button
-                    downloadButton.disabled = false;  // Enable the button
+                    downloadButton.style.display = 'block';
+                    downloadButton.disabled = false;
                     downloadButton.onclick = function() {
-                        link.click();  // Simulate a click on the link to download the file
+                        link.click();
                     };
-                });
 
-                progressBar.style.width = '100%';  
-                statusDiv.textContent = "Download zip file containing gpx files";
+                    statusDiv.textContent = "Done! Ready to download.";
+                    progressBar.style.width = '100%';
+                });
             };
 
-            // read file
             reader.readAsText(file);
         }
 
-        // Start process as soon as the file is selected
+        // Start process on file selection
         document.getElementById('gpxFileInput').addEventListener('change', processFile);
     </script>
 </body>
