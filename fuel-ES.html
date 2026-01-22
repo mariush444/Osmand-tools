@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ES Fuel GPX Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <style>
+        body { font-family: sans-serif; max-width: 700px; margin: 0 auto; padding: 20px; background-color: #f4f4f4; }
+        .container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #333; font-size: 1.5em; }
+
+        .form-group { margin-bottom: 15px; display: flex; flex-direction: column; }
+        label { margin-bottom: 5px; font-weight: bold; }
+        select, input[type="checkbox"] { padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; }
+        button { background-color: #007bff; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 4px; cursor: pointer; width: 100%; margin-top: 10px; }
+        button:hover { background-color: #0056b3; }
+        button:disabled { background-color: #ccc; cursor: not-allowed; }
+        #status { margin-top: 20px; padding: 10px; border-radius: 4px; text-align: center; font-weight: bold; }
+
+        /* Legend Styles */
+        #legend-container {
+            margin-top: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            padding: 15px;
+            background-color: #fff;
+            display: none; /* Hidden by default */
+        }
+        .legend-title { font-weight: bold; margin-bottom: 10px; text-decoration: underline; }
+        .legend-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px;
+            margin-bottom: 4px;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+        .range-text { font-weight: bold; }
+
+        /* Status colors */
+        .status-ok { background-color: #d4edda; color: #155724; }
+        .status-err { background-color: #f8d7da; color: #721c24; }
+        .status-process { background-color: #fff3cd; color: #856404; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🇪🇸 Fuel Prices to GPX</h1>
+
+    <div class="form-group">
+        <label for="fuelType">Select Fuel Type:</label>
+        <select id="fuelType">
+            <!-- Options populated by JS -->
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label style="display: flex; align-items: center; cursor: pointer;">
+            <input type="checkbox" id="doBlack" style="width: 20px; height: 20px; margin-right: 10px;">
+            Include stations without this fuel (doBlack)
+        </label>
+    </div>
+
+    <button id="generateBtn" onclick="processData()">Download and Generate GPX</button>
+
+    <div id="status"></div>
+
+    <!-- Legend Section -->
+    <div id="legend-container">
+        <div class="legend-title">Ordered due to prices means:</div>
+        <div id="legend-rows"></div>
+        <div style="margin-top: 10px; font-size: 0.85em; color: #555;">
+            'Black' stations are defined as group 'Absence' and they can be excluded from the view in Osmand
+            or they can be excluded from the file (file will be smaller) by unchecking the option.
+        </div>
+    </div>
+</div>
+
+<script>
+// --- Configuration & Data ---
+
+// Using a CORS proxy because the Spanish Gov API does not allow direct browser fetch usually
+const TARGET_URL = "https://sedeaplicaciones.minetur.gob.es/ServiciosRESTCarburantes/PreciosCarburantes/EstacionesTerrestres/";
+// const URL = "https://corsproxy.io/?" + encodeURIComponent(TARGET_URL);
+const URL = TARGET_URL
+const fuelTAB = {
+    1: 'Adblue',
+    2: 'Biodiesel',
+    3: 'Bioetanol',
+    4: 'Biogas Natural Comprimido',
+    5: 'Biogas Natural Licuado',
+    6: 'Diésel Renovable',
+    7: 'Gas Natural Comprimido',
+    8: 'Gas Natural Licuado',
+    9: 'Gases licuados del petróleo',
+    10: 'Gasoleo A',
+    11: 'Gasoleo B',
+    12: 'Gasoleo Premium',
+    13: 'Gasolina 95 E10',
+    14: 'Gasolina 95 E25',
+    15: 'Gasolina 95 E5',
+    16: 'Gasolina 95 E5 Premium',
+    17: 'Gasolina 95 E85',
+    18: 'Gasolina 98 E10',
+    19: 'Gasolina 98 E5',
+    20: 'Gasolina Renovable',
+    21: 'Hidrogeno'
+};
+
+// Populate Combobox
+const selectEl = document.getElementById('fuelType');
+for (const [key, value] of Object.entries(fuelTAB)) {
+    const option = document.createElement('option');
+    option.value = key;
+    option.text = `${key}: ${value}`;
+    selectEl.appendChild(option);
+}
+// Set default to Gasoleo Premium (12) as per Python script
+selectEl.value = "12";
+
+// --- Helper Functions ---
+
+function setStatus(msg, type) {
+    const el = document.getElementById('status');
+    el.innerText = msg;
+    el.className = 'status-' + type;
+}
+
+// Mimic Python round(x, 3)
+function round3(num) {
+    return Math.round(num * 1000) / 1000;
+}
+
+// Safe float parser (handles commas)
+function parsePrice(val) {
+    if (!val || val.trim() === "") return 0;
+    return parseFloat(val.replace(",", "."));
+}
+
+// --- Main Processing ---
+
+async function processData() {
+    const btn = document.getElementById('generateBtn');
+    const fuelId = document.getElementById('fuelType').value;
+    const DOblack = document.getElementById('doBlack').checked; // Maps to Absence
+    const legendContainer = document.getElementById('legend-container');
+
+    btn.disabled = true;
+    legendContainer.style.display = "none";
+    setStatus("Downloading data from ES Gov...", "process");
+
+    try {
+        // 1. Download JSON
+        const response = await fetch(URL);
+        if (!response.ok) throw new Error("HTTP Error " + response.status);
+
+        setStatus("Parsing JSON...", "process");
+        const data = await response.json();
+
+        // Python: stations = data.get("ListaEESSPrecio", [])
+        const stations = data["ListaEESSPrecio"];
+        if (!stations) throw new Error("JSON format error: ListaEESSPrecio not found.");
+
+        const chosenFuelName = fuelTAB[fuelId];
+        const targetKey = `Precio ${chosenFuelName}`;
+
+        // 2. Find PriceMin and PriceMax (Python Step 3)
+        let prices = [];
+        let dataDate = data["Fecha"] || "unknown_date";
+
+        for (let i = 0; i < stations.length; i++) {
+            const pStr = stations[i][targetKey];
+            const p = parsePrice(pStr);
+            if (p > 0) {
+                prices.push(p);
+            }
+        }
+
+        if (prices.length === 0) {
+            throw new Error(`No prices found for ${chosenFuelName} in the file.`);
+        }
+
+        const PriceMin = Math.min(...prices);
+        const PriceMax = Math.max(...prices);
+        console.log(`Range: ${PriceMin} - ${PriceMax}`);
+
+        // 3. Calculate Thresholds (Python Step 4)
+        const Prange = round3(PriceMax - PriceMin);
+        const P0_5   = round3(PriceMin + Prange * 0.05);
+        const P5_10  = round3(PriceMin + Prange * 0.1);
+        const P11_20 = round3(PriceMin + Prange * 0.2);
+        const P21_30 = round3(PriceMin + Prange * 0.3);
+        const P31_40 = round3(PriceMin + Prange * 0.4);
+        const P41_80 = round3(PriceMin + Prange * 0.8);
+        const P81_90 = round3(PriceMin + Prange * 0.9);
+
+        // 4. Generate Legend
+        createLegend(PriceMin, P0_5, P5_10, P11_20, P21_30, P31_40, P41_80, P81_90, PriceMax, chosenFuelName);
+
+        setStatus("Generating GPX...", "process");
+
+        // 5. Generate XML (Python Step 5)
+        let gpxContent = '<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>\n';
+        gpxContent += '<gpx version="1.1" creator="OsmAnd+Maryush444" xmlns="http://www.topografix.com/GPX/1/1" xmlns:osmand="https://osmand.net" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">\n';
+
+        let count_processed = 0;
+
+        for (let i = 0; i < stations.length; i++) {
+            const s = stations[i];
+
+            // Get Coordinates (replace comma with dot)
+            const lat = (s["Latitud"] || "0").replace(",", ".");
+            const lon = (s["Longitud (WGS84)"] || "0").replace(",", ".");
+
+            // Get Price for Chosen Fuel
+            const price_str = s[targetKey] || "";
+            const price_val = parsePrice(price_str);
+
+            // Determine Absence and actual Price value
+            // Python: if price_val > 0 -> current_absence = False
+            let current_absence = true;
+            if (price_val > 0) {
+                current_absence = false;
+            }
+
+            // --- APPLY ABSENCE LOGIC ---
+            // Python: if not Absence and current_absence: continue
+            // JS: if (!DOblack && current_absence) continue;
+            if (!DOblack && current_absence) {
+                continue;
+            }
+
+            // Determine Color
+            let color = "000001"; // Default: No fuel
+
+            if (!current_absence) {
+                if (price_val > 0 && price_val <= P0_5) color = "10c0f0";      // light blue
+                else if (P0_5 < price_val && price_val <= P5_10) color = "00842b"; // dark green
+                else if (P5_10 < price_val && price_val <= P11_20) color = "88e030"; // light green
+                else if (P11_20 < price_val && price_val <= P21_30) color = "eecc22"; // yellow
+                else if (P21_30 < price_val && price_val <= P31_40) color = "ff8500"; // orange
+                else if (P31_40 < price_val && price_val <= P41_80) color = "d00d0d"; // red
+                else if (P41_80 < price_val && price_val <= P81_90) color = "a71de1"; // violet
+                else if (price_val > P81_90) color = "1010a0";                     // blue navy
+            }
+
+            // --- GENERATE DESCRIPTION (Other Fuels) ---
+            let desc_items = [];
+
+            // Iterate fuelTAB to find other fuels
+            for (const [fid, fname] of Object.entries(fuelTAB)) {
+                // Skip the fuel we are currently filtering/map-marking
+                if (fid == fuelId) continue;
+
+                const key = `Precio ${fname}`;
+                const val_str = s[key] || "";
+                const p_other = parsePrice(val_str);
+
+                if (p_other > 0) {
+                    desc_items.push(`${fname}: ${p_other}`);
+                }
+            }
+
+            const desc_text = desc_items.join("&lt;br&gt;\n"); // Join with <br> equivalent
+
+            // Construct <name> tag
+            let name_text = "";
+            let price_display = "";
+
+            if (current_absence) {
+                name_text = `no ${chosenFuelName} at station`;
+            } else {
+                name_text = `${chosenFuelName}`;
+                price_display = ` ${price_val}`;
+            }
+
+            // Construct XML block
+            gpxContent += `<wpt lat="${lat}" lon="${lon}">\n`;
+            gpxContent += `  <name>${name_text}${price_display}</name>\n`;
+            gpxContent += `  <desc>${desc_text}</desc>\n`;
+
+            if (current_absence) {
+                gpxContent += `  <type>Absence</type>\n`;
+            }
+
+            gpxContent += `  <extensions>\n`;
+            gpxContent += `    <osmand:color>#${color}</osmand:color>\n`;
+            gpxContent += `    <osmand:icon>fuel</osmand:icon>\n`;
+            gpxContent += `    <osmand:background>cirlce</osmand:background>\n`; // kept 'cirlce' spelling
+            gpxContent += `  </extensions>\n`;
+            gpxContent += `</wpt>\n`;
+
+            count_processed++;
+        }
+
+        gpxContent += '</gpx>';
+
+        // 6. Save File
+        const suffix = DOblack ? "full" : "only";
+        const cleanName = chosenFuelName.replace(" ", "_");
+        const fileName = `🇪🇸-⛽-${cleanName}-${suffix}.gpx`;
+
+        downloadFile(fileName, gpxContent);
+
+        setStatus("Done! GPX Downloaded.", "ok");
+        btn.disabled = false;
+
+    } catch (e) {
+        console.error(e);
+        setStatus("Error: " + e.message, "err");
+        btn.disabled = false;
+    }
+}
+
+function downloadFile(filename, content) {
+    const element = document.createElement('a');
+    element.setAttribute('href', 'data:application/gpx+xml;charset=utf-8,' + encodeURIComponent(content));
+    element.setAttribute('download', filename);
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+}
+
+// --- Legend Generation ---
+
+function createLegend(Pmin, P0_5, P5_10, P11_20, P21_30, P31_40, P41_80, P81_90, Pmax, fuelName) {
+    const container = document.getElementById('legend-container');
+    const rows = document.getElementById('legend-rows');
+    rows.innerHTML = ""; // Clear previous
+
+    // Helper to make a row
+    const addRow = (low, high, color, textColor, label) => {
+        const div = document.createElement('div');
+        div.className = 'legend-row';
+        div.style.backgroundColor = color;
+        div.style.color = textColor;
+        div.innerHTML = `<span class="range-text">${low} - ${high}</span> <span>${label}</span>`;
+        rows.appendChild(div);
+    };
+
+    const to3 = (n) => n.toFixed(3);
+    const next = (n) => (n + 0.001).toFixed(3);
+
+    addRow(to3(Pmin), to3(P0_5), "#10c0f0", "black", "light blue");
+    addRow(next(P0_5), to3(P5_10), "#00842b", "white", "dark green");
+    addRow(next(P5_10), to3(P11_20), "#88e030", "black", "bright green");
+    addRow(next(P11_20), to3(P21_30), "#eecc22", "black", "yellow");
+    addRow(next(P21_30), to3(P31_40), "#ff8500", "white", "orange");
+    addRow(next(P31_40), to3(P41_80), "#d00d0d", "white", "red");
+    addRow(next(P41_80), to3(P81_90), "#a71de1", "white", "violet");
+    addRow(next(P81_90), to3(Pmax), "#1010a0", "white", "navy blue / dark blue");
+
+    // 9. Black (Absence)
+    const blackDiv = document.createElement('div');
+    blackDiv.className = 'legend-row';
+    blackDiv.style.backgroundColor = "black";
+    blackDiv.style.color = "white";
+    blackDiv.innerHTML = `<span class="range-text">Absence</span> <span>Black (no ${fuelName})</span>`;
+    rows.appendChild(blackDiv);
+
+    container.style.display = "block";
+}
+
+</script>
+
+</body>
+</html>
