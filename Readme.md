@@ -61,20 +61,20 @@ Currently, some of tools are additionally mentioned on <a href="https://osmand.n
     
   </tr>
   
-  <tr>
+  <!-- tr>
     <td>map style</td>
     <td>gravel roads (webpage in French)</td>    
-    <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-offline"> Gravel Roads Seeker </a> </td>
+    <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-online"> Gravel Roads Seeker </a> </td>
   </tr>
   <tr>
     <td>map style</td>
     <td>enduro, MTB and hiking </td>    
     <td><a href="https://github.com/cmoffroad/osmand-outdoor-explorer-plugin"> github </a>  </td>
-</tr>
+</tr -->
   <tr>
     <td>map style</td>
     <td>set of rendering: moto, cycle, hiking  </td>    
-    <td><a href="https://github.com/OsmAnd-Rendering"> github </a>  </td>
+    <td><a href="osmand-rendering.github.io/index_EN.html"> github </a>  </td>
 </tr>
   <tr>
     <td>map style</td>
@@ -96,7 +96,7 @@ Currently, some of tools are additionally mentioned on <a href="https://osmand.n
     <td>Highlighted Admin Boundaries </td>      
     <td><a href="https://github.com/Max1234-Ita/GuidaOsmand/blob/main/risorse/rendering/en_highlighted_boundaries.md"> github </a>  </td>
   </tr>
-  <tr>
+  <!-- tr>
     <td>map style</td>
     <td>Hiking - optimalizated Topo </td>    
     <td><a href="https://github.com/Louis-LJ/OsmAnd_Hiking_Map/blob/main/README-EN.md"> github </a>  </td>
@@ -105,7 +105,7 @@ Currently, some of tools are additionally mentioned on <a href="https://osmand.n
     <td>map style</td>
     <td>CycloRoute - optimalization for bikes </td>    
     <td><a href="https://github.com/Louis-LJ/OsmAnd_Cycling_Map/blob/main/README_EN.md"> github </a>  </td>
-</tr>
+  </tr -->
   <tr>
     <td>offline maps</td>
     <td>improved searching addresses for some countries </td>    
@@ -134,7 +134,7 @@ Currently, some of tools are additionally mentioned on <a href="https://osmand.n
   <tr>
     <td>online maps</td>
     <td>set of maps (webpage in French)</td>    
-    <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-pour-applications-mobiles#h.lrtz21a2dinu"> Gravel Roads Seeker </a> </td>
+    <td><a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-online"> Gravel Roads Seeker </a> </td>
   </tr>
   <tr>
     <td>online maps</td>
