@@ -176,7 +176,11 @@ Currently, some of tools are additionally mentioned on <a href="https://osmand.n
     <td>🇩🇪 dipul - Unmanned Aviation</td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/raw/refs/heads/main/DE_dipul.osf"> plugin </a> </td>
   </tr>
-  
+  <tr>
+  <td>online maps</td>
+    <td🏃 Strava heatmap - freemap</td>    
+    <td><a href="https://github.com/mariush444/Osmand-tools/raw/refs/heads/main/Strava_freemap.osf"> plugin </a> </td>
+  </tr>
   <tr>
     <td>🇮🇹 manual</td>
     <td>1st steps in Italian </td>    
