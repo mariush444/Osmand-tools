@@ -74,7 +74,7 @@ Currently, some of tools are additionally mentioned on <a href="https://osmand.n
   <tr>
     <td>map style</td>
     <td>set of rendering: moto, cycle, hiking  </td>    
-    <td><a href="osmand-rendering.github.io/index_EN.html"> github </a>  </td>
+    <td><a href="https://osmand-rendering.github.io/index_EN.html"> github </a>  </td>
 </tr>
   <tr>
     <td>map style</td>
