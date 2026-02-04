@@ -178,7 +178,7 @@ Currently, some of tools are additionally mentioned on <a href="https://osmand.n
   </tr>
   <tr>
   <td>online maps</td>
-    <td🏃 Strava heatmap - freemap</td>    
+    <td>🏃 Strava heatmap - freemap</td>    
     <td><a href="https://github.com/mariush444/Osmand-tools/raw/refs/heads/main/Strava_freemap.osf"> plugin </a> </td>
   </tr>
   <tr>
