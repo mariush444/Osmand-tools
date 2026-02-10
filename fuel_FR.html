@@ -176,6 +176,8 @@ async function processData() {
 
     btn.disabled = true;
     legendContainer.style.display = "none"; // Hide legend while processing
+    setStatus("Connecting...", "process");
+    
     /* setStatus("Downloading data via proxy...", "process");
 
     try {
@@ -197,8 +199,8 @@ async function processData() {
             }
         });
     */
-        setStatus("Connecting...", "process");
-
+        
+    try {
         let zip = null;
         let error = null;
     
@@ -224,12 +226,13 @@ async function processData() {
                 error = e;
                 // If this is the last proxy and we failed, we will throw the error later
                 if (i === PROXY_LIST.length - 1) {
-                     throw new Error("All download attempts failed. " + error.message);
+                     // throw new Error("All download attempts failed. " + error.message);
                 }
             }
         }
     
-        if (!zip) throw new Error("Could not download or unzip the file.");
+        // if (!zip) throw new Error("Could not download or unzip the file.");
+        if (!zip) throw new Error("All download attempts failed. " + error.message);
     
         setStatus("Unzipping file...", "process");
     
@@ -257,8 +260,9 @@ async function processData() {
 
         // Debugging: Check if we found stations
         if (stations.length === 0) {
-            console.error("No stations found. XML content preview:", xmlContent.substring(0, 500));
-            throw new Error("XML Parsing Error: Found 0 stations. Check console for details.");
+            // console.error("No stations found. XML content preview:", xmlContent.substring(0, 500));
+            // throw new Error("XML Parsing Error: Found 0 stations. Check console for details.");
+            throw new Error("XML Parsing Error: Found 0 stations.");
         }
         console.log("Found " + stations.length + " stations.");
 
