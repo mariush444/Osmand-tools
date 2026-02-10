@@ -7,7 +7,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
     <style>
         body { font-family: sans-serif; max-width: 700px; margin: 0 auto; padding: 20px; background-color: #f4f4f4; }
-        .container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .container { 
+            background: white; 
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow-y: auto;       /* <--- ADD THIS: Allows vertical scrolling */
+            max-height: 90vh;       /* <--- ADD THIS: Limits height to 90% of screen */
+        }
         h1 { text-align: center; color: #333; font-size: 1.5em; }
 
         .form-group { margin-bottom: 15px; display: flex; flex-direction: column; }
@@ -396,7 +403,35 @@ async function processData() {
         btn.disabled = false;
     }
 }
-
+    
+function downloadFile(filename, content) {
+    try {
+        // 1. Create a Blob (Binary Large Object) - handles large files efficiently
+        const blob = new Blob([content], { type: 'application/gpx+xml;charset=utf-8' });
+        
+        // 2. Create a temporary URL for that blob
+        const url = URL.createObjectURL(blob);
+        
+        // 3. Create the download link
+        const element = document.createElement('a');
+        element.href = url;
+        element.download = filename;
+        
+        // 4. Trigger the download
+        // For WebViews that don't support .click() on anchors, we append to body
+        document.body.appendChild(element);
+        element.click();
+        
+        // 5. Clean up
+        document.body.removeChild(element);
+        setTimeout(() => URL.revokeObjectURL(url), 100); // Free memory
+        
+    } catch (e) {
+        console.error("Blob download failed", e);
+        setStatus("Error: Download failed. If this persists, the device blocks large file downloads.", "err");
+    }
+}
+/*
 function downloadFile(filename, content) {
     const element = document.createElement('a');
     element.setAttribute('href', 'data:application/gpx+xml;charset=utf-8,' + encodeURIComponent(content));
@@ -405,7 +440,7 @@ function downloadFile(filename, content) {
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
-}
+} */
 </script>
 
 </body>
