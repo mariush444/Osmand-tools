@@ -92,8 +92,9 @@
 
 <script>
 const TARGET_URL = "https://donnees.roulez-eco.fr/opendata/instantane";
-<!-- old proxy const URL = "https://corsproxy.io/?" + encodeURIComponent(TARGET_URL); -->
-const URL = "https://api.allorigins.win/raw?url=" + encodeURIComponent(TARGET_URL);
+<!-- old proxy const URL = "https://corsproxy.io/?" + encodeURIComponent(TARGET_URL); 
+const URL = "https://api.allorigins.win/raw?url=" + encodeURIComponent(TARGET_URL); -->
+const URL = "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(TARGET_URL);
     
 const fuelTAB = {
     1: "Gazole",
@@ -120,7 +121,8 @@ const serviceEmojis = {
 
 function setStatus(msg, type) {
     const el = document.getElementById('status');
-    el.innerText = msg;
+    <!-- el.innerText = msg; -->
+    el.innerHTML = msg;
     el.className = 'status-' + type;
 }
 
@@ -160,7 +162,12 @@ function createLegend(Pmin, P0_5, P5_10, P11_20, P21_30, P31_40, P41_80, P81_90,
 
     container.style.display = "block";
 }
-
+const PROXY_LIST = [
+    "https://api.allorigins.win/raw?url=",
+    "https://api.codetabs.com/v1/proxy?quest="
+    "https://corsproxy.io/?"
+];
+    
 async function processData() {
     const btn = document.getElementById('generateBtn');
     const fuel = document.getElementById('fuelType').value;
@@ -169,7 +176,7 @@ async function processData() {
 
     btn.disabled = true;
     legendContainer.style.display = "none"; // Hide legend while processing
-    setStatus("Downloading data via proxy...", "process");
+    <!-- setStatus("Downloading data via proxy...", "process");
 
     try {
         // 1. Download
@@ -189,7 +196,51 @@ async function processData() {
                 xmlFile = zipEntry;
             }
         });
+    -->
+        setStatus("Connecting...", "process");
 
+        let zip = null;
+        let error = null;
+    
+        // Loop through proxies until one works
+        for (let i = 0; i < PROXY_LIST.length; i++) {
+            const currentProxy = PROXY_LIST[i];
+            const currentUrl = currentProxy + encodeURIComponent(TARGET_URL);
+    
+            try {
+                setStatus(`Downloading data (Attempt ${i + 1}/${PROXY_LIST.length})...`, "process");
+                
+                const response = await fetch(currentUrl);
+                if (!response.ok) throw new Error("HTTP " + response.status);
+    
+                const zipData = await response.blob();
+                zip = await JSZip.loadAsync(zipData);
+                
+                // If we got here, download was successful! Break the loop.
+                break; 
+    
+            } catch (e) {
+                console.warn(`Proxy ${i + 1} failed:`, e);
+                error = e;
+                // If this is the last proxy and we failed, we will throw the error later
+                if (i === PROXY_LIST.length - 1) {
+                     throw new Error("All download attempts failed. " + error.message);
+                }
+            }
+        }
+    
+        if (!zip) throw new Error("Could not download or unzip the file.");
+    
+        setStatus("Unzipping file...", "process");
+    
+        // Find the XML file
+        let xmlFile = null;
+        zip.forEach((relativePath, zipEntry) => {
+            if (relativePath.includes("PrixCarburants_instantane.xml")) {
+                xmlFile = zipEntry;
+            }
+        });
+    
         if (!xmlFile) throw new Error("Could not find 'PrixCarburants_instantane.xml' inside the ZIP file.");
 
         // 3. FIX: Decode as ISO-8859-1 (Latin-1) to preserve French characters
@@ -337,7 +388,7 @@ async function processData() {
 
     } catch (e) {
         console.error(e);
-        setStatus("Error: " + e.message, "err");
+        setStatus("<strong>Error:</strong> " + e.message + "<br><h6>Download failed. The data file is heavy (15MB) and free public proxies often block it. Please try again.<br>If it doesn't help, the better option is to use python script from main page. Click logo icon", "err");
         btn.disabled = false;
     }
 }
