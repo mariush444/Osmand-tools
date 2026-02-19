@@ -50,8 +50,8 @@ Currently, some of tools are additionally mentioned on <a href="https://osmand.n
 
 <tr>
     <td>converter</td>
-    <td>🇫🇷 fuel prices at gas stations (classified by color icons) in France - pyhton script creates gpx 
-    <br><a href="https://mariush444.github.io/Osmand-tools/fuel_FR.html">online tool</a></td>    
+    <td>🇫🇷 fuel prices at gas stations (classified by color icons) in France - <a href="https://github.com/mariush444/fuelFR2Osmand_gpx/blob/main/Fuel_FR.py">pyhton script creates gpx</a>
+    <br><a href="https://github.com/mariush444/fuelfr/releases/">Android apk</a> , <a href="https://mariush444.github.io/Osmand-tools/fuel_FR.html">online tool</a></td>    
     <td><a href="https://github.com/mariush444/fuelFR2Osmand_gpx"> github </a> </td>
   </tr>
 <tr>
@@ -213,7 +213,7 @@ Currently, some of tools are additionally mentioned on <a href="https://osmand.n
 <a href="https://github.com/mariush444/Osmand-tools/issues"> Let me know if something is missing </a> <br>
 If you have no account on github just leave message in osmand group on <a href="https://t.me/OsmAndMaps"> telegram</a> or <a href="https://www.reddit.com/r/OsmAnd"> reddit</a> or <a href="https://www.facebook.com/groups/osmandusers/"> fb </a> <br> <br>
 <a href="https://github.com/mariush444/Osmand-tools/"><img src="https://avatars.githubusercontent.com/u/66887280?v=4&size=64" alt="Main Page" style="width:20px;height:20px;"></a>
-&nbsp;&nbsp;updated 11.02.2026 --- 
+&nbsp;&nbsp;updated 19.02.2026 --- 
 <!-- If you like it you can buy me <a href="https://buy.stripe.com/5kA5nP7B27OQdFK7sv"> 🍷 </a> or <a href="https://buy.stripe.com/5kA6rTcVm8SUeJOeUW"> ☕ </a>
 </h6>
 -->
