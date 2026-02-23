@@ -19,13 +19,11 @@ Currently, some of tools are additionally mentioned on <a href="https://osmand.n
   </tr>
   <tr>
     <td>converter</td>
-    <td>python script to transfer kml to gpx with icons <h6>look at other tools on this account</h6>
+    <td>python script to transfer kml to gpx with icons <a href="https://github.com/tmusolf/KMLtoOSMAndGPX"><img src="https://img.shields.io/badge/python-green?logo=python"></a>  
+      <h6>look at other tools on this account</h6>
     </td>    
-    <td><a href="https://github.com/tmusolf/KMLtoOSMAndGPX">
-      
-  ![python](https://img.shields.io/badge/python-green?logo=python) 
-      
-  </a> </td>
+    <td>   
+  </td>
   </tr>
   <tr>
     <td>converter</td>
