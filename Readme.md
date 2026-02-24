@@ -181,15 +181,15 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
   </tr>
   <tr>
     <td colspan="2">
-      <a href="https://jaxeadv.com/barbuttons">JaxeADV</a> <br>
-      <a href="https://www.arnrally.com/arn-rally/en/products/remotes">ARN Rally</a> <br>
-      <a href="https://www.silverfoxcontrollers.com/">SilverFox </a> <br>
-      <a href="https://www.remotek.no">Remotek</a> <br>
-      <a href="https://7solid.myshopify.com/en">7SOLID</a> <br>
-      <a href="https://www.thorkracing.com/produto/dmd-remote1/">THORK RACING</a> <br>
-      <a href="https://summiot.com/en/">summiot</a> <br>
-      <a href="https://ursaesystem.com">URSAE system</a> <br>
-      <a href="https://carpe-iter.eu">Carpe Iter</a> <br>
+      <a href="https://jaxeadv.com/barbuttons">JaxeADV</a> ● 
+      <a href="https://www.arnrally.com/arn-rally/en/products/remotes">ARN Rally</a> ● 
+      <a href="https://www.silverfoxcontrollers.com/">SilverFox </a> ● 
+      <a href="https://www.remotek.no">Remotek</a> ● 
+      <a href="https://7solid.myshopify.com/en">7SOLID</a> ● 
+      <a href="https://www.thorkracing.com/produto/dmd-remote1/">THORK RACING</a> ● 
+      <a href="https://summiot.com/en/">summiot</a> ● 
+      <a href="https://ursaesystem.com">URSAE system</a> ● 
+      <a href="https://carpe-iter.eu">Carpe Iter</a> ● 
       <a href="https://hesaparts.com/en/categoria-producto/remote-12v-en-en/">HEASA PARTS</a>
     </td>    
   </tr>
