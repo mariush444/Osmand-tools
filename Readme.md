@@ -59,7 +59,10 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
   </tr>
   <tr>
     <td>🇪🇸 fuel prices at gas stations (classified by color icons in gpx file)</td> 
-    <td><a href="https://mariush444.github.io/Osmand-tools/fuel_ES.html"><img src="https://img.shields.io/badge/Web%20Page-A155E8"></a></td>    
+    <td>
+      <a href="https://mariush444.github.io/Osmand-tools/fuel_ES.html"><img src="https://img.shields.io/badge/Web%20Page-A155E8"></a>
+      <a href="https://github.com/mariush444/fuelfr/releases/"><img src="https://img.shields.io/badge/android-apk-darkgreen?logo=android"></a>
+    </td>    
   </tr>
   <tr>
   <th colspan="2"><h3>Map Styles - Rendering</h3></th>
