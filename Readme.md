@@ -51,7 +51,7 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
   <tr>
     <td>🇫🇷 fuel prices at gas stations (classified by color icons in gpx file)</td>    
     <td>
-    <a href="https://github.com/mariush444/fuelfr/blob/main/README.md"><img src="https://img.shields.io/badge/github-repository-blue?logo=github"></a>
+    <a href="https://github.com/mariush444/fuelfr/blob/main/README.md"><img src="https://img.shields.io/badge/github-repository-blue?logo=github&fontSize=20"></a>
     <a href="https://github.com/mariush444/fuelFR2Osmand_gpx/blob/main/Fuel_FR.py"><img src="https://img.shields.io/badge/python-script-yellow?logo=python&labelColor=lightgrey"></a>
     <a href="https://mariush444.github.io/Osmand-tools/fuel_FR.html"><img src="https://img.shields.io/badge/Web%20Page-A155E8"></a>
     <a href="https://github.com/mariush444/fuelfr/releases/"><img src="https://img.shields.io/badge/android-apk-darkgreen?logo=android"></a>
@@ -60,6 +60,7 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
   <tr>
     <td>🇪🇸 fuel prices at gas stations (classified by color icons in gpx file)</td> 
     <td>
+      <a href="https://github.com/mariush444/fuelfr/blob/main/README.md"><img src="https://img.shields.io/badge/github-repository-blue?logo=github&fontSize=40"></a>
       <a href="https://mariush444.github.io/Osmand-tools/fuel_ES.html"><img src="https://img.shields.io/badge/Web%20Page-A155E8"></a>
       <a href="https://github.com/mariush444/fuelfr/releases/"><img src="https://img.shields.io/badge/android-apk-darkgreen?logo=android"></a>
     </td>    
