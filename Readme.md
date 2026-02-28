@@ -7,7 +7,7 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
   </tr> 
   <tr>  
     <td>split a gpx file into country-specific gpx files </td>
-    <td>
+    <td style="min-width: 100px;">
     <a href="https://github.com/mariush444/geo2cntr"><img src="https://img.shields.io/badge/github-repository-blue?logo=github"></a>
     <a href="https://github.com/mariush444/geo2cntr/blob/main/geo2cntr.py"><img src="https://img.shields.io/badge/python-script-yellow?logo=python&labelColor=lightgrey"></a>
     <a href="https://mariush444.github.io/Osmand-tools/geo2cntr.html"><img src="https://img.shields.io/badge/Web%20Page-A155E8"></a>
