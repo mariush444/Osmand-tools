@@ -59,10 +59,10 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
   </tr>
   <tr>
     <td>🇪🇸 fuel prices at gas stations (classified by color icons in gpx file)</td> 
-    <td>
-      <a href="https://github.com/mariush444/fuelfr/blob/main/README.md"><img src="https://img.shields.io/badge/github-repository-blue?logo=github" style="height: 1.5em; vertical-align: middle;padding: 0; margin: 0;"></a>
-      <a href="https://mariush444.github.io/Osmand-tools/fuel_ES.html"><img src="https://img.shields.io/badge/Web%20Page-A155E8" style="height: 1.5em; vertical-align: middle;padding: 0; margin: 0;"></a>
-      <a href="https://github.com/mariush444/fuelfr/releases/"><img src="https://img.shields.io/badge/android-apk-darkgreen?logo=android" style="height: 1.5em; vertical-align: middle; padding: 0; margin: 0;"></a>
+    <td style="padding: 0; margin: 0;">
+      <a href="https://github.com/mariush444/fuelfr/blob/main/README.md"><img src="https://img.shields.io/badge/github-repository-blue?logo=github" style="height: 1.5em; vertical-align: middle;"></a>
+      <a href="https://mariush444.github.io/Osmand-tools/fuel_ES.html"><img src="https://img.shields.io/badge/Web%20Page-A155E8" style="height: 1.5em; vertical-align: middle;"></a>
+      <a href="https://github.com/mariush444/fuelfr/releases/"><img src="https://img.shields.io/badge/android-apk-darkgreen?logo=android" style="height: 1.5em; vertical-align: middle;"></a>
     </td>    
   </tr>
   <tr>
