@@ -49,7 +49,7 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
   <tr>
     <td style="border: 0px">iOverlander gpx to Osmand with icons </td>    
     <td style="padding: 0; margin: 0; border: 0px; min-width: 100px;" >
-      <a href="https://github.com/mariush444/Osmand-tools/raw/main/iOver.zip"><img src="https://img.shields.io/badge/python-script-yellow?logo=python&labelColor=lightgrey"</a> 
+      <a href="https://github.com/mariush444/Osmand-tools/raw/main/iOver.zip"><img src="https://img.shields.io/badge/python-script-yellow?logo=python&labelColor=lightgrey"></a> 
       </td>
   </tr>
     <tr>
@@ -61,7 +61,7 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
 
   <tr>
     <td style="border-right: 0px;">🇫🇷 fuel prices at gas stations (classified by color icons in gpx file)</td>    
-    <td style="padding: 1; margin: 0; "border-left: 0px; min-width: 100px;" >
+    <td style="padding: 1; margin: 0; border-left: 0px; min-width: 100px;" >
     <a href="https://github.com/mariush444/fuelfr/blob/main/README.md"><img src="https://img.shields.io/badge/github-repository-blue?logo=github"></a>
     <a href="https://github.com/mariush444/fuelFR2Osmand_gpx/blob/main/Fuel_FR.py"><img src="https://img.shields.io/badge/python-script-yellow?logo=python&labelColor=lightgrey"></a>
     <a href="https://mariush444.github.io/Osmand-tools/fuel_FR.html"><img src="https://img.shields.io/badge/Web%20Page-A155E8"></a>
@@ -71,7 +71,7 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
   <tr>
     <td style="border: 0px">🇪🇸 fuel prices at gas stations (classified by color icons in gpx file)</td> 
     <td  style="padding: 0; margin: 0; border: 0px; min-width: 100px;" >
-      <a href="https://github.com/mariush444/fuelfr/blob/main/README.md"><img src="https://img.shields.io/badge/github-repository-blue?logo=github"</a>
+      <a href="https://github.com/mariush444/fuelfr/blob/main/README.md"><img src="https://img.shields.io/badge/github-repository-blue?logo=github"></a>
       <a href="https://mariush444.github.io/Osmand-tools/fuel_ES.html"><img src="https://img.shields.io/badge/Web%20Page-A155E8"></a>
       <a href="https://github.com/mariush444/fuelfr/releases/"><img src="https://img.shields.io/badge/android-apk-darkgreen?logo=android"></a>
     </td>    
@@ -104,7 +104,7 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
   <tr>
     <td style="border: 0px">UniMap - some color optimalization </td>    
     <td style="padding: 0; margin: 0; border: 0px; min-width: 100px;" >
-      <a href="https://github.com/basings/OsmAnd-custom-map-styles"><img src="https://img.shields.io/badge/github-repository-blue?logo=github"</a>  
+      <a href="https://github.com/basings/OsmAnd-custom-map-styles"><img src="https://img.shields.io/badge/github-repository-blue?logo=github"></a>  
       </td>
   </tr>
   <tr>
