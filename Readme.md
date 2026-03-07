@@ -60,7 +60,7 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
   </tr>
 
   <tr>
-    <td style="border-right: 0px;">🇫🇷 fuel prices at gas stations (classified by color icons in gpx file)</td>    
+    <td style="border-right: 0px;">🇫🇷 fuel prices at gas stations (classified by color icons in gpx/kmz file)</td>    
     <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
     <a href="https://github.com/mariush444/fuelfr/blob/main/README.md"><img src="https://img.shields.io/badge/github-repository-blue?logo=github"></a>
     <a href="https://github.com/mariush444/fuelFR2Osmand_gpx/blob/main/Fuel_FR.py"><img src="https://img.shields.io/badge/python-script-yellow?logo=python&labelColor=lightgrey"></a>
@@ -69,7 +69,7 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
     </td>
   </tr>
   <tr>
-    <td style="border-right: 0px">🇪🇸 fuel prices at gas stations (classified by color icons in gpx file)</td> 
+    <td style="border-right: 0px">🇪🇸 fuel prices at gas stations (classified by color icons in gpx/kmz file)</td> 
     <td  style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
       <a href="https://github.com/mariush444/fuelfr/blob/main/README.md"><img src="https://img.shields.io/badge/github-repository-blue?logo=github"></a>
       <a href="https://mariush444.github.io/Osmand-tools/fuel_ES.html"><img src="https://img.shields.io/badge/Web%20Page-A155E8"></a>
