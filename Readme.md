@@ -198,6 +198,13 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
       <a href="https://github.com/mariush444/Osmand-tools/raw/main/🇦🇹 Austria-basemap.osf"><img src="https://img.shields.io/badge/osmand-plugin-orange?logo=osmand"></a> 
     </td>
   </tr>
+
+   <tr>
+    <td style="border-right: 0px">🌐 Latitudes: Equator, Tropic Cancer & Capricorn, Circles: Arctic & Antarctic</td>    
+    <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
+      <a href="https://github.com/mariush444/Osmand-tools/raw/main/Geographic.osf"><img src="https://img.shields.io/badge/osmand-plugin-orange?logo=osmand"></a> 
+    </td>
+  </tr>
   <tr>
     <td style="border-right: 0px">set of maps </td>    
     <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;"><a href="http://anygis.ru/Web/Html/Osmand_en"><img src="https://img.shields.io/badge/AnyGis-A155E8"></a> 
@@ -252,7 +259,7 @@ If you have no account on github just leave message in osmand group on <a href="
 <img src="https://img.shields.io/badge/reddit-grey?style=for-the-badge&logo=reddit"></a> ● <a href="https://www.facebook.com/groups/osmandusers/">
 <img src="https://img.shields.io/badge/facebook-grey?style=for-the-badge&logo=facebook"></a> <br> <br>
 <a href="https://github.com/mariush444/Osmand-tools/"><img src="https://avatars.githubusercontent.com/u/66887280?v=4&size=64" alt="Main Page" style="width:20px;height:20px;"></a>
-&nbsp;&nbsp;updated 24.02.2026  
+&nbsp;&nbsp;updated 07.04.2026  
 <!-- If you like it you can buy me <a href="https://buy.stripe.com/5kA5nP7B27OQdFK7sv"> 🍷 </a> or <a href="https://buy.stripe.com/5kA6rTcVm8SUeJOeUW"> ☕ </a>
 </h6>
 -->
