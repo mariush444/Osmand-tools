@@ -255,8 +255,8 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
 <h6>
 <a href="https://github.com/mariush444/Osmand-tools/issues"> Let me know if something is missing </a> <br>
 If you have no account on github just leave message in osmand group on <a href="https://t.me/OsmAndMaps">
-<img src="https://img.shields.io/badge/telegram-grey?style=for-the-badge&logo=telegram"></a> ● <a href="https://www.reddit.com/r/OsmAnd">
-<img src="https://img.shields.io/badge/reddit-grey?style=for-the-badge&logo=reddit"></a> ● <a href="https://www.facebook.com/groups/osmandusers/">
+<img src="https://img.shields.io/badge/telegram-grey?style=for-the-badge&logo=telegram"></a> ● <!-- a href="https://www.reddit.com/r/OsmAnd">
+<img src="https://img.shields.io/badge/reddit-grey?style=for-the-badge&logo=reddit"></a> ● --> <a href="https://www.facebook.com/groups/osmandusers/">
 <img src="https://img.shields.io/badge/facebook-grey?style=for-the-badge&logo=facebook"></a> <br> <br>
 <a href="https://github.com/mariush444/Osmand-tools/"><img src="https://avatars.githubusercontent.com/u/66887280?v=4&size=64" alt="Main Page" style="width:20px;height:20px;"></a>
 &nbsp;&nbsp;updated 07.04.2026  
