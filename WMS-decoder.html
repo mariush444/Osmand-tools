@@ -11,7 +11,6 @@
             --bg: #060a13;
             --bg2: #0b1120;
             --card: #0d1424;
-            --card-hover: #111c30;
             --border: #1a2740;
             --border-light: #243352;
             --text: #e2e8f0;
@@ -39,7 +38,7 @@
         }
         .bg-grid {
             position: fixed; inset: 0; z-index: 0; pointer-events: none;
-            background-image: radial-gradient(circle, rgba(0,229,176,0.04) 1px, transparent 1px);
+            background-image: radial-gradient(circle, rgba(0,229,176,0.035) 1px, transparent 1px);
             background-size: 28px 28px;
         }
         .bg-blob {
@@ -81,6 +80,7 @@
             background-clip: text;
         }
         .subtitle { color: var(--text-muted); font-size: 15px; margin-left: 58px; margin-top: -4px; }
+
         .input-section {
             background: var(--card); border: 1px solid var(--border);
             border-radius: var(--radius); padding: 20px; margin-bottom: 32px;
@@ -111,20 +111,40 @@
         .decode-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 24px rgba(0,229,176,0.35); }
         .decode-btn:active { transform: translateY(0); }
         .decode-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-        .proxy-row {
-            display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--text-dim); flex-wrap: wrap;
+
+        .proxy-row { display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-dim); flex-wrap: wrap; }
+        .toggle { position: relative; width: 38px; height: 22px; flex-shrink: 0; }
+        .toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+        .toggle-track {
+            position: absolute; inset: 0; border-radius: 11px;
+            background: var(--border); cursor: pointer; transition: background 0.2s;
         }
+        .toggle-track::after {
+            content: ''; position: absolute; left: 3px; top: 3px;
+            width: 16px; height: 16px; border-radius: 50%;
+            background: var(--text-muted); transition: transform 0.2s, background 0.2s;
+        }
+        .toggle input:checked + .toggle-track { background: var(--accent-mid); }
+        .toggle input:checked + .toggle-track::after { transform: translateX(16px); background: var(--accent); }
+
         .proxy-select {
             background: var(--bg2); border: 1px solid var(--border);
             border-radius: 6px; padding: 5px 10px; font-size: 12px;
-            color: var(--text); font-family: var(--mono); outline: none;
+            color: var(--text-dim); font-family: var(--sans); outline: none;
             cursor: pointer;
         }
         .proxy-select:focus { border-color: var(--accent); }
-        .proxy-status { font-size: 11px; }
-        .proxy-status.trying { color: var(--warning); }
-        .proxy-status.ok { color: var(--success); }
-        .proxy-status.fail { color: var(--danger); }
+        .proxy-select option { background: var(--bg2); color: var(--text); }
+        .proxy-custom {
+            background: var(--bg2); border: 1px solid var(--border);
+            border-radius: 6px; padding: 5px 10px; font-size: 12px;
+            color: var(--text); font-family: var(--mono); outline: none;
+            width: 360px; max-width: 100%;
+        }
+        .proxy-custom:focus { border-color: var(--accent); }
+        .proxy-custom::placeholder { color: var(--text-muted); }
+        .proxy-row small { color: var(--text-muted); }
+
         .loading { text-align: center; padding: 60px 20px; color: var(--text-dim); }
         .spinner {
             width: 40px; height: 40px; margin: 0 auto 16px;
@@ -132,6 +152,7 @@
             border-radius: 50%; animation: spin 0.8s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
+
         .error-box {
             background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25);
             border-radius: var(--radius); padding: 20px 24px;
@@ -140,9 +161,9 @@
         .error-box i { color: var(--danger); margin-right: 8px; }
         .error-box code {
             background: rgba(239,68,68,0.12); padding: 2px 6px; border-radius: 4px;
-            font-family: var(--mono); font-size: 12px; color: #fecaca;
-            word-break: break-all;
+            font-family: var(--mono); font-size: 12px; color: #fecaca; word-break: break-all;
         }
+
         .results { animation: fadeUp 0.4s ease-out; }
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(16px); }
@@ -160,6 +181,7 @@
             background: var(--accent-dim); color: var(--accent);
             border: 1px solid rgba(0,229,176,0.15);
         }
+
         .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
         .stat-card {
             background: var(--card); border: 1px solid var(--border);
@@ -173,19 +195,31 @@
         }
         .stat-value.version { color: var(--info); }
         .stat-value.count { color: var(--accent); }
-        .stat-value.yes { color: var(--success); font-size: 22px; }
-        .stat-value.no { color: var(--danger); font-size: 22px; }
+        .stat-value.yes { color: var(--success); }
+        .stat-value.no { color: var(--danger); }
         .stat-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
-        .crs-note {
+
+        .info-box {
             background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.18);
             border-radius: var(--radius); padding: 18px 22px; margin-bottom: 24px;
             font-size: 13px; color: var(--text-dim); line-height: 1.7;
         }
-        .crs-note strong { color: var(--text); }
-        .crs-note code {
+        .info-box strong { color: var(--text); }
+        .info-box code {
             background: rgba(56,189,248,0.1); padding: 1px 6px; border-radius: 4px;
             font-family: var(--mono); font-size: 12px; color: var(--info);
         }
+        .warn-box {
+            background: rgba(245,158,11,0.06); border: 1px solid rgba(245,158,11,0.2);
+            border-radius: var(--radius); padding: 18px 22px; margin-bottom: 24px;
+            font-size: 13px; color: var(--text-dim); line-height: 1.7;
+        }
+        .warn-box strong { color: var(--warning); }
+        .warn-box code {
+            background: rgba(245,158,11,0.1); padding: 1px 6px; border-radius: 4px;
+            font-family: var(--mono); font-size: 12px; color: var(--warning);
+        }
+
         .section {
             background: var(--card); border: 1px solid var(--border);
             border-radius: var(--radius); margin-bottom: 24px; overflow: hidden;
@@ -203,8 +237,8 @@
         .search-input {
             background: var(--bg2); border: 1px solid var(--border);
             border-radius: 6px; padding: 6px 12px; font-size: 12px;
-            color: var(--text); outline: none; width: 200px;
-            font-family: var(--sans); transition: border-color 0.2s;
+            color: var(--text); outline: none; width: 200px; font-family: var(--sans);
+            transition: border-color 0.2s;
         }
         .search-input:focus { border-color: var(--accent); }
         .search-input::placeholder { color: var(--text-muted); }
@@ -215,7 +249,14 @@
             font-family: var(--sans); cursor: pointer; transition: all 0.15s;
         }
         .btn-sm:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
-        .layer-list { max-height: 400px; overflow-y: auto; }
+        .btn-sm.active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+        .chk-label {
+            display: flex; align-items: center; gap: 6px; font-size: 12px;
+            color: var(--text-dim); cursor: pointer; user-select: none;
+        }
+        .chk-label input[type="checkbox"] { accent-color: var(--accent); cursor: pointer; }
+
+        .layer-list { max-height: 420px; overflow-y: auto; }
         .layer-list::-webkit-scrollbar { width: 6px; }
         .layer-list::-webkit-scrollbar-track { background: transparent; }
         .layer-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
@@ -234,6 +275,11 @@
             flex: 1; font-family: var(--mono); font-size: 12.5px;
             color: var(--text); word-break: break-all; min-width: 0;
         }
+        .layer-item .group-badge {
+            font-size: 10px; padding: 2px 7px; border-radius: 4px;
+            background: rgba(245,158,11,0.12); color: var(--warning);
+            border: 1px solid rgba(245,158,11,0.2); flex-shrink: 0;
+        }
         .layer-item .copy-hint {
             opacity: 0; color: var(--text-muted); font-size: 11px;
             transition: opacity 0.15s; flex-shrink: 0;
@@ -244,11 +290,11 @@
             padding: 8px 22px; background: var(--bg2); font-size: 11px;
             color: var(--text-muted); border-bottom: 1px solid var(--border);
         }
+
         .layer-tree { padding: 12px 0; max-height: 500px; overflow-y: auto; }
         .layer-tree::-webkit-scrollbar { width: 6px; }
         .layer-tree::-webkit-scrollbar-track { background: transparent; }
         .layer-tree::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-        .tree-node { user-select: none; }
         .tree-row {
             display: flex; align-items: center; gap: 6px;
             padding: 5px 22px; cursor: pointer; transition: background 0.1s;
@@ -271,6 +317,7 @@
         .tree-name.folder-name { color: var(--text-dim); font-family: var(--sans); font-weight: 600; font-size: 13px; }
         .tree-children { overflow: hidden; }
         .tree-children.collapsed { display: none; }
+
         .crs-list { padding: 12px 0; }
         .crs-item {
             display: flex; align-items: center; gap: 10px;
@@ -290,6 +337,7 @@
             border: 1px solid var(--border);
         }
         .crs-desc { font-size: 12px; color: var(--text-muted); }
+
         .raw-xml {
             margin: 0; padding: 16px 22px; font-family: var(--mono);
             font-size: 11.5px; line-height: 1.6; color: var(--text-dim);
@@ -299,6 +347,7 @@
         .raw-xml::-webkit-scrollbar { width: 6px; }
         .raw-xml::-webkit-scrollbar-track { background: transparent; }
         .raw-xml::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
         #toastBox {
             position: fixed; bottom: 24px; right: 24px; z-index: 9999;
             display: flex; flex-direction: column; gap: 8px; pointer-events: none;
@@ -309,7 +358,7 @@
             background: var(--card); border: 1px solid var(--border);
             box-shadow: 0 8px 32px rgba(0,0,0,0.4);
             transform: translateX(120%); transition: transform 0.3s ease;
-            pointer-events: auto;
+            pointer-events: auto; max-width: 380px;
         }
         .toast.show { transform: translateX(0); }
         .toast-success { border-color: rgba(34,197,94,0.3); }
@@ -318,6 +367,7 @@
         .toast-error::before { content: '\f057'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--danger); margin-right: 8px; }
         .toast-info { border-color: rgba(56,189,248,0.3); }
         .toast-info::before { content: '\f05a'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--info); margin-right: 8px; }
+
         .hidden { display: none !important; }
         @media (max-width: 700px) {
             .container { padding: 28px 14px 60px; }
@@ -326,9 +376,13 @@
             .decode-btn { padding: 12px; justify-content: center; }
             .search-input { width: 140px; }
             .section-head { flex-direction: column; align-items: flex-start; }
+            .proxy-custom { width: 100%; }
         }
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
         }
     </style>
 </head>
@@ -359,15 +413,18 @@
                 </button>
             </div>
             <div class="proxy-row">
-                <span>Proxy:</span>
-                <select class="proxy-select" id="proxySelect" aria-label="CORS proxy selection">
-                    <option value="auto">Auto (try all)</option>
+                <label class="toggle">
+                    <input type="checkbox" id="useProxy" checked>
+                    <span class="toggle-track"></span>
+                </label>
+                <span>Use CORS proxy</span>
+                <select class="proxy-select" id="proxySelect" aria-label="Proxy service">
+                    <option value="allorigins">AllOrigins</option>
                     <option value="corsproxy">corsproxy.io</option>
-                    <option value="allorigins">allorigins.win</option>
-                    <option value="codetabs">codetabs.com</option>
-                    <option value="none" selected>No proxy (direct)</option>
+                    <option value="custom">Custom...</option>
                 </select>
-                <span id="proxyStatus" class="proxy-status"></span>
+                <input type="text" class="proxy-custom hidden" id="proxyCustom" placeholder="https://your-proxy.com/?url=" aria-label="Custom proxy URL">
+                <small>Most WMS servers block direct browser requests</small>
             </div>
         </section>
 
@@ -375,534 +432,666 @@
             <div class="spinner"></div>
             <p id="loadingMsg">Fetching GetCapabilities document...</p>
         </div>
-
         <div id="errorArea" class="error-box hidden"></div>
         <div id="resultsArea" class="results hidden"></div>
     </main>
 
     <script>
-        /* ===== DOM helpers — iterate children by localName ===== */
-        /* This avoids :scope > selectors which break on namespaced XML from DOMParser */
-        function localName(el) {
-            if (!el) return '';
-            return el.localName || el.baseName || el.tagName || '';
-        }
+    /* ====================================================================
+       XML HELPERS — fully namespace-safe
+       Never uses CSS selectors on XML elements. Always iterates .children
+       and compares localName(). This works regardless of namespace prefix.
+    ==================================================================== */
 
-        function childByTag(parent, tag) {
-            if (!parent || !parent.children) return null;
-            const lower = tag.toLowerCase();
-            for (const c of parent.children) {
-                if (localName(c).toLowerCase() === lower) return c;
+    function localName(el) {
+        if (!el) return '';
+        return el.localName || el.baseName || el.tagName || '';
+    }
+
+    // Get first direct child element matching local tag name (case-insensitive)
+    function firstChild(parent, tag) {
+        if (!parent) return null;
+        const t = tag.toLowerCase();
+        for (const c of parent.children) {
+            if (localName(c).toLowerCase() === t) return c;
+        }
+        return null;
+    }
+
+    // Get all direct child elements matching local tag name (returns Array)
+    function directChildren(parent, tag) {
+        if (!parent) return [];
+        const t = tag.toLowerCase();
+        const out = [];
+        for (const c of parent.children) {
+            if (localName(c).toLowerCase() === t) out.push(c);
+        }
+        return out;
+    }
+
+    // Get text content of first direct child
+    function childText(parent, tag) {
+        const el = firstChild(parent, tag);
+        return el ? el.textContent.trim() : '';
+    }
+
+    // Recursively find ALL elements matching local tag name (returns Array)
+    function findAllRecursive(parent, tag) {
+        if (!parent) return [];
+        const t = tag.toLowerCase();
+        const out = [];
+        (function walk(el) {
+            for (const c of el.children) {
+                if (localName(c).toLowerCase() === t) out.push(c);
+                walk(c);
             }
-            return null;
+        })(parent);
+        return out;
+    }
+
+    /* ====================================================================
+       TOAST
+    ==================================================================== */
+    function toast(msg, type = 'info') {
+        const el = document.createElement('div');
+        el.className = `toast toast-${type}`;
+        el.textContent = msg;
+        document.getElementById('toastBox').appendChild(el);
+        requestAnimationFrame(() => el.classList.add('show'));
+        setTimeout(() => {
+            el.classList.remove('show');
+            setTimeout(() => el.remove(), 300);
+        }, 2800);
+    }
+
+    /* ====================================================================
+       PROXY CONFIG
+    ==================================================================== */
+    const PROXIES = {
+        allorigins: 'https://api.allorigins.win/raw?url=',
+        corsproxy: 'https://corsproxy.io/?',
+    };
+
+    function getProxyPrefix() {
+        const sel = document.getElementById('proxySelect').value;
+        if (sel === 'custom') {
+            return document.getElementById('proxyCustom').value.trim();
+        }
+        return PROXIES[sel] || '';
+    }
+
+    // Proxy select change handler
+    document.getElementById('proxySelect').addEventListener('change', (e) => {
+        document.getElementById('proxyCustom').classList.toggle('hidden', e.target.value !== 'custom');
+    });
+
+    /* ====================================================================
+       KNOWN CRS DESCRIPTIONS
+    ==================================================================== */
+    const CRS_INFO = {
+        'EPSG:4326': 'WGS 84 geographic (lat, lon axis order in WMS 1.3.0)',
+        'CRS:84': 'WGS 84 longitude-first axis order (lon, lat)',
+        'EPSG:3857': 'Web Mercator (Google / OSM projection)',
+        'EPSG:3006': 'SWEREF99 TM — Swedish national grid',
+        'EPSG:3007': 'SWEREF99 13 30',
+        'EPSG:3008': 'SWEREF99 14 15',
+        'EPSG:3009': 'SWEREF99 15 45',
+        'EPSG:3010': 'SWEREF99 16 30',
+        'EPSG:3011': 'SWEREF99 17 15',
+        'EPSG:3012': 'SWEREF99 18 00',
+        'EPSG:3013': 'SWEREF99 18 45',
+        'EPSG:3014': 'SWEREF99 19 30',
+        'EPSG:3015': 'SWEREF99 20 15',
+        'EPSG:3016': 'SWEREF99 21 00',
+        'EPSG:3017': 'SWEREF99 21 45',
+        'EPSG:3018': 'SWEREF99 22 30',
+        'EPSG:3021': 'RT90 2.5 gon V — old Swedish grid',
+        'EPSG:25832': 'ETRS89 / UTM zone 32N',
+        'EPSG:25833': 'ETRS89 / UTM zone 33N',
+        'EPSG:2154': 'RGF93 / Lambert-93 — French national grid',
+        'EPSG:27700': 'OSGB 1936 / British National Grid',
+        'EPSG:28992': 'Amersfoort / RD New — Dutch grid',
+        'EPSG:3067': 'ETRS89 / GK25FIN — Finnish grid',
+        'EPSG:3044': 'ETRS89 / UTM zone 33N (N-E)',
+        'EPSG:32632': 'WGS 84 / UTM zone 32N',
+        'EPSG:32633': 'WGS 84 / UTM zone 33N',
+        'EPSG:4230': 'ED50 geographic',
+        'EPSG:23030': 'ED50 / UTM zone 30N',
+        'EPSG:23031': 'ED50 / UTM zone 31N',
+        'EPSG:23032': 'ED50 / UTM zone 32N',
+        'EPSG:4258': 'ETRS89 geographic',
+        'EPSG:4979': 'WGS 84 3D geographic',
+    };
+
+    /* ====================================================================
+       BUILD URL
+    ==================================================================== */
+    function buildCapUrl(baseUrl) {
+        let url = baseUrl.trim().replace(/[?&]+$/, '');
+        const sep = url.includes('?') ? '&' : '?';
+        return `${url}${sep}SERVICE=WMS&REQUEST=GetCapabilities`;
+    }
+
+    /* ====================================================================
+       FETCH WITH TIMEOUT
+    ==================================================================== */
+    function fetchWithTimeout(url, ms = 20000) {
+        const ctrl = new AbortController();
+        const timer = setTimeout(() => ctrl.abort(), ms);
+        return fetch(url, { signal: ctrl.signal }).finally(() => clearTimeout(timer));
+    }
+
+    /* ====================================================================
+       PARSE LAYER TREE
+       Returns: { name, title, abstract, crs:[], children:[] }
+    ==================================================================== */
+    function parseLayerTree(el, depth, crsTagName) {
+        const name = childText(el, 'Name');
+        const title = childText(el, 'Title');
+        const abstract = childText(el, 'Abstract');
+
+        // Collect CRS/SRS from THIS layer only
+        const crsEl = firstChild(el, crsTagName);
+        const crs = crsEl
+            ? crsEl.textContent.trim().split(/\s+/).filter(Boolean)
+            : [];
+
+        const children = directChildren(el, 'Layer').map(c => parseLayerTree(c, depth + 1, crsTagName));
+
+        return { name, title, abstract, crs, depth, children };
+    }
+
+    // Flatten tree — by default only leaf layers (no children)
+    function flattenTree(node, list, leavesOnly) {
+        const isLeaf = node.children.length === 0;
+        if (node.name && (isLeaf || !leavesOnly)) {
+            list.push({ name: node.name, title: node.title, depth: node.depth, isGroup: !isLeaf });
+        }
+        node.children.forEach(c => flattenTree(c, list, leavesOnly));
+        return list;
+    }
+
+    /* ====================================================================
+       MAIN DECODE
+    ==================================================================== */
+    async function decodeWMS() {
+        const urlInput = document.getElementById('wmsUrl');
+        const useProxy = document.getElementById('useProxy').checked;
+        const resultsArea = document.getElementById('resultsArea');
+        const errorArea = document.getElementById('errorArea');
+        const loadingArea = document.getElementById('loadingArea');
+        const loadingMsg = document.getElementById('loadingMsg');
+        const decodeBtn = document.getElementById('decodeBtn');
+
+        const baseUrl = urlInput.value.trim();
+        if (!baseUrl) {
+            toast('Please enter a WMS URL', 'error');
+            urlInput.focus();
+            return;
         }
 
-        function childrenByTag(parent, tag) {
-            if (!parent || !parent.children) return [];
-            const lower = tag.toLowerCase();
-            const out = [];
-            for (const c of parent.children) {
-                if (localName(c).toLowerCase() === lower) out.push(c);
-            }
-            return out; // Always a real Array
-        }
+        resultsArea.classList.add('hidden');
+        errorArea.classList.add('hidden');
+        loadingArea.classList.remove('hidden');
+        decodeBtn.disabled = true;
 
-        function childText(parent, tag) {
-            const el = childByTag(parent, tag);
-            return el ? (el.textContent || '').trim() : '';
-        }
+        let rawXml = '';
+        const capUrl = buildCapUrl(baseUrl);
 
-        /* ===== Toast ===== */
-        function toast(msg, type = 'info') {
-            const el = document.createElement('div');
-            el.className = `toast toast-${type}`;
-            el.textContent = msg;
-            document.getElementById('toastBox').appendChild(el);
-            requestAnimationFrame(() => el.classList.add('show'));
-            setTimeout(() => {
-                el.classList.remove('show');
-                setTimeout(() => el.remove(), 300);
-            }, 2800);
-        }
-
-        /* ===== Proxy configuration ===== */
-        const PROXIES = {
-            corsproxy:  (url) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
-            allorigins: (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
-            codetabs:   (url) => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
-            none:       (url) => url
-        };
-
-        const PROXY_ORDER = ['corsproxy', 'allorigins', 'codetabs', 'none'];
-
-        function getProxyChain(mode) {
-            if (mode === 'auto') return PROXY_ORDER;
-            if (mode === 'none') return ['none'];
-            return [mode, 'none']; // Selected proxy, then fallback to direct
-        }
-
-        /* ===== Build GetCapabilities URL ===== */
-        function buildCapUrl(baseUrl) {
-            let url = baseUrl.trim().replace(/[?&]+$/, '');
-            const sep = url.includes('?') ? '&' : '?';
-            return `${url}${sep}SERVICE=WMS&REQUEST=GetCapabilities`;
-        }
-
-        /* ===== Known CRS descriptions ===== */
-        const CRS_INFO = {
-            'EPSG:4326': 'WGS 84 geographic (lat, lon)',
-            'CRS:84':    'WGS 84 longitude-first axis order',
-            'EPSG:3857': 'Web Mercator (Google/OSM projection)',
-            'EPSG:3006': 'SWEREF99 TM — Swedish national grid',
-            'EPSG:3007': 'SWEREF99 13 30 local zone',
-            'EPSG:3008': 'SWEREF99 14 15 local zone',
-            'EPSG:3009': 'SWEREF99 15 45 local zone',
-            'EPSG:3010': 'SWEREF99 16 30 local zone',
-            'EPSG:3011': 'SWEREF99 17 15 local zone',
-            'EPSG:3012': 'SWEREF99 18 00 local zone',
-            'EPSG:3013': 'SWEREF99 18 45 local zone',
-            'EPSG:3014': 'SWEREF99 19 30 local zone',
-            'EPSG:3015': 'SWEREF99 20 15 local zone',
-            'EPSG:3016': 'SWEREF99 21 00 local zone',
-            'EPSG:3017': 'SWEREF99 21 45 local zone',
-            'EPSG:3018': 'SWEREF99 22 30 local zone',
-            'EPSG:3021': 'RT90 2.5 gon V — old Swedish grid',
-            'EPSG:4230': 'ED50 geographic',
-            'EPSG:25832': 'ETRS89 / UTM zone 32N',
-            'EPSG:25833': 'ETRS89 / UTM zone 33N',
-            'EPSG:2154': 'RGF93 / Lambert-93 — French grid',
-            'EPSG:27700': 'OSGB / British National Grid',
-            'EPSG:28992': 'Amersfoort / RD New — Dutch grid',
-            'EPSG:3067': 'ETRS89 / GK25FIN — Finnish grid',
-            'EPSG:3044': 'ETRS89 / UTM 33N (N-E) — German',
-            'EPSG:32632': 'WGS 84 / UTM zone 32N',
-            'EPSG:32633': 'WGS 84 / UTM zone 33N',
-        };
-
-        /* ===== Parse layer tree ===== */
-        function parseLayerTree(el, depth) {
-            depth = depth || 0;
-            const name = childText(el, 'Name');
-            const title = childText(el, 'Title');
-            const abstract = childText(el, 'Abstract');
-            const kids = childrenByTag(el, 'Layer');
-            const children = kids.map(c => parseLayerTree(c, depth + 1));
-            return { name: name, title: title, abstract: abstract, depth: depth, children: children };
-        }
-
-        function flattenTree(node, list) {
-            list = list || [];
-            if (node.name) list.push({ name: node.name, title: node.title, depth: node.depth });
-            for (let i = 0; i < node.children.length; i++) {
-                flattenTree(node.children[i], list);
-            }
-            return list;
-        }
-
-        /* ===== Collect CRS from element and all nested layers ===== */
-        function collectCrs(el, tag, set) {
-            const crsEl = childByTag(el, tag);
-            if (crsEl) {
-                (crsEl.textContent || '').trim().split(/\s+/).forEach(function(c) {
-                    if (c) set.add(c);
-                });
-            }
-            const layers = childrenByTag(el, 'Layer');
-            for (let i = 0; i < layers.length; i++) {
-                collectCrs(layers[i], tag, set);
-            }
-        }
-
-        /* ===== Escape HTML ===== */
-        function esc(str) {
-            const d = document.createElement('div');
-            d.textContent = str;
-            return d.innerHTML;
-        }
-
-        /* ===== Fetch with proxy fallback ===== */
-        async function fetchWithFallback(capUrl, proxyChain, statusEl, msgEl) {
-            let lastError = null;
-
-            for (let i = 0; i < proxyChain.length; i++) {
-                const key = proxyChain[i];
-                const isDirect = (key === 'none');
-                const fetchUrl = isDirect ? capUrl : PROXIES[key](capUrl);
-
-                statusEl.className = 'proxy-status trying';
-                statusEl.textContent = isDirect ? 'Trying direct...' : 'Trying ' + key + '...';
-                msgEl.textContent = isDirect
-                    ? 'Fetching directly from server...'
-                    : 'Fetching via ' + key + ' proxy...';
-
-                try {
-                    const resp = await fetch(fetchUrl, {
-                        headers: { 'Accept': 'application/xml, text/xml, */*' }
-                    });
-
-                    if (!resp.ok) {
-                        lastError = new Error('HTTP ' + resp.status + ' ' + resp.statusText);
-                        continue;
-                    }
-
-                    const text = await resp.text();
-                    const trimmed = text.trim();
-
-                    // Validate it's actually XML, not an HTML error page from a proxy
-                    if (!trimmed.startsWith('<') || trimmed.startsWith('<!DOCTYPE HTML') || trimmed.startsWith('<html')) {
-                        lastError = new Error('Response is not XML (got HTML or other content)');
-                        continue;
-                    }
-
-                    statusEl.className = 'proxy-status ok';
-                    statusEl.textContent = isDirect ? 'Direct' : key;
-                    return text;
-
-                } catch (err) {
-                    lastError = err;
-                    continue;
-                }
-            }
-
-            statusEl.className = 'proxy-status fail';
-            statusEl.textContent = 'All failed';
-            throw lastError || new Error('All proxy options failed');
-        }
-
-        /* ===== Main decode ===== */
-        async function decodeWMS() {
-            const urlInput = document.getElementById('wmsUrl');
-            const proxySelect = document.getElementById('proxySelect');
-            const proxyStatus = document.getElementById('proxyStatus');
-            const resultsArea = document.getElementById('resultsArea');
-            const errorArea = document.getElementById('errorArea');
-            const loadingArea = document.getElementById('loadingArea');
-            const loadingMsg = document.getElementById('loadingMsg');
-            const decodeBtn = document.getElementById('decodeBtn');
-
-            const baseUrl = urlInput.value.trim();
-            if (!baseUrl) {
-                toast('Please enter a WMS URL', 'error');
-                urlInput.focus();
-                return;
-            }
-
-            resultsArea.classList.add('hidden');
-            errorArea.classList.add('hidden');
-            loadingArea.classList.remove('hidden');
-            decodeBtn.disabled = true;
-
-            try {
-                const capUrl = buildCapUrl(baseUrl);
-                const proxyChain = getProxyChain(proxySelect.value);
-                const rawXml = await fetchWithFallback(capUrl, proxyChain, proxyStatus, loadingMsg);
-
-                // Parse XML
-                const parser = new DOMParser();
-                const xml = parser.parseFromString(rawXml, 'text/xml');
-
-                const parseErr = xml.querySelector('parsererror');
-                if (parseErr) {
-                    throw new Error('Failed to parse XML response — the document may be malformed.');
-                }
-
-                // OGC service exception
-                const exc = xml.querySelector('ServiceException');
-                if (exc) {
-                    throw new Error('WMS Service Exception: ' + (exc.textContent || '').trim());
-                }
-
-                const root = xml.documentElement;
-                const version = root.getAttribute('version') || 'unknown';
-                const rootTag = localName(root);
-
-                // Determine WMS type from root tag name
-                let wmsLabel = 'Unknown';
-                if (rootTag.toLowerCase() === 'wmt_ms_capabilities') wmsLabel = 'WMS 1.1.1';
-                else if (rootTag.toLowerCase() === 'wms_capabilities') wmsLabel = 'WMS 1.3.0';
-
-                const isV13 = version.startsWith('1.3');
-                const crsTag = isV13 ? 'CRS' : 'SRS';
-
-                // Service metadata
-                const serviceEl = childByTag(root, 'Service');
-                const serviceTitle = serviceEl ? childText(serviceEl, 'Title') : '';
-                const serviceAbstract = serviceEl ? childText(serviceEl, 'Abstract') : '';
-                const keywords = [];
-                if (serviceEl) {
-                    const kwRoot = childByTag(serviceEl, 'KeywordList');
-                    if (kwRoot) {
-                        // Use querySelectorAll for Keyword (deeper nested, no namespace issues usually)
-                        var kwEls = kwRoot.querySelectorAll('Keyword');
-                        for (var ki = 0; ki < kwEls.length; ki++) {
-                            var t = (kwEls[ki].textContent || '').trim();
-                            if (t) keywords.push(t);
-                        }
-                    }
-                }
-
-                // Parse layers
-                const capabilityEl = childByTag(root, 'Capability');
-                const rootLayerEl = capabilityEl ? childByTag(capabilityEl, 'Layer') : null;
-
-                var layerTree = { name: '', title: '', abstract: '', depth: 0, children: [] };
-                if (rootLayerEl) {
-                    layerTree = parseLayerTree(rootLayerEl);
-                }
-                var flatLayers = flattenTree(layerTree);
-
-                // Collect CRS from root layer (authoritative list)
-                var crsSet = new Set();
-                if (rootLayerEl) {
-                    collectCrs(rootLayerEl, crsTag, crsSet);
-                }
-
-                var allCrs = Array.from(crsSet).sort(function(a, b) {
-                    var p = function(c) {
-                        if (c === 'EPSG:4326') return 0;
-                        if (c === 'CRS:84') return 1;
-                        if (c === 'EPSG:3857') return 2;
-                        return 3;
-                    };
-                    return p(a) - p(b) || a.localeCompare(b);
-                });
-
-                var has4326 = crsSet.has('EPSG:4326');
-                var hasCRS84 = crsSet.has('CRS:84');
-
-                renderResults({
-                    version: version, wmsLabel: wmsLabel, rootTag: rootTag,
-                    serviceTitle: serviceTitle, serviceAbstract: serviceAbstract, keywords: keywords,
-                    layerTree: layerTree, flatLayers: flatLayers,
-                    allCrs: allCrs, has4326: has4326, hasCRS84: hasCRS84,
-                    isV13: isV13, rawXml: rawXml
-                });
-
-            } catch (err) {
-                var html = '<i class="fas fa-exclamation-triangle"></i>' + esc(err.message);
-                html += '<br><br><small>If all proxies fail, try opening this URL directly in a new tab and paste the XML here:<br>';
-                html += '<code>' + esc(buildCapUrl(baseUrl)) + '</code></small>';
-                errorArea.innerHTML = html;
-                errorArea.classList.remove('hidden');
-            } finally {
-                loadingArea.classList.add('hidden');
-                decodeBtn.disabled = false;
-            }
-        }
-
-        /* ===== Render results ===== */
-        function renderResults(data) {
-            var area = document.getElementById('resultsArea');
-            var version = data.version, wmsLabel = data.wmsLabel;
-            var serviceTitle = data.serviceTitle, serviceAbstract = data.serviceAbstract;
-            var keywords = data.keywords, layerTree = data.layerTree, flatLayers = data.flatLayers;
-            var allCrs = data.allCrs, has4326 = data.has4326, hasCRS84 = data.hasCRS84;
-            var isV13 = data.isV13, rawXml = data.rawXml;
-
-            var html = '';
-
-            // Service info
-            if (serviceTitle || serviceAbstract || keywords.length) {
-                html += '<div class="service-info">';
-                if (serviceTitle) html += '<div class="service-title">' + esc(serviceTitle) + '</div>';
-                if (serviceAbstract) html += '<div class="service-abstract">' + esc(serviceAbstract) + '</div>';
-                if (keywords.length) {
-                    html += '<div class="service-keywords">';
-                    var kwShow = keywords.slice(0, 20);
-                    for (var k = 0; k < kwShow.length; k++) {
-                        html += '<span class="keyword-tag">' + esc(kwShow[k]) + '</span>';
-                    }
-                    if (keywords.length > 20) html += '<span class="keyword-tag">+' + (keywords.length - 20) + ' more</span>';
-                    html += '</div>';
-                }
-                html += '</div>';
-            }
-
-            // Stat cards
-            html += '<div class="stat-grid">';
-            html += '<div class="stat-card"><div class="stat-value version">' + esc(version) + '</div><div class="stat-label">' + esc(wmsLabel) + '</div></div>';
-            html += '<div class="stat-card"><div class="stat-value count">' + flatLayers.length + '</div><div class="stat-label">Layers</div></div>';
-            html += '<div class="stat-card"><div class="stat-value ' + (has4326 ? 'yes' : 'no') + '">' + (has4326 ? '<i class="fas fa-check-circle"></i> Yes' : '<i class="fas fa-times-circle"></i> No') + '</div><div class="stat-label">EPSG:4326</div></div>';
-            html += '<div class="stat-card"><div class="stat-value ' + (hasCRS84 ? 'yes' : 'no') + '">' + (hasCRS84 ? '<i class="fas fa-check-circle"></i> Yes' : '<i class="fas fa-times-circle"></i> No') + '</div><div class="stat-label">CRS:84</div></div>';
-            html += '</div>';
-
-            // CRS explanation
-            if (isV13) {
-                html += '<div class="crs-note"><strong>WMS 1.3.0 axis order matters:</strong> <code>EPSG:4326</code> uses <strong>latitude-first</strong> axis order (lat, lon), while <code>CRS:84</code> uses <strong>longitude-first</strong> (lon, lat) — same datum, different axis order. If your client sends coordinates in lon/lat order, use <code>CRS:84</code> to avoid swapped axes. In WMS 1.1.1, <code>EPSG:4326</code> is always treated as lon/lat.</div>';
+        try {
+            if (useProxy) {
+                const prefix = getProxyPrefix();
+                if (!prefix) throw new Error('No proxy URL configured. Select a proxy or enter a custom one.');
+                const proxyUrl = prefix + encodeURIComponent(capUrl);
+                loadingMsg.textContent = 'Fetching via CORS proxy...';
+                const resp = await fetchWithTimeout(proxyUrl, 25000);
+                if (!resp.ok) throw new Error(`Proxy returned HTTP ${resp.status}`);
+                rawXml = await resp.text();
             } else {
-                html += '<div class="crs-note"><strong>WMS 1.1.1 axis order:</strong> In version 1.1.1, <code>EPSG:4326</code> is conventionally interpreted as <strong>longitude-first</strong> (lon, lat), regardless of the official EPSG definition. The <code>CRS:84</code> identifier was introduced in WMS 1.3.0 to explicitly declare lon/lat order without ambiguity.</div>';
+                loadingMsg.textContent = 'Fetching directly (no proxy)...';
+                const resp = await fetchWithTimeout(capUrl, 15000);
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+                rawXml = await resp.text();
             }
 
-            // Layer names
-            html += '<div class="section"><div class="section-head"><h2><i class="fas fa-list"></i> Layer Names</h2><div class="section-actions"><input type="text" class="search-input" id="layerSearch" placeholder="Filter layers..." aria-label="Filter layers"><button class="btn-sm" id="copyAllBtn"><i class="fas fa-copy"></i> Copy All</button></div></div>';
-            html += '<div class="layer-count-bar" id="layerCountBar">Showing ' + flatLayers.length + ' layers</div>';
-            html += '<div class="layer-list" id="layerList">';
-            for (var i = 0; i < flatLayers.length; i++) {
-                html += '<div class="layer-item" data-name="' + esc(flatLayers[i].name) + '" title="Click to copy"><span class="idx">' + (i + 1) + '</span><span class="name">' + esc(flatLayers[i].name) + '</span><span class="copy-hint"><i class="fas fa-clipboard"></i></span></div>';
+            // Validate XML
+            const trimmed = rawXml.trim();
+            if (!trimmed.startsWith('<')) {
+                throw new Error(
+                    'Server did not return XML. It may be returning an HTML error page, or the URL is incorrect.<br><br>' +
+                    'Try toggling the CORS proxy, or test this URL directly in your browser:<br>' +
+                    `<code>${escapeHtml(capUrl)}</code>`
+                );
             }
-            html += '</div></div>';
 
-            // Layer tree
-            html += '<div class="section"><div class="section-head"><h2><i class="fas fa-sitemap"></i> Layer Tree</h2><div class="section-actions"><button class="btn-sm" id="expandAllBtn"><i class="fas fa-expand-alt"></i> Expand</button><button class="btn-sm" id="collapseAllBtn"><i class="fas fa-compress-alt"></i> Collapse</button></div></div>';
-            html += '<div class="layer-tree" id="layerTree"></div></div>';
+            const parser = new DOMParser();
+            const xml = parser.parseFromString(rawXml, 'text/xml');
 
-            // CRS list
-            html += '<div class="section"><div class="section-head"><h2><i class="fas fa-globe"></i> Supported ' + (isV13 ? 'CRS' : 'SRS') + '</h2><div class="section-actions"><button class="btn-sm" id="copyCrsBtn"><i class="fas fa-copy"></i> Copy All</button></div></div>';
-            html += '<div class="crs-list">';
-            for (var ci = 0; ci < allCrs.length; ci++) {
-                var crs = allCrs[ci];
-                var hl = (crs === 'EPSG:4326' || crs === 'CRS:84');
-                var desc = CRS_INFO[crs] || '';
-                html += '<div class="crs-item"><span class="crs-badge ' + (hl ? 'highlight' : 'normal') + '">' + esc(crs) + '</span>' + (desc ? '<span class="crs-desc">' + esc(desc) + '</span>' : '') + '</div>';
+            if (xml.querySelector('parsererror')) {
+                throw new Error('Failed to parse XML response — the document may be malformed.');
             }
-            html += '</div></div>';
 
-            // Raw XML
-            var truncated = rawXml.length > 80000;
-            var displayXml = truncated ? rawXml.substring(0, 80000) + '\n\n... (truncated)' : rawXml;
-            var sizeLabel = (rawXml.length / 1024).toFixed(rawXml.length > 10240 ? 0 : 1) + ' KB';
-            html += '<div class="section"><div class="section-head"><h2><i class="fas fa-code"></i> Raw GetCapabilities XML</h2><div class="section-actions">' + (truncated ? '<span style="font-size:11px;color:var(--text-muted);margin-right:6px">Truncated — ' + sizeLabel + ' total</span>' : '<span style="font-size:11px;color:var(--text-muted);margin-right:6px">' + sizeLabel + '</span>') + '<button class="btn-sm" id="toggleRawBtn"><i class="fas fa-chevron-down"></i> Show</button></div></div>';
-            html += '<pre class="raw-xml hidden" id="rawXml">' + esc(displayXml) + '</pre></div>';
-
-            area.innerHTML = html;
-            area.classList.remove('hidden');
-
-            // Wire up layer search
-            var searchInput = document.getElementById('layerSearch');
-            var layerList = document.getElementById('layerList');
-            var countBar = document.getElementById('layerCountBar');
-            searchInput.addEventListener('input', function() {
-                var q = searchInput.value.toLowerCase();
-                var vis = 0;
-                var items = layerList.querySelectorAll('.layer-item');
-                for (var j = 0; j < items.length; j++) {
-                    var match = items[j].getAttribute('data-name').toLowerCase().indexOf(q) !== -1;
-                    items[j].style.display = match ? '' : 'none';
-                    if (match) vis++;
+            // Check for OGC Service Exception
+            const excText = childText(xml.documentElement, 'ServiceException');
+            if (excText) {
+                let hint = '';
+                if (excText.toLowerCase().includes('map') || excText.toLowerCase().includes('mapfile')) {
+                    hint = '<br><br><strong>This looks like a MapServer.</strong> It may need an additional <code>map=</code> parameter in the URL (e.g. <code>?map=wmscastore</code>).';
                 }
-                countBar.textContent = 'Showing ' + vis + ' of ' + flatLayers.length + ' layers';
-            });
-
-            // Copy single layer
-            var layerItems = layerList.querySelectorAll('.layer-item');
-            for (var li = 0; li < layerItems.length; li++) {
-                (function(item) {
-                    item.addEventListener('click', function() {
-                        navigator.clipboard.writeText(item.getAttribute('data-name')).then(function() {
-                            toast('Copied: ' + item.getAttribute('data-name'), 'success');
-                        }).catch(function() { toast('Copy failed', 'error'); });
-                    });
-                })(layerItems[li]);
+                throw new Error(`WMS Service Exception: ${escapeHtml(excText)}${hint}`);
             }
 
-            // Copy all layers
-            document.getElementById('copyAllBtn').addEventListener('click', function() {
-                var names = flatLayers.map(function(l) { return l.name; }).join(',');
-                navigator.clipboard.writeText(names).then(function() {
-                    toast('Copied ' + flatLayers.length + ' layer names', 'success');
-                }).catch(function() { toast('Copy failed', 'error'); });
+            /* --- Parse --- */
+            const root = xml.documentElement;
+            const version = root.getAttribute('version') || 'unknown';
+            const rootTag = localName(root);
+
+            // Determine WMS type from root tag
+            let wmsLabel = 'Unknown';
+            if (rootTag === 'WMT_MS_Capabilities') wmsLabel = 'WMS 1.1.1';
+            else if (rootTag === 'WMS_Capabilities') wmsLabel = 'WMS 1.3.0';
+
+            const isV13 = version.startsWith('1.3');
+            const crsTagName = isV13 ? 'CRS' : 'SRS';
+
+            // Service metadata
+            const serviceEl = firstChild(root, 'Service');
+            const serviceTitle = serviceEl ? childText(serviceEl, 'Title') : '';
+            const serviceAbstract = serviceEl ? childText(serviceEl, 'Abstract') : '';
+            const keywords = [];
+            if (serviceEl) {
+                const kwRoot = firstChild(serviceEl, 'KeywordList');
+                if (kwRoot) {
+                    findAllRecursive(kwRoot, 'Keyword').forEach(kw => {
+                        const t = kw.textContent.trim();
+                        if (t) keywords.push(t);
+                    });
+                }
+            }
+
+            // Capability > Layer
+            const capEl = firstChild(root, 'Capability');
+            const rootLayerEl = capEl ? firstChild(capEl, 'Layer') : null;
+
+            if (!rootLayerEl) {
+                throw new Error(
+                    'No &lt;Layer&gt; element found under &lt;Capability&gt;. The service may require additional parameters ' +
+                    '(e.g. <code>map=</code> for MapServer, or <code>layers=</code> for some ArcGIS services).<br><br>' +
+                    'Test URL: <code>' + escapeHtml(capUrl) + '</code>'
+                );
+            }
+
+            const layerTree = parseLayerTree(rootLayerEl, 0, crsTagName);
+
+            // Collect ALL CRS values from entire Capability tree (recursive)
+            const crsSet = new Set();
+            if (capEl) {
+                findAllRecursive(capEl, crsTagName).forEach(el => {
+                    el.textContent.trim().split(/\s+/).filter(Boolean).forEach(c => crsSet.add(c));
+                });
+            }
+
+            const allCrs = Array.from(crsSet).sort((a, b) => {
+                const p = c => c === 'EPSG:4326' ? 0 : c === 'CRS:84' ? 1 : c === 'EPSG:3857' ? 2 : 3;
+                return p(a) - p(b) || a.localeCompare(b);
             });
 
-            // Copy CRS
-            document.getElementById('copyCrsBtn').addEventListener('click', function() {
-                navigator.clipboard.writeText(allCrs.join(', ')).then(function() {
-                    toast('Copied ' + allCrs.length + ' CRS values', 'success');
-                }).catch(function() { toast('Copy failed', 'error'); });
+            const has4326 = crsSet.has('EPSG:4326');
+            const hasCRS84 = crsSet.has('CRS:84');
+
+            renderResults({
+                version, wmsLabel, rootTag,
+                serviceTitle, serviceAbstract, keywords,
+                layerTree, allCrs, has4326, hasCRS84,
+                isV13, rawXml
             });
 
-            // Build tree
-            buildTreeDOM(layerTree, document.getElementById('layerTree'));
+        } catch (err) {
+            let msg = err.message || 'Unknown error';
+            if (err.name === 'AbortError') {
+                msg = 'Request timed out. The server may be slow or unreachable. Try a different CORS proxy.';
+            } else if (msg.includes('Failed to fetch') || msg.includes('NetworkError') || msg.includes('Load failed')) {
+                msg = 'Network error — could not reach the server.<br><br>' +
+                    'Possible causes: CORS restriction, server down, or invalid URL.<br>' +
+                    'Try toggling the CORS proxy or switching proxy services.<br><br>' +
+                    'Direct URL to test in browser:<br><code>' + escapeHtml(capUrl) + '</code>';
+            }
+            errorArea.innerHTML = `<i class="fas fa-exclamation-triangle"></i>${msg}`;
+            errorArea.classList.remove('hidden');
+        } finally {
+            loadingArea.classList.add('hidden');
+            decodeBtn.disabled = false;
+        }
+    }
 
-            // Expand / Collapse
-            document.getElementById('expandAllBtn').addEventListener('click', function() {
-                var els = document.querySelectorAll('#layerTree .tree-children');
-                for (var e = 0; e < els.length; e++) els[e].classList.remove('collapsed');
-                var toggles = document.querySelectorAll('#layerTree .tree-toggle');
-                for (var f = 0; f < toggles.length; f++) toggles[f].classList.remove('collapsed');
-            });
-            document.getElementById('collapseAllBtn').addEventListener('click', function() {
-                var els = document.querySelectorAll('#layerTree .tree-children');
-                for (var e = 0; e < els.length; e++) els[e].classList.add('collapsed');
-                var toggles = document.querySelectorAll('#layerTree .tree-toggle:not(.hidden-toggle)');
-                for (var f = 0; f < toggles.length; f++) toggles[f].classList.add('collapsed');
-            });
+    /* ====================================================================
+       ESCAPE HTML
+    ==================================================================== */
+    function escapeHtml(str) {
+        const d = document.createElement('div');
+        d.textContent = str;
+        return d.innerHTML;
+    }
 
-            // Toggle raw XML
-            document.getElementById('toggleRawBtn').addEventListener('click', function() {
-                var pre = document.getElementById('rawXml');
-                var btn = document.getElementById('toggleRawBtn');
-                var isHidden = pre.classList.contains('hidden');
-                pre.classList.toggle('hidden');
-                btn.innerHTML = isHidden ? '<i class="fas fa-chevron-up"></i> Hide' : '<i class="fas fa-chevron-down"></i> Show';
-            });
+    /* ====================================================================
+       RENDER RESULTS
+    ==================================================================== */
+    function renderResults(data) {
+        const area = document.getElementById('resultsArea');
+        const { version, wmsLabel, serviceTitle, serviceAbstract, keywords,
+                layerTree, allCrs, has4326, hasCRS84, isV13, rawXml } = data;
+
+        // Compute flat layer lists
+        const leafLayers = flattenTree(layerTree, [], true);
+        const allNamedLayers = flattenTree(layerTree, [], false);
+        let displayLayers = leafLayers; // default: leaves only
+
+        let html = '';
+
+        // Service info
+        if (serviceTitle || serviceAbstract || keywords.length) {
+            html += `<div class="service-info">`;
+            if (serviceTitle) html += `<div class="service-title">${escapeHtml(serviceTitle)}</div>`;
+            if (serviceAbstract) html += `<div class="service-abstract">${escapeHtml(serviceAbstract)}</div>`;
+            if (keywords.length) {
+                html += `<div class="service-keywords">`;
+                keywords.slice(0, 25).forEach(kw => {
+                    html += `<span class="keyword-tag">${escapeHtml(kw)}</span>`;
+                });
+                if (keywords.length > 25) html += `<span class="keyword-tag">+${keywords.length - 25} more</span>`;
+                html += `</div>`;
+            }
+            html += `</div>`;
         }
 
-        /* ===== Build tree DOM ===== */
-        function buildTreeDOM(node, container) {
-            var hasChildren = node.children && node.children.length > 0;
-            var isLeaf = !!node.name;
-            var isFolder = !isLeaf && hasChildren;
+        // Stat cards
+        html += `<div class="stat-grid">
+            <div class="stat-card">
+                <div class="stat-value version">${escapeHtml(version)}</div>
+                <div class="stat-label">${escapeHtml(wmsLabel)}</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value count">${leafLayers.length}</div>
+                <div class="stat-label">Leaf Layers</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value ${has4326 ? 'yes' : 'no'}">${has4326 ? '<i class="fas fa-check-circle"></i> Yes' : '<i class="fas fa-times-circle"></i> No'}</div>
+                <div class="stat-label">EPSG:4326</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value ${hasCRS84 ? 'yes' : 'no'}">${hasCRS84 ? '<i class="fas fa-check-circle"></i> Yes' : '<i class="fas fa-times-circle"></i> No'}</div>
+                <div class="stat-label">CRS:84</div>
+            </div>
+        </div>`;
 
-            var row = document.createElement('div');
-            row.className = 'tree-row';
-
-            var toggle = document.createElement('span');
-            toggle.className = 'tree-toggle' + ((hasChildren || isFolder) ? '' : ' hidden-toggle');
-            if (hasChildren) toggle.textContent = '\u25BC';
-            row.appendChild(toggle);
-
-            var icon = document.createElement('span');
-            icon.className = 'tree-icon ' + (isLeaf ? 'leaf' : 'folder');
-            icon.innerHTML = isLeaf ? '<i class="fas fa-layer-group"></i>' : '<i class="fas fa-folder"></i>';
-            row.appendChild(icon);
-
-            var nameSpan = document.createElement('span');
-            nameSpan.className = 'tree-name' + (isFolder ? ' folder-name' : '');
-            nameSpan.textContent = isLeaf ? node.name : (node.title || node.name || 'Root');
-            nameSpan.title = isLeaf ? node.name : (node.title || '');
-            row.appendChild(nameSpan);
-
-            if (isLeaf) {
-                row.style.cursor = 'pointer';
-                row.title = 'Click to copy layer name';
-                row.addEventListener('click', function() {
-                    navigator.clipboard.writeText(node.name).then(function() {
-                        toast('Copied: ' + node.name, 'success');
-                    });
-                });
-            }
-
-            container.appendChild(row);
-
-            if (hasChildren) {
-                var childContainer = document.createElement('div');
-                childContainer.className = 'tree-children';
-
-                toggle.style.cursor = 'pointer';
-                toggle.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    childContainer.classList.toggle('collapsed');
-                    toggle.classList.toggle('collapsed');
-                });
-
-                row.addEventListener('click', function(e) {
-                    if (e.target.closest('.tree-name.leaf')) return;
-                    childContainer.classList.toggle('collapsed');
-                    toggle.classList.toggle('collapsed');
-                });
-
-                for (var i = 0; i < node.children.length; i++) {
-                    buildTreeDOM(node.children[i], childContainer);
-                }
-                container.appendChild(childContainer);
-            }
+        // CRS axis-order explanation
+        if (isV13) {
+            html += `<div class="info-box">
+                <strong>WMS 1.3.0 axis order matters:</strong>
+                <code>EPSG:4326</code> uses <strong>latitude-first</strong> axis order (lat, lon) per the EPSG spec,
+                while <code>CRS:84</code> uses <strong>longitude-first</strong> (lon, lat) — same datum, different axis order.
+                If your client sends coordinates in lon/lat order, use <code>CRS:84</code> to avoid swapped axes.
+            </div>`;
+        } else {
+            html += `<div class="info-box">
+                <strong>WMS 1.1.1 axis order:</strong>
+                In version 1.1.1, <code>EPSG:4326</code> is conventionally interpreted as <strong>longitude-first</strong> (lon, lat),
+                regardless of the official EPSG definition. The <code>CRS:84</code> identifier was introduced in WMS 1.3.0
+                to explicitly declare lon/lat order without ambiguity.
+            </div>`;
         }
 
-        /* ===== Events ===== */
-        document.getElementById('decodeBtn').addEventListener('click', decodeWMS);
-        document.getElementById('wmsUrl').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') decodeWMS();
+        // Version negotiation note
+        html += `<div class="warn-box">
+            <strong>Version negotiation:</strong>
+            GetCapabilities only reports the <em>highest</em> supported version. Most WMS servers also accept
+            older versions (e.g. <code>VERSION=1.1.1</code> even when capabilities say 1.3.0).
+            You can test both by changing the VERSION parameter in your GetMap requests.
+        </div>`;
+
+        // Group layers count info
+        if (allNamedLayers.length !== leafLayers.length) {
+            const groupCount = allNamedLayers.length - leafLayers.length;
+            html += `<div class="warn-box">
+                <strong>${groupCount} group layer(s) hidden.</strong>
+                These are layers that contain sub-layers. ArcGIS services often have a root group called "Layers".
+                Toggle "Show groups" below to include them.
+            </div>`;
+        }
+
+        // === Layer Names Section ===
+        html += `<div class="section">
+            <div class="section-head">
+                <h2><i class="fas fa-list"></i> Layer Names</h2>
+                <div class="section-actions">
+                    <label class="chk-label">
+                        <input type="checkbox" id="showGroupsChk">
+                        Show groups
+                    </label>
+                    <input type="text" class="search-input" id="layerSearch" placeholder="Filter layers..." aria-label="Filter layers">
+                    <button class="btn-sm" id="copyAllBtn"><i class="fas fa-copy"></i> Copy All</button>
+                </div>
+            </div>
+            <div class="layer-count-bar" id="layerCountBar">Showing ${leafLayers.length} layers</div>
+            <div class="layer-list" id="layerList">`;
+        leafLayers.forEach((layer, i) => {
+            html += layerItemHtml(layer, i);
         });
+        html += `</div></div>`;
+
+        // === Layer Tree Section ===
+        html += `<div class="section">
+            <div class="section-head">
+                <h2><i class="fas fa-sitemap"></i> Layer Tree</h2>
+                <div class="section-actions">
+                    <button class="btn-sm" id="expandAllBtn"><i class="fas fa-expand-alt"></i> Expand</button>
+                    <button class="btn-sm" id="collapseAllBtn"><i class="fas fa-compress-alt"></i> Collapse</button>
+                </div>
+            </div>
+            <div class="layer-tree" id="layerTree"></div>
+        </div>`;
+
+        // === CRS Section ===
+        html += `<div class="section">
+            <div class="section-head">
+                <h2><i class="fas fa-globe"></i> Supported ${isV13 ? 'CRS' : 'SRS'}</h2>
+                <div class="section-actions">
+                    <span style="font-size:11px;color:var(--text-muted)">${allCrs.length} found</span>
+                    <button class="btn-sm" id="copyCrsBtn"><i class="fas fa-copy"></i> Copy All</button>
+                </div>
+            </div>
+            <div class="crs-list">`;
+        allCrs.forEach(crs => {
+            const hl = crs === 'EPSG:4326' || crs === 'CRS:84';
+            const desc = CRS_INFO[crs] || '';
+            html += `<div class="crs-item">
+                <span class="crs-badge ${hl ? 'highlight' : 'normal'}">${escapeHtml(crs)}</span>
+                ${desc ? `<span class="crs-desc">${escapeHtml(desc)}</span>` : ''}
+            </div>`;
+        });
+        html += `</div></div>`;
+
+        // === Raw XML Section ===
+        const truncated = rawXml.length > 80000;
+        const displayXml = truncated ? rawXml.substring(0, 80000) + '\n\n... (truncated)' : rawXml;
+        html += `<div class="section">
+            <div class="section-head">
+                <h2><i class="fas fa-code"></i> Raw XML</h2>
+                <div class="section-actions">
+                    <span style="font-size:11px;color:var(--text-muted)">${(rawXml.length / 1024).toFixed(1)} KB${truncated ? ' (truncated)' : ''}</span>
+                    <button class="btn-sm" id="toggleRawBtn"><i class="fas fa-chevron-down"></i> Show</button>
+                </div>
+            </div>
+            <pre class="raw-xml hidden" id="rawXml">${escapeHtml(displayXml)}</pre>
+        </div>`;
+
+        area.innerHTML = html;
+        area.classList.remove('hidden');
+
+        // --- Post-render event wiring ---
+
+        // Show groups toggle
+        const showGroupsChk = document.getElementById('showGroupsChk');
+        showGroupsChk.addEventListener('change', () => {
+            displayLayers = showGroupsChk.checked ? allNamedLayers : leafLayers;
+            renderLayerList(displayLayers);
+        });
+
+        // Search
+        const searchInput = document.getElementById('layerSearch');
+        searchInput.addEventListener('input', () => renderLayerList(displayLayers, searchInput.value));
+
+        // Copy all layers
+        document.getElementById('copyAllBtn').addEventListener('click', () => {
+            const names = displayLayers.map(l => l.name).join(',');
+            navigator.clipboard.writeText(names)
+                .then(() => toast(`Copied ${displayLayers.length} layer names`, 'success'))
+                .catch(() => toast('Copy failed', 'error'));
+        });
+
+        // Copy all CRS
+        document.getElementById('copyCrsBtn').addEventListener('click', () => {
+            navigator.clipboard.writeText(allCrs.join(', '))
+                .then(() => toast(`Copied ${allCrs.length} CRS values`, 'success'))
+                .catch(() => toast('Copy failed', 'error'));
+        });
+
+        // Layer tree
+        buildTreeDOM(layerTree, document.getElementById('layerTree'));
+
+        // Expand / Collapse
+        document.getElementById('expandAllBtn').addEventListener('click', () => {
+            document.querySelectorAll('#layerTree .tree-children').forEach(el => el.classList.remove('collapsed'));
+            document.querySelectorAll('#layerTree .tree-toggle').forEach(el => el.classList.remove('collapsed'));
+        });
+        document.getElementById('collapseAllBtn').addEventListener('click', () => {
+            document.querySelectorAll('#layerTree .tree-children').forEach(el => el.classList.add('collapsed'));
+            document.querySelectorAll('#layerTree .tree-toggle:not(.hidden-toggle)').forEach(el => el.classList.add('collapsed'));
+        });
+
+        // Toggle raw XML
+        document.getElementById('toggleRawBtn').addEventListener('click', () => {
+            const pre = document.getElementById('rawXml');
+            const btn = document.getElementById('toggleRawBtn');
+            const show = pre.classList.toggle('hidden');
+            btn.innerHTML = show
+                ? '<i class="fas fa-chevron-down"></i> Show'
+                : '<i class="fas fa-chevron-up"></i> Hide';
+        });
+    }
+
+    /* ====================================================================
+       RENDER LAYER LIST (dynamic, for search + toggle)
+    ==================================================================== */
+    function layerItemHtml(layer, i) {
+        return `<div class="layer-item" data-name="${escapeHtml(layer.name)}" title="Click to copy">
+            <span class="idx">${i + 1}</span>
+            <span class="name">${escapeHtml(layer.name)}</span>
+            ${layer.isGroup ? '<span class="group-badge">group</span>' : ''}
+            <span class="copy-hint"><i class="fas fa-clipboard"></i></span>
+        </div>`;
+    }
+
+    function renderLayerList(layers, filter = '') {
+        const list = document.getElementById('layerList');
+        const bar = document.getElementById('layerCountBar');
+        const q = filter.toLowerCase();
+        let html = '';
+        let count = 0;
+        layers.forEach((layer, i) => {
+            if (layer.name.toLowerCase().includes(q)) {
+                html += layerItemHtml(layer, count);
+                count++;
+            }
+        });
+        if (!html) html = '<div class="layer-empty">No layers match your filter</div>';
+        list.innerHTML = html;
+        bar.textContent = q
+            ? `Showing ${count} of ${layers.length} layers`
+            : `Showing ${layers.length} layers`;
+
+        // Wire click-to-copy on new items
+        list.querySelectorAll('.layer-item').forEach(item => {
+            item.addEventListener('click', () => {
+                navigator.clipboard.writeText(item.dataset.name)
+                    .then(() => toast(`Copied: ${item.dataset.name}`, 'success'))
+                    .catch(() => toast('Copy failed', 'error'));
+            });
+        });
+    }
+
+    /* ====================================================================
+       BUILD LAYER TREE DOM
+    ==================================================================== */
+    function buildTreeDOM(node, container) {
+        const hasChildren = node.children.length > 0;
+        const isLeaf = !!node.name && !hasChildren;
+
+        const row = document.createElement('div');
+        row.className = 'tree-row';
+
+        // Toggle arrow
+        const toggle = document.createElement('span');
+        toggle.className = 'tree-toggle' + (hasChildren ? '' : ' hidden-toggle');
+        if (hasChildren) toggle.textContent = '\u25BC';
+        row.appendChild(toggle);
+
+        // Icon
+        const icon = document.createElement('span');
+        icon.className = 'tree-icon ' + (isLeaf ? 'leaf' : 'folder');
+        icon.innerHTML = isLeaf
+            ? '<i class="fas fa-layer-group"></i>'
+            : '<i class="fas fa-folder"></i>';
+        row.appendChild(icon);
+
+        // Name/title
+        const nameSpan = document.createElement('span');
+        nameSpan.className = 'tree-name' + (!isLeaf ? ' folder-name' : '');
+        nameSpan.textContent = node.name || node.title || '(unnamed)';
+        nameSpan.title = node.name || node.title || '';
+        row.appendChild(nameSpan);
+
+        container.appendChild(row);
+
+        // Children
+        if (hasChildren) {
+            const childContainer = document.createElement('div');
+            childContainer.className = 'tree-children';
+
+            const toggleClick = (e) => {
+                e.stopPropagation();
+                childContainer.classList.toggle('collapsed');
+                toggle.classList.toggle('collapsed');
+            };
+            toggle.style.cursor = 'pointer';
+            toggle.addEventListener('click', toggleClick);
+            row.addEventListener('click', (e) => {
+                if (e.target.closest('.tree-name:not(.folder-name)')) return;
+                childContainer.classList.toggle('collapsed');
+                toggle.classList.toggle('collapsed');
+            });
+
+            node.children.forEach(c => buildTreeDOM(c, childContainer));
+            container.appendChild(childContainer);
+        } else if (node.name) {
+            // Leaf — click to copy
+            row.style.cursor = 'pointer';
+            row.title = 'Click to copy: ' + node.name;
+            row.addEventListener('click', () => {
+                navigator.clipboard.writeText(node.name)
+                    .then(() => toast(`Copied: ${node.name}`, 'success'))
+                    .catch(() => toast('Copy failed', 'error'));
+            });
+        }
+    }
+
+    /* ====================================================================
+       EVENT LISTENERS
+    ==================================================================== */
+    document.getElementById('decodeBtn').addEventListener('click', decodeWMS);
+    document.getElementById('wmsUrl').addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') decodeWMS();
+    });
     </script>
 </body>
 </html>
