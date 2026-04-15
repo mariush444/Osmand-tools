@@ -28,9 +28,7 @@
             --sans: 'DM Sans', sans-serif;
             --radius: 10px;
         }
-
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
         body {
             font-family: var(--sans);
             background: var(--bg);
@@ -39,8 +37,6 @@
             line-height: 1.6;
             overflow-x: hidden;
         }
-
-        /* Background effects */
         .bg-grid {
             position: fixed; inset: 0; z-index: 0; pointer-events: none;
             background-image: radial-gradient(circle, rgba(0,229,176,0.04) 1px, transparent 1px);
@@ -64,19 +60,13 @@
             50% { transform: translate(60px, 40px) scale(1.1); }
             100% { transform: translate(-30px, 70px) scale(0.95); }
         }
-
-        /* Layout */
         .container {
             position: relative; z-index: 1;
             max-width: 1080px; margin: 0 auto;
             padding: 48px 24px 80px;
         }
-
-        /* Header */
         header { margin-bottom: 36px; }
-        .logo {
-            display: flex; align-items: center; gap: 14px; margin-bottom: 8px;
-        }
+        .logo { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
         .logo-icon {
             width: 44px; height: 44px; border-radius: 12px;
             background: linear-gradient(135deg, var(--accent), #00b894);
@@ -90,26 +80,16 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .subtitle {
-            color: var(--text-muted); font-size: 15px; margin-left: 58px; margin-top: -4px;
-        }
-
-        /* Input section */
+        .subtitle { color: var(--text-muted); font-size: 15px; margin-left: 58px; margin-top: -4px; }
         .input-section {
-            background: var(--card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 20px;
-            margin-bottom: 32px;
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 20px; margin-bottom: 32px;
         }
-        .url-row {
-            display: flex; gap: 10px; margin-bottom: 14px;
-        }
+        .url-row { display: flex; gap: 10px; margin-bottom: 14px; }
         .url-wrap {
             flex: 1; display: flex; align-items: center;
             background: var(--bg2); border: 1px solid var(--border);
-            border-radius: 8px; padding: 0 14px;
-            transition: border-color 0.2s;
+            border-radius: 8px; padding: 0 14px; transition: border-color 0.2s;
         }
         .url-wrap:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
         .url-wrap i { color: var(--text-muted); font-size: 14px; margin-right: 10px; flex-shrink: 0; }
@@ -119,7 +99,6 @@
             padding: 12px 0; min-width: 0;
         }
         .url-wrap input::placeholder { color: var(--text-muted); }
-
         .decode-btn {
             display: flex; align-items: center; gap: 8px;
             padding: 0 24px; border: none; border-radius: 8px;
@@ -132,40 +111,27 @@
         .decode-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 24px rgba(0,229,176,0.35); }
         .decode-btn:active { transform: translateY(0); }
         .decode-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
-
         .proxy-row {
-            display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-dim);
+            display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--text-dim); flex-wrap: wrap;
         }
-        .toggle {
-            position: relative; width: 38px; height: 22px; flex-shrink: 0;
+        .proxy-select {
+            background: var(--bg2); border: 1px solid var(--border);
+            border-radius: 6px; padding: 5px 10px; font-size: 12px;
+            color: var(--text); font-family: var(--mono); outline: none;
+            cursor: pointer;
         }
-        .toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
-        .toggle-track {
-            position: absolute; inset: 0; border-radius: 11px;
-            background: var(--border); cursor: pointer;
-            transition: background 0.2s;
-        }
-        .toggle-track::after {
-            content: ''; position: absolute; left: 3px; top: 3px;
-            width: 16px; height: 16px; border-radius: 50%;
-            background: var(--text-muted); transition: transform 0.2s, background 0.2s;
-        }
-        .toggle input:checked + .toggle-track { background: var(--accent-mid); }
-        .toggle input:checked + .toggle-track::after { transform: translateX(16px); background: var(--accent); }
-        .proxy-row small { color: var(--text-muted); }
-
-        /* Loading */
-        .loading {
-            text-align: center; padding: 60px 20px; color: var(--text-dim);
-        }
+        .proxy-select:focus { border-color: var(--accent); }
+        .proxy-status { font-size: 11px; }
+        .proxy-status.trying { color: var(--warning); }
+        .proxy-status.ok { color: var(--success); }
+        .proxy-status.fail { color: var(--danger); }
+        .loading { text-align: center; padding: 60px 20px; color: var(--text-dim); }
         .spinner {
             width: 40px; height: 40px; margin: 0 auto 16px;
             border: 3px solid var(--border); border-top-color: var(--accent);
             border-radius: 50%; animation: spin 0.8s linear infinite;
         }
         @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* Error */
         .error-box {
             background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25);
             border-radius: var(--radius); padding: 20px 24px;
@@ -175,16 +141,13 @@
         .error-box code {
             background: rgba(239,68,68,0.12); padding: 2px 6px; border-radius: 4px;
             font-family: var(--mono); font-size: 12px; color: #fecaca;
+            word-break: break-all;
         }
-
-        /* Results */
         .results { animation: fadeUp 0.4s ease-out; }
         @keyframes fadeUp {
             from { opacity: 0; transform: translateY(16px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
-        /* Service info */
         .service-info {
             background: var(--card); border: 1px solid var(--border);
             border-radius: var(--radius); padding: 20px 24px; margin-bottom: 24px;
@@ -197,16 +160,11 @@
             background: var(--accent-dim); color: var(--accent);
             border: 1px solid rgba(0,229,176,0.15);
         }
-
-        /* Stat cards */
-        .stat-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
-            margin-bottom: 24px;
-        }
+        .stat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 24px; }
         .stat-card {
             background: var(--card); border: 1px solid var(--border);
-            border-radius: var(--radius); padding: 20px;
-            text-align: center; transition: border-color 0.2s;
+            border-radius: var(--radius); padding: 20px; text-align: center;
+            transition: border-color 0.2s;
         }
         .stat-card:hover { border-color: var(--border-light); }
         .stat-value {
@@ -215,11 +173,9 @@
         }
         .stat-value.version { color: var(--info); }
         .stat-value.count { color: var(--accent); }
-        .stat-value.yes { color: var(--success); }
-        .stat-value.no { color: var(--danger); }
+        .stat-value.yes { color: var(--success); font-size: 22px; }
+        .stat-value.no { color: var(--danger); font-size: 22px; }
         .stat-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
-
-        /* CRS explanation box */
         .crs-note {
             background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.18);
             border-radius: var(--radius); padding: 18px 22px; margin-bottom: 24px;
@@ -230,8 +186,6 @@
             background: rgba(56,189,248,0.1); padding: 1px 6px; border-radius: 4px;
             font-family: var(--mono); font-size: 12px; color: var(--info);
         }
-
-        /* Section common */
         .section {
             background: var(--card); border: 1px solid var(--border);
             border-radius: var(--radius); margin-bottom: 24px; overflow: hidden;
@@ -261,8 +215,6 @@
             font-family: var(--sans); cursor: pointer; transition: all 0.15s;
         }
         .btn-sm:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
-
-        /* Layer list */
         .layer-list { max-height: 400px; overflow-y: auto; }
         .layer-list::-webkit-scrollbar { width: 6px; }
         .layer-list::-webkit-scrollbar-track { background: transparent; }
@@ -287,15 +239,11 @@
             transition: opacity 0.15s; flex-shrink: 0;
         }
         .layer-item:hover .copy-hint { opacity: 1; }
-        .layer-empty {
-            padding: 30px; text-align: center; color: var(--text-muted); font-size: 13px;
-        }
+        .layer-empty { padding: 30px; text-align: center; color: var(--text-muted); font-size: 13px; }
         .layer-count-bar {
             padding: 8px 22px; background: var(--bg2); font-size: 11px;
             color: var(--text-muted); border-bottom: 1px solid var(--border);
         }
-
-        /* Layer tree */
         .layer-tree { padding: 12px 0; max-height: 500px; overflow-y: auto; }
         .layer-tree::-webkit-scrollbar { width: 6px; }
         .layer-tree::-webkit-scrollbar-track { background: transparent; }
@@ -323,8 +271,6 @@
         .tree-name.folder-name { color: var(--text-dim); font-family: var(--sans); font-weight: 600; font-size: 13px; }
         .tree-children { overflow: hidden; }
         .tree-children.collapsed { display: none; }
-
-        /* CRS list */
         .crs-list { padding: 12px 0; }
         .crs-item {
             display: flex; align-items: center; gap: 10px;
@@ -344,8 +290,6 @@
             border: 1px solid var(--border);
         }
         .crs-desc { font-size: 12px; color: var(--text-muted); }
-
-        /* Raw XML */
         .raw-xml {
             margin: 0; padding: 16px 22px; font-family: var(--mono);
             font-size: 11.5px; line-height: 1.6; color: var(--text-dim);
@@ -355,8 +299,6 @@
         .raw-xml::-webkit-scrollbar { width: 6px; }
         .raw-xml::-webkit-scrollbar-track { background: transparent; }
         .raw-xml::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
-
-        /* Toast */
         #toastBox {
             position: fixed; bottom: 24px; right: 24px; z-index: 9999;
             display: flex; flex-direction: column; gap: 8px; pointer-events: none;
@@ -376,9 +318,7 @@
         .toast-error::before { content: '\f057'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--danger); margin-right: 8px; }
         .toast-info { border-color: rgba(56,189,248,0.3); }
         .toast-info::before { content: '\f05a'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--info); margin-right: 8px; }
-
         .hidden { display: none !important; }
-
         @media (max-width: 700px) {
             .container { padding: 28px 14px 60px; }
             .stat-grid { grid-template-columns: repeat(2, 1fr); }
@@ -387,12 +327,8 @@
             .search-input { width: 140px; }
             .section-head { flex-direction: column; align-items: flex-start; }
         }
-
         @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
+            *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
         }
     </style>
 </head>
@@ -400,7 +336,6 @@
     <div class="bg-grid"></div>
     <div class="bg-blob bg-blob-1"></div>
     <div class="bg-blob bg-blob-2"></div>
-
     <div id="toastBox"></div>
 
     <main class="container">
@@ -424,62 +359,60 @@
                 </button>
             </div>
             <div class="proxy-row">
-                <label class="toggle">
-                    <input type="checkbox" id="useProxy" checked>
-                    <span class="toggle-track"></span>
-                </label>
-                <span>Use CORS proxy <small>(most WMS servers block direct browser requests)</small></span>
+                <span>Proxy:</span>
+                <select class="proxy-select" id="proxySelect" aria-label="CORS proxy selection">
+                    <option value="auto">Auto (try all)</option>
+                    <option value="corsproxy">corsproxy.io</option>
+                    <option value="allorigins">allorigins.win</option>
+                    <option value="codetabs">codetabs.com</option>
+                    <option value="none" selected>No proxy (direct)</option>
+                </select>
+                <span id="proxyStatus" class="proxy-status"></span>
             </div>
         </section>
 
         <div id="loadingArea" class="loading hidden">
             <div class="spinner"></div>
-            <p>Fetching GetCapabilities document...</p>
+            <p id="loadingMsg">Fetching GetCapabilities document...</p>
         </div>
 
         <div id="errorArea" class="error-box hidden"></div>
-
         <div id="resultsArea" class="results hidden"></div>
     </main>
 
     <script>
-        /* ===== DOM helpers for namespaced XML ===== */
+        /* ===== DOM helpers — iterate children by localName ===== */
+        /* This avoids :scope > selectors which break on namespaced XML from DOMParser */
         function localName(el) {
-            return el ? (el.localName || el.baseName || el.tagName) : '';
+            if (!el) return '';
+            return el.localName || el.baseName || el.tagName || '';
         }
 
-        // Query first direct child by local name
-        function qsDirect(parent, tag) {
-            let el = parent.querySelector(`:scope > ${tag}`);
-            if (!el) {
-                const tagLower = tag.toLowerCase();
-                for (const child of parent.children) {
-                    if (localName(child).toLowerCase() === tagLower) return child;
-                }
+        function childByTag(parent, tag) {
+            if (!parent || !parent.children) return null;
+            const lower = tag.toLowerCase();
+            for (const c of parent.children) {
+                if (localName(c).toLowerCase() === lower) return c;
             }
-            return el;
+            return null;
         }
 
-        // Query all direct children by local name
-        function qsaDirect(parent, tag) {
-            let results = parent.querySelectorAll(`:scope > ${tag}`);
-            if (results.length === 0) {
-                const tagLower = tag.toLowerCase();
-                results = [];
-                for (const child of parent.children) {
-                    if (localName(child).toLowerCase() === tagLower) results.push(child);
-                }
+        function childrenByTag(parent, tag) {
+            if (!parent || !parent.children) return [];
+            const lower = tag.toLowerCase();
+            const out = [];
+            for (const c of parent.children) {
+                if (localName(c).toLowerCase() === lower) out.push(c);
             }
-            return results;
+            return out; // Always a real Array
         }
 
-        // Query text of first direct child
-        function qsText(parent, tag) {
-            const el = qsDirect(parent, tag);
-            return el ? el.textContent.trim() : '';
+        function childText(parent, tag) {
+            const el = childByTag(parent, tag);
+            return el ? (el.textContent || '').trim() : '';
         }
 
-        /* ===== Toast system ===== */
+        /* ===== Toast ===== */
         function toast(msg, type = 'info') {
             const el = document.createElement('div');
             el.className = `toast toast-${type}`;
@@ -492,6 +425,22 @@
             }, 2800);
         }
 
+        /* ===== Proxy configuration ===== */
+        const PROXIES = {
+            corsproxy:  (url) => `https://corsproxy.io/?${encodeURIComponent(url)}`,
+            allorigins: (url) => `https://api.allorigins.win/raw?url=${encodeURIComponent(url)}`,
+            codetabs:   (url) => `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(url)}`,
+            none:       (url) => url
+        };
+
+        const PROXY_ORDER = ['corsproxy', 'allorigins', 'codetabs', 'none'];
+
+        function getProxyChain(mode) {
+            if (mode === 'auto') return PROXY_ORDER;
+            if (mode === 'none') return ['none'];
+            return [mode, 'none']; // Selected proxy, then fallback to direct
+        }
+
         /* ===== Build GetCapabilities URL ===== */
         function buildCapUrl(baseUrl) {
             let url = baseUrl.trim().replace(/[?&]+$/, '');
@@ -502,64 +451,133 @@
         /* ===== Known CRS descriptions ===== */
         const CRS_INFO = {
             'EPSG:4326': 'WGS 84 geographic (lat, lon)',
-            'CRS:84': 'WGS 84 longitude-first axis order',
+            'CRS:84':    'WGS 84 longitude-first axis order',
             'EPSG:3857': 'Web Mercator (Google/OSM projection)',
             'EPSG:3006': 'SWEREF99 TM — Swedish national grid',
-            'EPSG:3007': 'SWEREF99 13 30 / local zone',
-            'EPSG:3008': 'SWEREF99 14 15 / local zone',
-            'EPSG:3009': 'SWEREF99 15 45 / local zone',
-            'EPSG:3010': 'SWEREF99 16 30 / local zone',
-            'EPSG:3011': 'SWEREF99 17 15 / local zone',
-            'EPSG:3012': 'SWEREF99 18 00 / local zone',
-            'EPSG:3013': 'SWEREF99 18 45 / local zone',
-            'EPSG:3014': 'SWEREF99 19 30 / local zone',
-            'EPSG:3015': 'SWEREF99 20 15 / local zone',
-            'EPSG:3016': 'SWEREF99 21 00 / local zone',
-            'EPSG:3017': 'SWEREF99 21 45 / local zone',
-            'EPSG:3018': 'SWEREF99 22 30 / local zone',
+            'EPSG:3007': 'SWEREF99 13 30 local zone',
+            'EPSG:3008': 'SWEREF99 14 15 local zone',
+            'EPSG:3009': 'SWEREF99 15 45 local zone',
+            'EPSG:3010': 'SWEREF99 16 30 local zone',
+            'EPSG:3011': 'SWEREF99 17 15 local zone',
+            'EPSG:3012': 'SWEREF99 18 00 local zone',
+            'EPSG:3013': 'SWEREF99 18 45 local zone',
+            'EPSG:3014': 'SWEREF99 19 30 local zone',
+            'EPSG:3015': 'SWEREF99 20 15 local zone',
+            'EPSG:3016': 'SWEREF99 21 00 local zone',
+            'EPSG:3017': 'SWEREF99 21 45 local zone',
+            'EPSG:3018': 'SWEREF99 22 30 local zone',
             'EPSG:3021': 'RT90 2.5 gon V — old Swedish grid',
             'EPSG:4230': 'ED50 geographic',
             'EPSG:25832': 'ETRS89 / UTM zone 32N',
             'EPSG:25833': 'ETRS89 / UTM zone 33N',
-            'EPSG:25884': 'ETRS89 / UTM zone 34N (deprecated)',
-            'EPSG:2154': 'RGF93 / Lambert-93 — French national grid',
-            'EPSG:27700': 'OSGB 1936 / British National Grid',
-            'EPSG:28992': 'Amersfoort / RD New — Dutch national grid',
-            'EPSG:3067': 'ETRS89 / GK25FIN — Finnish national grid',
-            'EPSG:3044': 'ETRS89 / UTM zone 33N (N-E) — German',
-            'EPSG:23030': 'ED50 / UTM zone 30N',
-            'EPSG:23031': 'ED50 / UTM zone 31N',
-            'EPSG:23032': 'ED50 / UTM zone 32N',
+            'EPSG:2154': 'RGF93 / Lambert-93 — French grid',
+            'EPSG:27700': 'OSGB / British National Grid',
+            'EPSG:28992': 'Amersfoort / RD New — Dutch grid',
+            'EPSG:3067': 'ETRS89 / GK25FIN — Finnish grid',
+            'EPSG:3044': 'ETRS89 / UTM 33N (N-E) — German',
             'EPSG:32632': 'WGS 84 / UTM zone 32N',
             'EPSG:32633': 'WGS 84 / UTM zone 33N',
         };
 
-        function crsDescription(code) {
-            return CRS_INFO[code] || '';
-        }
-
         /* ===== Parse layer tree ===== */
-        function parseLayerTree(el, depth = 0) {
-            const name = qsText(el, 'Name');
-            const title = qsText(el, 'Title');
-            const abstract = qsText(el, 'Abstract');
-            const children = qsaDirect(el, 'Layer').map(c => parseLayerTree(c, depth + 1));
-            return { name, title, abstract, depth, children };
+        function parseLayerTree(el, depth) {
+            depth = depth || 0;
+            const name = childText(el, 'Name');
+            const title = childText(el, 'Title');
+            const abstract = childText(el, 'Abstract');
+            const kids = childrenByTag(el, 'Layer');
+            const children = kids.map(c => parseLayerTree(c, depth + 1));
+            return { name: name, title: title, abstract: abstract, depth: depth, children: children };
         }
 
-        function flattenTree(node, list = []) {
+        function flattenTree(node, list) {
+            list = list || [];
             if (node.name) list.push({ name: node.name, title: node.title, depth: node.depth });
-            node.children.forEach(c => flattenTree(c, list));
+            for (let i = 0; i < node.children.length; i++) {
+                flattenTree(node.children[i], list);
+            }
             return list;
         }
 
-        /* ===== Main decode function ===== */
+        /* ===== Collect CRS from element and all nested layers ===== */
+        function collectCrs(el, tag, set) {
+            const crsEl = childByTag(el, tag);
+            if (crsEl) {
+                (crsEl.textContent || '').trim().split(/\s+/).forEach(function(c) {
+                    if (c) set.add(c);
+                });
+            }
+            const layers = childrenByTag(el, 'Layer');
+            for (let i = 0; i < layers.length; i++) {
+                collectCrs(layers[i], tag, set);
+            }
+        }
+
+        /* ===== Escape HTML ===== */
+        function esc(str) {
+            const d = document.createElement('div');
+            d.textContent = str;
+            return d.innerHTML;
+        }
+
+        /* ===== Fetch with proxy fallback ===== */
+        async function fetchWithFallback(capUrl, proxyChain, statusEl, msgEl) {
+            let lastError = null;
+
+            for (let i = 0; i < proxyChain.length; i++) {
+                const key = proxyChain[i];
+                const isDirect = (key === 'none');
+                const fetchUrl = isDirect ? capUrl : PROXIES[key](capUrl);
+
+                statusEl.className = 'proxy-status trying';
+                statusEl.textContent = isDirect ? 'Trying direct...' : 'Trying ' + key + '...';
+                msgEl.textContent = isDirect
+                    ? 'Fetching directly from server...'
+                    : 'Fetching via ' + key + ' proxy...';
+
+                try {
+                    const resp = await fetch(fetchUrl, {
+                        headers: { 'Accept': 'application/xml, text/xml, */*' }
+                    });
+
+                    if (!resp.ok) {
+                        lastError = new Error('HTTP ' + resp.status + ' ' + resp.statusText);
+                        continue;
+                    }
+
+                    const text = await resp.text();
+                    const trimmed = text.trim();
+
+                    // Validate it's actually XML, not an HTML error page from a proxy
+                    if (!trimmed.startsWith('<') || trimmed.startsWith('<!DOCTYPE HTML') || trimmed.startsWith('<html')) {
+                        lastError = new Error('Response is not XML (got HTML or other content)');
+                        continue;
+                    }
+
+                    statusEl.className = 'proxy-status ok';
+                    statusEl.textContent = isDirect ? 'Direct' : key;
+                    return text;
+
+                } catch (err) {
+                    lastError = err;
+                    continue;
+                }
+            }
+
+            statusEl.className = 'proxy-status fail';
+            statusEl.textContent = 'All failed';
+            throw lastError || new Error('All proxy options failed');
+        }
+
+        /* ===== Main decode ===== */
         async function decodeWMS() {
             const urlInput = document.getElementById('wmsUrl');
-            const useProxy = document.getElementById('useProxy').checked;
+            const proxySelect = document.getElementById('proxySelect');
+            const proxyStatus = document.getElementById('proxyStatus');
             const resultsArea = document.getElementById('resultsArea');
             const errorArea = document.getElementById('errorArea');
             const loadingArea = document.getElementById('loadingArea');
+            const loadingMsg = document.getElementById('loadingMsg');
             const decodeBtn = document.getElementById('decodeBtn');
 
             const baseUrl = urlInput.value.trim();
@@ -569,403 +587,320 @@
                 return;
             }
 
-            // UI state
             resultsArea.classList.add('hidden');
             errorArea.classList.add('hidden');
             loadingArea.classList.remove('hidden');
             decodeBtn.disabled = true;
 
-            let rawXml = '';
-
             try {
                 const capUrl = buildCapUrl(baseUrl);
-                const fetchUrl = useProxy
-                    ? `https://api.allorigins.win/raw?url=${encodeURIComponent(capUrl)}`
-                    : capUrl;
+                const proxyChain = getProxyChain(proxySelect.value);
+                const rawXml = await fetchWithFallback(capUrl, proxyChain, proxyStatus, loadingMsg);
 
-                const resp = await fetch(fetchUrl);
-                if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
-
-                rawXml = await resp.text();
-
-                // Check if response is actually XML
-                const trimmed = rawXml.trim();
-                if (!trimmed.startsWith('<')) {
-                    throw new Error(
-                        'Server did not return XML. It may be returning an HTML error page, ' +
-                        'or the URL is incorrect. Try toggling the CORS proxy on/off.'
-                    );
-                }
-
+                // Parse XML
                 const parser = new DOMParser();
                 const xml = parser.parseFromString(rawXml, 'text/xml');
 
-                // Check for XML parse errors
-                if (xml.querySelector('parsererror')) {
-                    throw new Error('Failed to parse XML response. The response may be malformed.');
+                const parseErr = xml.querySelector('parsererror');
+                if (parseErr) {
+                    throw new Error('Failed to parse XML response — the document may be malformed.');
                 }
 
-                // Check for OGC service exceptions
+                // OGC service exception
                 const exc = xml.querySelector('ServiceException');
                 if (exc) {
-                    throw new Error(`WMS Service Exception: ${exc.textContent.trim()}`);
+                    throw new Error('WMS Service Exception: ' + (exc.textContent || '').trim());
                 }
 
                 const root = xml.documentElement;
                 const version = root.getAttribute('version') || 'unknown';
                 const rootTag = localName(root);
 
-                // Determine WMS type
+                // Determine WMS type from root tag name
                 let wmsLabel = 'Unknown';
-                if (rootTag === 'WMT_MS_Capabilities') wmsLabel = 'WMS 1.1.1';
-                else if (rootTag === 'WMS_Capabilities') wmsLabel = 'WMS 1.3.0';
+                if (rootTag.toLowerCase() === 'wmt_ms_capabilities') wmsLabel = 'WMS 1.1.1';
+                else if (rootTag.toLowerCase() === 'wms_capabilities') wmsLabel = 'WMS 1.3.0';
 
                 const isV13 = version.startsWith('1.3');
-                const crsTagName = isV13 ? 'CRS' : 'SRS';
+                const crsTag = isV13 ? 'CRS' : 'SRS';
 
                 // Service metadata
-                const serviceEl = root.querySelector('Service');
-                const serviceTitle = serviceEl ? qsText(serviceEl, 'Title') : '';
-                const serviceAbstract = serviceEl ? qsText(serviceEl, 'Abstract') : '';
+                const serviceEl = childByTag(root, 'Service');
+                const serviceTitle = serviceEl ? childText(serviceEl, 'Title') : '';
+                const serviceAbstract = serviceEl ? childText(serviceEl, 'Abstract') : '';
                 const keywords = [];
                 if (serviceEl) {
-                    const kwRoot = qsDirect(serviceEl, 'KeywordList');
+                    const kwRoot = childByTag(serviceEl, 'KeywordList');
                     if (kwRoot) {
-                        kwRoot.querySelectorAll('Keyword').forEach(kw => {
-                            const t = kw.textContent.trim();
+                        // Use querySelectorAll for Keyword (deeper nested, no namespace issues usually)
+                        var kwEls = kwRoot.querySelectorAll('Keyword');
+                        for (var ki = 0; ki < kwEls.length; ki++) {
+                            var t = (kwEls[ki].textContent || '').trim();
                             if (t) keywords.push(t);
-                        });
+                        }
                     }
                 }
 
                 // Parse layers
-                const capabilityEl = qsDirect(root, 'Capability');
-                const rootLayerEl = capabilityEl ? qsDirect(capabilityEl, 'Layer') : null;
-                const layerTree = rootLayerEl ? parseLayerTree(rootLayerEl) : { name: '', title: '', abstract: '', depth: 0, children: [] };
-                const flatLayers = flattenTree(layerTree);
+                const capabilityEl = childByTag(root, 'Capability');
+                const rootLayerEl = capabilityEl ? childByTag(capabilityEl, 'Layer') : null;
 
-                // Collect all CRS values
-                const crsSet = new Set();
-                // Start from root layer (authoritative list)
+                var layerTree = { name: '', title: '', abstract: '', depth: 0, children: [] };
                 if (rootLayerEl) {
-                    const rootCrsEl = qsDirect(rootLayerEl, crsTagName);
-                    if (rootCrsEl) {
-                        rootCrsEl.textContent.trim().split(/\s+/).forEach(c => { if (c) crsSet.add(c); });
-                    }
+                    layerTree = parseLayerTree(rootLayerEl);
                 }
-                // Also scan all layers for any additional CRS
-                if (capabilityEl) {
-                    capabilityEl.querySelectorAll(crsTagName).forEach(el => {
-                        el.textContent.trim().split(/\s+/).forEach(c => { if (c) crsSet.add(c); });
-                    });
+                var flatLayers = flattenTree(layerTree);
+
+                // Collect CRS from root layer (authoritative list)
+                var crsSet = new Set();
+                if (rootLayerEl) {
+                    collectCrs(rootLayerEl, crsTag, crsSet);
                 }
 
-                const allCrs = Array.from(crsSet).sort((a, b) => {
-                    // Sort highlighted CRS first, then alphabetically
-                    const priority = (c) => c === 'EPSG:4326' ? 0 : c === 'CRS:84' ? 1 : c === 'EPSG:3857' ? 2 : 3;
-                    return priority(a) - priority(b) || a.localeCompare(b);
+                var allCrs = Array.from(crsSet).sort(function(a, b) {
+                    var p = function(c) {
+                        if (c === 'EPSG:4326') return 0;
+                        if (c === 'CRS:84') return 1;
+                        if (c === 'EPSG:3857') return 2;
+                        return 3;
+                    };
+                    return p(a) - p(b) || a.localeCompare(b);
                 });
 
-                const has4326 = crsSet.has('EPSG:4326');
-                const hasCRS84 = crsSet.has('CRS:84');
+                var has4326 = crsSet.has('EPSG:4326');
+                var hasCRS84 = crsSet.has('CRS:84');
 
-                // Render results
                 renderResults({
-                    version, wmsLabel, rootTag,
-                    serviceTitle, serviceAbstract, keywords,
-                    layerTree, flatLayers,
-                    allCrs, has4326, hasCRS84,
-                    isV13, rawXml
+                    version: version, wmsLabel: wmsLabel, rootTag: rootTag,
+                    serviceTitle: serviceTitle, serviceAbstract: serviceAbstract, keywords: keywords,
+                    layerTree: layerTree, flatLayers: flatLayers,
+                    allCrs: allCrs, has4326: has4326, hasCRS84: hasCRS84,
+                    isV13: isV13, rawXml: rawXml
                 });
 
             } catch (err) {
-                errorArea.innerHTML = `<i class="fas fa-exclamation-triangle"></i>${escapeHtml(err.message)}`;
+                var html = '<i class="fas fa-exclamation-triangle"></i>' + esc(err.message);
+                html += '<br><br><small>If all proxies fail, try opening this URL directly in a new tab and paste the XML here:<br>';
+                html += '<code>' + esc(buildCapUrl(baseUrl)) + '</code></small>';
+                errorArea.innerHTML = html;
                 errorArea.classList.remove('hidden');
-                if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
-                    errorArea.innerHTML += `<br><br><small>If this is a CORS issue, try toggling the proxy. You can also test the URL directly: <code>${escapeHtml(buildCapUrl(baseUrl))}</code></small>`;
-                }
             } finally {
                 loadingArea.classList.add('hidden');
                 decodeBtn.disabled = false;
             }
         }
 
-        /* ===== Escape HTML ===== */
-        function escapeHtml(str) {
-            const div = document.createElement('div');
-            div.textContent = str;
-            return div.innerHTML;
-        }
-
         /* ===== Render results ===== */
         function renderResults(data) {
-            const area = document.getElementById('resultsArea');
-            const { version, wmsLabel, serviceTitle, serviceAbstract, keywords,
-                    layerTree, flatLayers, allCrs, has4326, hasCRS84, isV13, rawXml } = data;
+            var area = document.getElementById('resultsArea');
+            var version = data.version, wmsLabel = data.wmsLabel;
+            var serviceTitle = data.serviceTitle, serviceAbstract = data.serviceAbstract;
+            var keywords = data.keywords, layerTree = data.layerTree, flatLayers = data.flatLayers;
+            var allCrs = data.allCrs, has4326 = data.has4326, hasCRS84 = data.hasCRS84;
+            var isV13 = data.isV13, rawXml = data.rawXml;
 
-            let html = '';
+            var html = '';
 
             // Service info
             if (serviceTitle || serviceAbstract || keywords.length) {
-                html += `<div class="service-info">`;
-                if (serviceTitle) html += `<div class="service-title">${escapeHtml(serviceTitle)}</div>`;
-                if (serviceAbstract) html += `<div class="service-abstract">${escapeHtml(serviceAbstract)}</div>`;
+                html += '<div class="service-info">';
+                if (serviceTitle) html += '<div class="service-title">' + esc(serviceTitle) + '</div>';
+                if (serviceAbstract) html += '<div class="service-abstract">' + esc(serviceAbstract) + '</div>';
                 if (keywords.length) {
-                    html += `<div class="service-keywords">`;
-                    keywords.slice(0, 20).forEach(kw => {
-                        html += `<span class="keyword-tag">${escapeHtml(kw)}</span>`;
-                    });
-                    if (keywords.length > 20) html += `<span class="keyword-tag">+${keywords.length - 20} more</span>`;
-                    html += `</div>`;
+                    html += '<div class="service-keywords">';
+                    var kwShow = keywords.slice(0, 20);
+                    for (var k = 0; k < kwShow.length; k++) {
+                        html += '<span class="keyword-tag">' + esc(kwShow[k]) + '</span>';
+                    }
+                    if (keywords.length > 20) html += '<span class="keyword-tag">+' + (keywords.length - 20) + ' more</span>';
+                    html += '</div>';
                 }
-                html += `</div>`;
+                html += '</div>';
             }
 
             // Stat cards
-            html += `<div class="stat-grid">
-                <div class="stat-card">
-                    <div class="stat-value version">${escapeHtml(version)}</div>
-                    <div class="stat-label">${escapeHtml(wmsLabel)}</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value count">${flatLayers.length}</div>
-                    <div class="stat-label">Layers</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value ${has4326 ? 'yes' : 'no'}">${has4326 ? '<i class="fas fa-check-circle"></i> Yes' : '<i class="fas fa-times-circle"></i> No'}</div>
-                    <div class="stat-label">EPSG:4326</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value ${hasCRS84 ? 'yes' : 'no'}">${hasCRS84 ? '<i class="fas fa-check-circle"></i> Yes' : '<i class="fas fa-times-circle"></i> No'}</div>
-                    <div class="stat-label">CRS:84</div>
-                </div>
-            </div>`;
+            html += '<div class="stat-grid">';
+            html += '<div class="stat-card"><div class="stat-value version">' + esc(version) + '</div><div class="stat-label">' + esc(wmsLabel) + '</div></div>';
+            html += '<div class="stat-card"><div class="stat-value count">' + flatLayers.length + '</div><div class="stat-label">Layers</div></div>';
+            html += '<div class="stat-card"><div class="stat-value ' + (has4326 ? 'yes' : 'no') + '">' + (has4326 ? '<i class="fas fa-check-circle"></i> Yes' : '<i class="fas fa-times-circle"></i> No') + '</div><div class="stat-label">EPSG:4326</div></div>';
+            html += '<div class="stat-card"><div class="stat-value ' + (hasCRS84 ? 'yes' : 'no') + '">' + (hasCRS84 ? '<i class="fas fa-check-circle"></i> Yes' : '<i class="fas fa-times-circle"></i> No') + '</div><div class="stat-label">CRS:84</div></div>';
+            html += '</div>';
 
             // CRS explanation
             if (isV13) {
-                html += `<div class="crs-note">
-                    <strong>WMS 1.3.0 axis order matters:</strong>
-                    <code>EPSG:4326</code> uses <strong>latitude-first</strong> axis order (lat, lon),
-                    while <code>CRS:84</code> uses <strong>longitude-first</strong> (lon, lat) — same datum, different axis order.
-                    If your client sends coordinates in lon/lat order, use <code>CRS:84</code> to avoid swapped axes.
-                    In WMS 1.1.1, <code>EPSG:4326</code> is always treated as lon/lat.
-                </div>`;
+                html += '<div class="crs-note"><strong>WMS 1.3.0 axis order matters:</strong> <code>EPSG:4326</code> uses <strong>latitude-first</strong> axis order (lat, lon), while <code>CRS:84</code> uses <strong>longitude-first</strong> (lon, lat) — same datum, different axis order. If your client sends coordinates in lon/lat order, use <code>CRS:84</code> to avoid swapped axes. In WMS 1.1.1, <code>EPSG:4326</code> is always treated as lon/lat.</div>';
             } else {
-                html += `<div class="crs-note">
-                    <strong>WMS 1.1.1 axis order:</strong>
-                    In version 1.1.1, <code>EPSG:4326</code> is conventionally interpreted as <strong>longitude-first</strong> (lon, lat),
-                    regardless of the official EPSG definition. The <code>CRS:84</code> identifier was introduced in WMS 1.3.0
-                    to explicitly declare lon/lat order without ambiguity.
-                </div>`;
+                html += '<div class="crs-note"><strong>WMS 1.1.1 axis order:</strong> In version 1.1.1, <code>EPSG:4326</code> is conventionally interpreted as <strong>longitude-first</strong> (lon, lat), regardless of the official EPSG definition. The <code>CRS:84</code> identifier was introduced in WMS 1.3.0 to explicitly declare lon/lat order without ambiguity.</div>';
             }
 
             // Layer names
-            html += `<div class="section">
-                <div class="section-head">
-                    <h2><i class="fas fa-list"></i> Layer Names</h2>
-                    <div class="section-actions">
-                        <input type="text" class="search-input" id="layerSearch" placeholder="Filter layers..." aria-label="Filter layers">
-                        <button class="btn-sm" id="copyAllBtn"><i class="fas fa-copy"></i> Copy All</button>
-                    </div>
-                </div>
-                <div class="layer-count-bar" id="layerCountBar">Showing ${flatLayers.length} layers</div>
-                <div class="layer-list" id="layerList">`;
-            flatLayers.forEach((layer, i) => {
-                html += `<div class="layer-item" data-name="${escapeHtml(layer.name)}" title="Click to copy">
-                    <span class="idx">${i + 1}</span>
-                    <span class="name">${escapeHtml(layer.name)}</span>
-                    <span class="copy-hint"><i class="fas fa-clipboard"></i></span>
-                </div>`;
-            });
-            html += `</div></div>`;
+            html += '<div class="section"><div class="section-head"><h2><i class="fas fa-list"></i> Layer Names</h2><div class="section-actions"><input type="text" class="search-input" id="layerSearch" placeholder="Filter layers..." aria-label="Filter layers"><button class="btn-sm" id="copyAllBtn"><i class="fas fa-copy"></i> Copy All</button></div></div>';
+            html += '<div class="layer-count-bar" id="layerCountBar">Showing ' + flatLayers.length + ' layers</div>';
+            html += '<div class="layer-list" id="layerList">';
+            for (var i = 0; i < flatLayers.length; i++) {
+                html += '<div class="layer-item" data-name="' + esc(flatLayers[i].name) + '" title="Click to copy"><span class="idx">' + (i + 1) + '</span><span class="name">' + esc(flatLayers[i].name) + '</span><span class="copy-hint"><i class="fas fa-clipboard"></i></span></div>';
+            }
+            html += '</div></div>';
 
             // Layer tree
-            html += `<div class="section">
-                <div class="section-head">
-                    <h2><i class="fas fa-sitemap"></i> Layer Tree</h2>
-                    <div class="section-actions">
-                        <button class="btn-sm" id="expandAllBtn"><i class="fas fa-expand-alt"></i> Expand All</button>
-                        <button class="btn-sm" id="collapseAllBtn"><i class="fas fa-compress-alt"></i> Collapse All</button>
-                    </div>
-                </div>
-                <div class="layer-tree" id="layerTree"></div>
-            </div>`;
+            html += '<div class="section"><div class="section-head"><h2><i class="fas fa-sitemap"></i> Layer Tree</h2><div class="section-actions"><button class="btn-sm" id="expandAllBtn"><i class="fas fa-expand-alt"></i> Expand</button><button class="btn-sm" id="collapseAllBtn"><i class="fas fa-compress-alt"></i> Collapse</button></div></div>';
+            html += '<div class="layer-tree" id="layerTree"></div></div>';
 
             // CRS list
-            html += `<div class="section">
-                <div class="section-head">
-                    <h2><i class="fas fa-globe"></i> Supported CRS / SRS</h2>
-                    <div class="section-actions">
-                        <button class="btn-sm" id="copyCrsBtn"><i class="fas fa-copy"></i> Copy All</button>
-                    </div>
-                </div>
-                <div class="crs-list">`;
-            allCrs.forEach(crs => {
-                const isHighlight = crs === 'EPSG:4326' || crs === 'CRS:84';
-                const desc = crsDescription(crs);
-                html += `<div class="crs-item">
-                    <span class="crs-badge ${isHighlight ? 'highlight' : 'normal'}">${escapeHtml(crs)}</span>
-                    ${desc ? `<span class="crs-desc">${escapeHtml(desc)}</span>` : ''}
-                </div>`;
-            });
-            html += `</div></div>`;
+            html += '<div class="section"><div class="section-head"><h2><i class="fas fa-globe"></i> Supported ' + (isV13 ? 'CRS' : 'SRS') + '</h2><div class="section-actions"><button class="btn-sm" id="copyCrsBtn"><i class="fas fa-copy"></i> Copy All</button></div></div>';
+            html += '<div class="crs-list">';
+            for (var ci = 0; ci < allCrs.length; ci++) {
+                var crs = allCrs[ci];
+                var hl = (crs === 'EPSG:4326' || crs === 'CRS:84');
+                var desc = CRS_INFO[crs] || '';
+                html += '<div class="crs-item"><span class="crs-badge ' + (hl ? 'highlight' : 'normal') + '">' + esc(crs) + '</span>' + (desc ? '<span class="crs-desc">' + esc(desc) + '</span>' : '') + '</div>';
+            }
+            html += '</div></div>';
 
             // Raw XML
-            const truncated = rawXml.length > 80000;
-            const displayXml = truncated ? rawXml.substring(0, 80000) + '\n\n... (truncated)' : rawXml;
-            html += `<div class="section">
-                <div class="section-head">
-                    <h2><i class="fas fa-code"></i> Raw GetCapabilities XML</h2>
-                    <div class="section-actions">
-                        ${truncated ? `<span style="font-size:11px;color:var(--text-muted);margin-right:6px">Truncated — ${(rawXml.length / 1024).toFixed(0)} KB total</span>` : `<span style="font-size:11px;color:var(--text-muted);margin-right:6px">${(rawXml.length / 1024).toFixed(1)} KB</span>`}
-                        <button class="btn-sm" id="toggleRawBtn"><i class="fas fa-chevron-down"></i> Show</button>
-                    </div>
-                </div>
-                <pre class="raw-xml hidden" id="rawXml">${escapeHtml(displayXml)}</pre>
-            </div>`;
+            var truncated = rawXml.length > 80000;
+            var displayXml = truncated ? rawXml.substring(0, 80000) + '\n\n... (truncated)' : rawXml;
+            var sizeLabel = (rawXml.length / 1024).toFixed(rawXml.length > 10240 ? 0 : 1) + ' KB';
+            html += '<div class="section"><div class="section-head"><h2><i class="fas fa-code"></i> Raw GetCapabilities XML</h2><div class="section-actions">' + (truncated ? '<span style="font-size:11px;color:var(--text-muted);margin-right:6px">Truncated — ' + sizeLabel + ' total</span>' : '<span style="font-size:11px;color:var(--text-muted);margin-right:6px">' + sizeLabel + '</span>') + '<button class="btn-sm" id="toggleRawBtn"><i class="fas fa-chevron-down"></i> Show</button></div></div>';
+            html += '<pre class="raw-xml hidden" id="rawXml">' + esc(displayXml) + '</pre></div>';
 
             area.innerHTML = html;
             area.classList.remove('hidden');
 
-            // Post-render: attach event listeners
-
-            // Layer search
-            const searchInput = document.getElementById('layerSearch');
-            const layerList = document.getElementById('layerList');
-            const countBar = document.getElementById('layerCountBar');
-            searchInput.addEventListener('input', () => {
-                const q = searchInput.value.toLowerCase();
-                let visible = 0;
-                layerList.querySelectorAll('.layer-item').forEach(item => {
-                    const match = item.dataset.name.toLowerCase().includes(q);
-                    item.style.display = match ? '' : 'none';
-                    if (match) visible++;
-                });
-                countBar.textContent = `Showing ${visible} of ${flatLayers.length} layers`;
+            // Wire up layer search
+            var searchInput = document.getElementById('layerSearch');
+            var layerList = document.getElementById('layerList');
+            var countBar = document.getElementById('layerCountBar');
+            searchInput.addEventListener('input', function() {
+                var q = searchInput.value.toLowerCase();
+                var vis = 0;
+                var items = layerList.querySelectorAll('.layer-item');
+                for (var j = 0; j < items.length; j++) {
+                    var match = items[j].getAttribute('data-name').toLowerCase().indexOf(q) !== -1;
+                    items[j].style.display = match ? '' : 'none';
+                    if (match) vis++;
+                }
+                countBar.textContent = 'Showing ' + vis + ' of ' + flatLayers.length + ' layers';
             });
 
-            // Copy single layer name on click
-            layerList.querySelectorAll('.layer-item').forEach(item => {
-                item.addEventListener('click', () => {
-                    navigator.clipboard.writeText(item.dataset.name).then(() => {
-                        toast(`Copied: ${item.dataset.name}`, 'success');
-                    }).catch(() => {
-                        toast('Copy failed — try manually', 'error');
+            // Copy single layer
+            var layerItems = layerList.querySelectorAll('.layer-item');
+            for (var li = 0; li < layerItems.length; li++) {
+                (function(item) {
+                    item.addEventListener('click', function() {
+                        navigator.clipboard.writeText(item.getAttribute('data-name')).then(function() {
+                            toast('Copied: ' + item.getAttribute('data-name'), 'success');
+                        }).catch(function() { toast('Copy failed', 'error'); });
                     });
-                });
+                })(layerItems[li]);
+            }
+
+            // Copy all layers
+            document.getElementById('copyAllBtn').addEventListener('click', function() {
+                var names = flatLayers.map(function(l) { return l.name; }).join(',');
+                navigator.clipboard.writeText(names).then(function() {
+                    toast('Copied ' + flatLayers.length + ' layer names', 'success');
+                }).catch(function() { toast('Copy failed', 'error'); });
             });
 
-            // Copy all layer names
-            document.getElementById('copyAllBtn').addEventListener('click', () => {
-                const allNames = flatLayers.map(l => l.name).join(',');
-                navigator.clipboard.writeText(allNames).then(() => {
-                    toast(`Copied ${flatLayers.length} layer names`, 'success');
-                }).catch(() => toast('Copy failed', 'error'));
+            // Copy CRS
+            document.getElementById('copyCrsBtn').addEventListener('click', function() {
+                navigator.clipboard.writeText(allCrs.join(', ')).then(function() {
+                    toast('Copied ' + allCrs.length + ' CRS values', 'success');
+                }).catch(function() { toast('Copy failed', 'error'); });
             });
 
-            // Copy all CRS
-            document.getElementById('copyCrsBtn').addEventListener('click', () => {
-                navigator.clipboard.writeText(allCrs.join(', ')).then(() => {
-                    toast(`Copied ${allCrs.length} CRS values`, 'success');
-                }).catch(() => toast('Copy failed', 'error'));
-            });
-
-            // Build layer tree DOM
+            // Build tree
             buildTreeDOM(layerTree, document.getElementById('layerTree'));
 
-            // Expand / Collapse all
-            document.getElementById('expandAllBtn').addEventListener('click', () => {
-                document.querySelectorAll('#layerTree .tree-children').forEach(el => el.classList.remove('collapsed'));
-                document.querySelectorAll('#layerTree .tree-toggle').forEach(el => el.classList.remove('collapsed'));
+            // Expand / Collapse
+            document.getElementById('expandAllBtn').addEventListener('click', function() {
+                var els = document.querySelectorAll('#layerTree .tree-children');
+                for (var e = 0; e < els.length; e++) els[e].classList.remove('collapsed');
+                var toggles = document.querySelectorAll('#layerTree .tree-toggle');
+                for (var f = 0; f < toggles.length; f++) toggles[f].classList.remove('collapsed');
             });
-            document.getElementById('collapseAllBtn').addEventListener('click', () => {
-                document.querySelectorAll('#layerTree .tree-children').forEach(el => el.classList.add('collapsed'));
-                document.querySelectorAll('#layerTree .tree-toggle:not(.hidden-toggle)').forEach(el => el.classList.add('collapsed'));
+            document.getElementById('collapseAllBtn').addEventListener('click', function() {
+                var els = document.querySelectorAll('#layerTree .tree-children');
+                for (var e = 0; e < els.length; e++) els[e].classList.add('collapsed');
+                var toggles = document.querySelectorAll('#layerTree .tree-toggle:not(.hidden-toggle)');
+                for (var f = 0; f < toggles.length; f++) toggles[f].classList.add('collapsed');
             });
 
             // Toggle raw XML
-            document.getElementById('toggleRawBtn').addEventListener('click', () => {
-                const pre = document.getElementById('rawXml');
-                const btn = document.getElementById('toggleRawBtn');
-                const isHidden = pre.classList.contains('hidden');
+            document.getElementById('toggleRawBtn').addEventListener('click', function() {
+                var pre = document.getElementById('rawXml');
+                var btn = document.getElementById('toggleRawBtn');
+                var isHidden = pre.classList.contains('hidden');
                 pre.classList.toggle('hidden');
-                btn.innerHTML = isHidden
-                    ? '<i class="fas fa-chevron-up"></i> Hide'
-                    : '<i class="fas fa-chevron-down"></i> Show';
+                btn.innerHTML = isHidden ? '<i class="fas fa-chevron-up"></i> Hide' : '<i class="fas fa-chevron-down"></i> Show';
             });
         }
 
-        /* ===== Build layer tree DOM ===== */
+        /* ===== Build tree DOM ===== */
         function buildTreeDOM(node, container) {
-            const hasChildren = node.children && node.children.length > 0;
-            const isLeaf = !!node.name;
-            const isFolder = !isLeaf && hasChildren;
+            var hasChildren = node.children && node.children.length > 0;
+            var isLeaf = !!node.name;
+            var isFolder = !isLeaf && hasChildren;
 
-            const row = document.createElement('div');
+            var row = document.createElement('div');
             row.className = 'tree-row';
 
-            // Toggle arrow
-            const toggle = document.createElement('span');
+            var toggle = document.createElement('span');
             toggle.className = 'tree-toggle' + ((hasChildren || isFolder) ? '' : ' hidden-toggle');
-            if (hasChildren) toggle.textContent = '\u25BC'; // ▼
+            if (hasChildren) toggle.textContent = '\u25BC';
             row.appendChild(toggle);
 
-            // Icon
-            const icon = document.createElement('span');
+            var icon = document.createElement('span');
             icon.className = 'tree-icon ' + (isLeaf ? 'leaf' : 'folder');
-            icon.innerHTML = isLeaf
-                ? '<i class="fas fa-layer-group"></i>'
-                : '<i class="fas fa-folder"></i>';
+            icon.innerHTML = isLeaf ? '<i class="fas fa-layer-group"></i>' : '<i class="fas fa-folder"></i>';
             row.appendChild(icon);
 
-            // Name
-            const nameSpan = document.createElement('span');
+            var nameSpan = document.createElement('span');
             nameSpan.className = 'tree-name' + (isFolder ? ' folder-name' : '');
             nameSpan.textContent = isLeaf ? node.name : (node.title || node.name || 'Root');
             nameSpan.title = isLeaf ? node.name : (node.title || '');
             row.appendChild(nameSpan);
 
-            // Click to copy for leaf nodes
             if (isLeaf) {
                 row.style.cursor = 'pointer';
                 row.title = 'Click to copy layer name';
-                row.addEventListener('click', () => {
-                    navigator.clipboard.writeText(node.name).then(() => {
-                        toast(`Copied: ${node.name}`, 'success');
+                row.addEventListener('click', function() {
+                    navigator.clipboard.writeText(node.name).then(function() {
+                        toast('Copied: ' + node.name, 'success');
                     });
                 });
             }
 
             container.appendChild(row);
 
-            // Children container
             if (hasChildren) {
-                const childContainer = document.createElement('div');
+                var childContainer = document.createElement('div');
                 childContainer.className = 'tree-children';
 
-                // Toggle click
                 toggle.style.cursor = 'pointer';
-                toggle.addEventListener('click', (e) => {
+                toggle.addEventListener('click', function(e) {
                     e.stopPropagation();
                     childContainer.classList.toggle('collapsed');
                     toggle.classList.toggle('collapsed');
                 });
 
-                // Also toggle on row click for folders
-                row.addEventListener('click', (e) => {
+                row.addEventListener('click', function(e) {
                     if (e.target.closest('.tree-name.leaf')) return;
                     childContainer.classList.toggle('collapsed');
                     toggle.classList.toggle('collapsed');
                 });
 
-                node.children.forEach(child => buildTreeDOM(child, childContainer));
+                for (var i = 0; i < node.children.length; i++) {
+                    buildTreeDOM(node.children[i], childContainer);
+                }
                 container.appendChild(childContainer);
             }
         }
 
-        /* ===== Event listeners ===== */
+        /* ===== Events ===== */
         document.getElementById('decodeBtn').addEventListener('click', decodeWMS);
-        document.getElementById('wmsUrl').addEventListener('keydown', (e) => {
+        document.getElementById('wmsUrl').addEventListener('keydown', function(e) {
             if (e.key === 'Enter') decodeWMS();
         });
     </script>
