@@ -125,6 +125,12 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
       <a href="https://github.com/Max1234-Ita/GuidaOsmand/blob/main/risorse/rendering/en_highlighted_boundaries.md"><img src="https://img.shields.io/badge/github-repository-blue?logo=github"></a>  
     </td>
   </tr>
+  <tr>
+    <td style="border-right: 0px">🌐 Latitudes: Equator, Tropic Cancer & Capricorn, Circles: Arctic & Antarctic</td>    
+    <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
+      <a href="https://github.com/mariush444/Osmand-tools/raw/main/Geographic.osf"><img src="https://img.shields.io/badge/osmand-plugin-orange?logo=osmand"></a> 
+    </td>
+  </tr>
   <!-- tr>
     <td>map style</td>
     <td>Hiking - optimalizated Topo </td>    
@@ -136,7 +142,7 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
     <td><a href="https://github.com/Louis-LJ/OsmAnd_Cycling_Map/blob/main/README_EN.md"> github </a>  </td>
   </tr -->
   <tr>
-  <th colspan="2"><h3 id="Offline">Offline Maps</h3></th>
+  <th colspan="2"><h3 id="Offline">Maps - Offline & Online</h3></th>
   </tr>
   <tr>
     <td style="border-right: 0px">improved searching addresses for some countries </td>    
@@ -190,13 +196,6 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
     <td style="border-right: 0px">🇦🇹 Set of maps of Austria based on <a href="https://basemap.at/en/"> basemap.at WMTS</a> </td>    
     <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
       <a href="https://github.com/mariush444/Osmand-tools/raw/main/🇦🇹 Austria-basemap.osf"><img src="https://img.shields.io/badge/osmand-plugin-orange?logo=osmand"></a> 
-    </td>
-  </tr>
-
-   <tr>
-    <td style="border-right: 0px">🌐 Latitudes: Equator, Tropic Cancer & Capricorn, Circles: Arctic & Antarctic</td>    
-    <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
-      <a href="https://github.com/mariush444/Osmand-tools/raw/main/Geographic.osf"><img src="https://img.shields.io/badge/osmand-plugin-orange?logo=osmand"></a> 
     </td>
   </tr>
   <tr>
