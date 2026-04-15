@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WMS Decoder</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=DM+Sans:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #060a13;
+            --bg2: #0b1120;
+            --card: #0d1424;
+            --card-hover: #111c30;
+            --border: #1a2740;
+            --border-light: #243352;
+            --text: #e2e8f0;
+            --text-dim: #94a3b8;
+            --text-muted: #4a5e7a;
+            --accent: #00e5b0;
+            --accent-dim: rgba(0,229,176,0.08);
+            --accent-mid: rgba(0,229,176,0.25);
+            --success: #22c55e;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --info: #38bdf8;
+            --mono: 'JetBrains Mono', monospace;
+            --sans: 'DM Sans', sans-serif;
+            --radius: 10px;
+        }
+
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--sans);
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background effects */
+        .bg-grid {
+            position: fixed; inset: 0; z-index: 0; pointer-events: none;
+            background-image: radial-gradient(circle, rgba(0,229,176,0.04) 1px, transparent 1px);
+            background-size: 28px 28px;
+        }
+        .bg-blob {
+            position: fixed; border-radius: 50%; filter: blur(120px); z-index: 0; pointer-events: none;
+        }
+        .bg-blob-1 {
+            width: 600px; height: 600px; top: -200px; left: -100px;
+            background: rgba(0,229,176,0.04);
+            animation: blobDrift 25s ease-in-out infinite alternate;
+        }
+        .bg-blob-2 {
+            width: 500px; height: 500px; bottom: -150px; right: -100px;
+            background: rgba(56,189,248,0.03);
+            animation: blobDrift 30s ease-in-out infinite alternate-reverse;
+        }
+        @keyframes blobDrift {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(60px, 40px) scale(1.1); }
+            100% { transform: translate(-30px, 70px) scale(0.95); }
+        }
+
+        /* Layout */
+        .container {
+            position: relative; z-index: 1;
+            max-width: 1080px; margin: 0 auto;
+            padding: 48px 24px 80px;
+        }
+
+        /* Header */
+        header { margin-bottom: 36px; }
+        .logo {
+            display: flex; align-items: center; gap: 14px; margin-bottom: 8px;
+        }
+        .logo-icon {
+            width: 44px; height: 44px; border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent), #00b894);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px; color: #060a13; flex-shrink: 0;
+            box-shadow: 0 0 24px rgba(0,229,176,0.2);
+        }
+        .logo-text {
+            font-size: 28px; font-weight: 900; letter-spacing: -0.5px;
+            background: linear-gradient(135deg, var(--text), var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .subtitle {
+            color: var(--text-muted); font-size: 15px; margin-left: 58px; margin-top: -4px;
+        }
+
+        /* Input section */
+        .input-section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 32px;
+        }
+        .url-row {
+            display: flex; gap: 10px; margin-bottom: 14px;
+        }
+        .url-wrap {
+            flex: 1; display: flex; align-items: center;
+            background: var(--bg2); border: 1px solid var(--border);
+            border-radius: 8px; padding: 0 14px;
+            transition: border-color 0.2s;
+        }
+        .url-wrap:focus-within { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-dim); }
+        .url-wrap i { color: var(--text-muted); font-size: 14px; margin-right: 10px; flex-shrink: 0; }
+        .url-wrap input {
+            flex: 1; background: none; border: none; outline: none;
+            color: var(--text); font-family: var(--mono); font-size: 13px;
+            padding: 12px 0; min-width: 0;
+        }
+        .url-wrap input::placeholder { color: var(--text-muted); }
+
+        .decode-btn {
+            display: flex; align-items: center; gap: 8px;
+            padding: 0 24px; border: none; border-radius: 8px;
+            background: linear-gradient(135deg, var(--accent), #00b894);
+            color: #060a13; font-family: var(--sans); font-weight: 700;
+            font-size: 14px; cursor: pointer; white-space: nowrap;
+            transition: transform 0.15s, box-shadow 0.15s;
+            box-shadow: 0 2px 16px rgba(0,229,176,0.25);
+        }
+        .decode-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 24px rgba(0,229,176,0.35); }
+        .decode-btn:active { transform: translateY(0); }
+        .decode-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+        .proxy-row {
+            display: flex; align-items: center; gap: 10px; font-size: 13px; color: var(--text-dim);
+        }
+        .toggle {
+            position: relative; width: 38px; height: 22px; flex-shrink: 0;
+        }
+        .toggle input { opacity: 0; width: 0; height: 0; position: absolute; }
+        .toggle-track {
+            position: absolute; inset: 0; border-radius: 11px;
+            background: var(--border); cursor: pointer;
+            transition: background 0.2s;
+        }
+        .toggle-track::after {
+            content: ''; position: absolute; left: 3px; top: 3px;
+            width: 16px; height: 16px; border-radius: 50%;
+            background: var(--text-muted); transition: transform 0.2s, background 0.2s;
+        }
+        .toggle input:checked + .toggle-track { background: var(--accent-mid); }
+        .toggle input:checked + .toggle-track::after { transform: translateX(16px); background: var(--accent); }
+        .proxy-row small { color: var(--text-muted); }
+
+        /* Loading */
+        .loading {
+            text-align: center; padding: 60px 20px; color: var(--text-dim);
+        }
+        .spinner {
+            width: 40px; height: 40px; margin: 0 auto 16px;
+            border: 3px solid var(--border); border-top-color: var(--accent);
+            border-radius: 50%; animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* Error */
+        .error-box {
+            background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.25);
+            border-radius: var(--radius); padding: 20px 24px;
+            color: #fca5a5; font-size: 14px; line-height: 1.7;
+        }
+        .error-box i { color: var(--danger); margin-right: 8px; }
+        .error-box code {
+            background: rgba(239,68,68,0.12); padding: 2px 6px; border-radius: 4px;
+            font-family: var(--mono); font-size: 12px; color: #fecaca;
+        }
+
+        /* Results */
+        .results { animation: fadeUp 0.4s ease-out; }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Service info */
+        .service-info {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 20px 24px; margin-bottom: 24px;
+        }
+        .service-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+        .service-abstract { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+        .service-keywords { margin-top: 10px; display: flex; flex-wrap: wrap; gap: 6px; }
+        .keyword-tag {
+            font-size: 11px; padding: 3px 10px; border-radius: 20px;
+            background: var(--accent-dim); color: var(--accent);
+            border: 1px solid rgba(0,229,176,0.15);
+        }
+
+        /* Stat cards */
+        .stat-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
+            margin-bottom: 24px;
+        }
+        .stat-card {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 20px;
+            text-align: center; transition: border-color 0.2s;
+        }
+        .stat-card:hover { border-color: var(--border-light); }
+        .stat-value {
+            font-size: 28px; font-weight: 900; font-family: var(--mono);
+            margin-bottom: 4px; line-height: 1.2;
+        }
+        .stat-value.version { color: var(--info); }
+        .stat-value.count { color: var(--accent); }
+        .stat-value.yes { color: var(--success); }
+        .stat-value.no { color: var(--danger); }
+        .stat-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* CRS explanation box */
+        .crs-note {
+            background: rgba(56,189,248,0.06); border: 1px solid rgba(56,189,248,0.18);
+            border-radius: var(--radius); padding: 18px 22px; margin-bottom: 24px;
+            font-size: 13px; color: var(--text-dim); line-height: 1.7;
+        }
+        .crs-note strong { color: var(--text); }
+        .crs-note code {
+            background: rgba(56,189,248,0.1); padding: 1px 6px; border-radius: 4px;
+            font-family: var(--mono); font-size: 12px; color: var(--info);
+        }
+
+        /* Section common */
+        .section {
+            background: var(--card); border: 1px solid var(--border);
+            border-radius: var(--radius); margin-bottom: 24px; overflow: hidden;
+        }
+        .section-head {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 16px 22px; border-bottom: 1px solid var(--border);
+            flex-wrap: wrap; gap: 10px;
+        }
+        .section-head h2 {
+            font-size: 15px; font-weight: 700; display: flex; align-items: center; gap: 8px;
+        }
+        .section-head h2 i { color: var(--accent); font-size: 14px; }
+        .section-actions { display: flex; align-items: center; gap: 8px; }
+        .search-input {
+            background: var(--bg2); border: 1px solid var(--border);
+            border-radius: 6px; padding: 6px 12px; font-size: 12px;
+            color: var(--text); outline: none; width: 200px;
+            font-family: var(--sans); transition: border-color 0.2s;
+        }
+        .search-input:focus { border-color: var(--accent); }
+        .search-input::placeholder { color: var(--text-muted); }
+        .btn-sm {
+            display: flex; align-items: center; gap: 5px;
+            padding: 6px 14px; border-radius: 6px; border: 1px solid var(--border);
+            background: var(--bg2); color: var(--text-dim); font-size: 12px;
+            font-family: var(--sans); cursor: pointer; transition: all 0.15s;
+        }
+        .btn-sm:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
+
+        /* Layer list */
+        .layer-list { max-height: 400px; overflow-y: auto; }
+        .layer-list::-webkit-scrollbar { width: 6px; }
+        .layer-list::-webkit-scrollbar-track { background: transparent; }
+        .layer-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        .layer-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 22px; border-bottom: 1px solid rgba(26,39,64,0.5);
+            cursor: pointer; transition: background 0.12s; font-size: 13px;
+        }
+        .layer-item:last-child { border-bottom: none; }
+        .layer-item:hover { background: var(--accent-dim); }
+        .layer-item .idx {
+            min-width: 32px; text-align: right; color: var(--text-muted);
+            font-family: var(--mono); font-size: 11px; user-select: none;
+        }
+        .layer-item .name {
+            flex: 1; font-family: var(--mono); font-size: 12.5px;
+            color: var(--text); word-break: break-all; min-width: 0;
+        }
+        .layer-item .copy-hint {
+            opacity: 0; color: var(--text-muted); font-size: 11px;
+            transition: opacity 0.15s; flex-shrink: 0;
+        }
+        .layer-item:hover .copy-hint { opacity: 1; }
+        .layer-empty {
+            padding: 30px; text-align: center; color: var(--text-muted); font-size: 13px;
+        }
+        .layer-count-bar {
+            padding: 8px 22px; background: var(--bg2); font-size: 11px;
+            color: var(--text-muted); border-bottom: 1px solid var(--border);
+        }
+
+        /* Layer tree */
+        .layer-tree { padding: 12px 0; max-height: 500px; overflow-y: auto; }
+        .layer-tree::-webkit-scrollbar { width: 6px; }
+        .layer-tree::-webkit-scrollbar-track { background: transparent; }
+        .layer-tree::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        .tree-node { user-select: none; }
+        .tree-row {
+            display: flex; align-items: center; gap: 6px;
+            padding: 5px 22px; cursor: pointer; transition: background 0.1s;
+        }
+        .tree-row:hover { background: var(--accent-dim); }
+        .tree-toggle {
+            width: 18px; height: 18px; display: flex; align-items: center;
+            justify-content: center; font-size: 10px; color: var(--text-muted);
+            flex-shrink: 0; transition: transform 0.15s;
+        }
+        .tree-toggle.collapsed { transform: rotate(-90deg); }
+        .tree-toggle.hidden-toggle { visibility: hidden; }
+        .tree-icon { font-size: 13px; flex-shrink: 0; }
+        .tree-icon.folder { color: var(--warning); }
+        .tree-icon.leaf { color: var(--accent); }
+        .tree-name {
+            font-family: var(--mono); font-size: 12px; color: var(--text);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .tree-name.folder-name { color: var(--text-dim); font-family: var(--sans); font-weight: 600; font-size: 13px; }
+        .tree-children { overflow: hidden; }
+        .tree-children.collapsed { display: none; }
+
+        /* CRS list */
+        .crs-list { padding: 12px 0; }
+        .crs-item {
+            display: flex; align-items: center; gap: 10px;
+            padding: 8px 22px; transition: background 0.1s;
+        }
+        .crs-item:hover { background: var(--accent-dim); }
+        .crs-badge {
+            font-family: var(--mono); font-size: 12px; padding: 3px 10px;
+            border-radius: 5px; font-weight: 600; flex-shrink: 0;
+        }
+        .crs-badge.highlight {
+            background: var(--accent-dim); color: var(--accent);
+            border: 1px solid rgba(0,229,176,0.2);
+        }
+        .crs-badge.normal {
+            background: var(--bg2); color: var(--text-dim);
+            border: 1px solid var(--border);
+        }
+        .crs-desc { font-size: 12px; color: var(--text-muted); }
+
+        /* Raw XML */
+        .raw-xml {
+            margin: 0; padding: 16px 22px; font-family: var(--mono);
+            font-size: 11.5px; line-height: 1.6; color: var(--text-dim);
+            max-height: 500px; overflow: auto; white-space: pre-wrap;
+            word-break: break-all; background: var(--bg2);
+        }
+        .raw-xml::-webkit-scrollbar { width: 6px; }
+        .raw-xml::-webkit-scrollbar-track { background: transparent; }
+        .raw-xml::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+        /* Toast */
+        #toastBox {
+            position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+            display: flex; flex-direction: column; gap: 8px; pointer-events: none;
+        }
+        .toast {
+            padding: 10px 18px; border-radius: 8px; font-size: 13px;
+            font-family: var(--sans); color: var(--text);
+            background: var(--card); border: 1px solid var(--border);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+            transform: translateX(120%); transition: transform 0.3s ease;
+            pointer-events: auto;
+        }
+        .toast.show { transform: translateX(0); }
+        .toast-success { border-color: rgba(34,197,94,0.3); }
+        .toast-success::before { content: '\f058'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--success); margin-right: 8px; }
+        .toast-error { border-color: rgba(239,68,68,0.3); }
+        .toast-error::before { content: '\f057'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--danger); margin-right: 8px; }
+        .toast-info { border-color: rgba(56,189,248,0.3); }
+        .toast-info::before { content: '\f05a'; font-family: 'Font Awesome 6 Free'; font-weight: 900; color: var(--info); margin-right: 8px; }
+
+        .hidden { display: none !important; }
+
+        @media (max-width: 700px) {
+            .container { padding: 28px 14px 60px; }
+            .stat-grid { grid-template-columns: repeat(2, 1fr); }
+            .url-row { flex-direction: column; }
+            .decode-btn { padding: 12px; justify-content: center; }
+            .search-input { width: 140px; }
+            .section-head { flex-direction: column; align-items: flex-start; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="bg-blob bg-blob-1"></div>
+    <div class="bg-blob bg-blob-2"></div>
+
+    <div id="toastBox"></div>
+
+    <main class="container">
+        <header>
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-layer-group"></i></div>
+                <span class="logo-text">WMS Decoder</span>
+            </div>
+            <p class="subtitle">Parse GetCapabilities — extract layers, version &amp; CRS info from any WMS server</p>
+        </header>
+
+        <section class="input-section">
+            <div class="url-row">
+                <div class="url-wrap">
+                    <i class="fas fa-link"></i>
+                    <input type="text" id="wmsUrl" placeholder="Paste WMS endpoint URL..." aria-label="WMS Server URL"
+                        value="https://geodpags.skogsstyrelsen.se/arcgis/services/Geodataportal/GeodataportalVisaDVIS/MapServer/WMSServer?">
+                </div>
+                <button class="decode-btn" id="decodeBtn" aria-label="Decode WMS">
+                    <i class="fas fa-satellite-dish"></i> Decode
+                </button>
+            </div>
+            <div class="proxy-row">
+                <label class="toggle">
+                    <input type="checkbox" id="useProxy" checked>
+                    <span class="toggle-track"></span>
+                </label>
+                <span>Use CORS proxy <small>(most WMS servers block direct browser requests)</small></span>
+            </div>
+        </section>
+
+        <div id="loadingArea" class="loading hidden">
+            <div class="spinner"></div>
+            <p>Fetching GetCapabilities document...</p>
+        </div>
+
+        <div id="errorArea" class="error-box hidden"></div>
+
+        <div id="resultsArea" class="results hidden"></div>
+    </main>
+
+    <script>
+        /* ===== DOM helpers for namespaced XML ===== */
+        function localName(el) {
+            return el ? (el.localName || el.baseName || el.tagName) : '';
+        }
+
+        // Query first direct child by local name
+        function qsDirect(parent, tag) {
+            let el = parent.querySelector(`:scope > ${tag}`);
+            if (!el) {
+                const tagLower = tag.toLowerCase();
+                for (const child of parent.children) {
+                    if (localName(child).toLowerCase() === tagLower) return child;
+                }
+            }
+            return el;
+        }
+
+        // Query all direct children by local name
+        function qsaDirect(parent, tag) {
+            let results = parent.querySelectorAll(`:scope > ${tag}`);
+            if (results.length === 0) {
+                const tagLower = tag.toLowerCase();
+                results = [];
+                for (const child of parent.children) {
+                    if (localName(child).toLowerCase() === tagLower) results.push(child);
+                }
+            }
+            return results;
+        }
+
+        // Query text of first direct child
+        function qsText(parent, tag) {
+            const el = qsDirect(parent, tag);
+            return el ? el.textContent.trim() : '';
+        }
+
+        /* ===== Toast system ===== */
+        function toast(msg, type = 'info') {
+            const el = document.createElement('div');
+            el.className = `toast toast-${type}`;
+            el.textContent = msg;
+            document.getElementById('toastBox').appendChild(el);
+            requestAnimationFrame(() => el.classList.add('show'));
+            setTimeout(() => {
+                el.classList.remove('show');
+                setTimeout(() => el.remove(), 300);
+            }, 2800);
+        }
+
+        /* ===== Build GetCapabilities URL ===== */
+        function buildCapUrl(baseUrl) {
+            let url = baseUrl.trim().replace(/[?&]+$/, '');
+            const sep = url.includes('?') ? '&' : '?';
+            return `${url}${sep}SERVICE=WMS&REQUEST=GetCapabilities`;
+        }
+
+        /* ===== Known CRS descriptions ===== */
+        const CRS_INFO = {
+            'EPSG:4326': 'WGS 84 geographic (lat, lon)',
+            'CRS:84': 'WGS 84 longitude-first axis order',
+            'EPSG:3857': 'Web Mercator (Google/OSM projection)',
+            'EPSG:3006': 'SWEREF99 TM — Swedish national grid',
+            'EPSG:3007': 'SWEREF99 13 30 / local zone',
+            'EPSG:3008': 'SWEREF99 14 15 / local zone',
+            'EPSG:3009': 'SWEREF99 15 45 / local zone',
+            'EPSG:3010': 'SWEREF99 16 30 / local zone',
+            'EPSG:3011': 'SWEREF99 17 15 / local zone',
+            'EPSG:3012': 'SWEREF99 18 00 / local zone',
+            'EPSG:3013': 'SWEREF99 18 45 / local zone',
+            'EPSG:3014': 'SWEREF99 19 30 / local zone',
+            'EPSG:3015': 'SWEREF99 20 15 / local zone',
+            'EPSG:3016': 'SWEREF99 21 00 / local zone',
+            'EPSG:3017': 'SWEREF99 21 45 / local zone',
+            'EPSG:3018': 'SWEREF99 22 30 / local zone',
+            'EPSG:3021': 'RT90 2.5 gon V — old Swedish grid',
+            'EPSG:4230': 'ED50 geographic',
+            'EPSG:25832': 'ETRS89 / UTM zone 32N',
+            'EPSG:25833': 'ETRS89 / UTM zone 33N',
+            'EPSG:25884': 'ETRS89 / UTM zone 34N (deprecated)',
+            'EPSG:2154': 'RGF93 / Lambert-93 — French national grid',
+            'EPSG:27700': 'OSGB 1936 / British National Grid',
+            'EPSG:28992': 'Amersfoort / RD New — Dutch national grid',
+            'EPSG:3067': 'ETRS89 / GK25FIN — Finnish national grid',
+            'EPSG:3044': 'ETRS89 / UTM zone 33N (N-E) — German',
+            'EPSG:23030': 'ED50 / UTM zone 30N',
+            'EPSG:23031': 'ED50 / UTM zone 31N',
+            'EPSG:23032': 'ED50 / UTM zone 32N',
+            'EPSG:32632': 'WGS 84 / UTM zone 32N',
+            'EPSG:32633': 'WGS 84 / UTM zone 33N',
+        };
+
+        function crsDescription(code) {
+            return CRS_INFO[code] || '';
+        }
+
+        /* ===== Parse layer tree ===== */
+        function parseLayerTree(el, depth = 0) {
+            const name = qsText(el, 'Name');
+            const title = qsText(el, 'Title');
+            const abstract = qsText(el, 'Abstract');
+            const children = qsaDirect(el, 'Layer').map(c => parseLayerTree(c, depth + 1));
+            return { name, title, abstract, depth, children };
+        }
+
+        function flattenTree(node, list = []) {
+            if (node.name) list.push({ name: node.name, title: node.title, depth: node.depth });
+            node.children.forEach(c => flattenTree(c, list));
+            return list;
+        }
+
+        /* ===== Main decode function ===== */
+        async function decodeWMS() {
+            const urlInput = document.getElementById('wmsUrl');
+            const useProxy = document.getElementById('useProxy').checked;
+            const resultsArea = document.getElementById('resultsArea');
+            const errorArea = document.getElementById('errorArea');
+            const loadingArea = document.getElementById('loadingArea');
+            const decodeBtn = document.getElementById('decodeBtn');
+
+            const baseUrl = urlInput.value.trim();
+            if (!baseUrl) {
+                toast('Please enter a WMS URL', 'error');
+                urlInput.focus();
+                return;
+            }
+
+            // UI state
+            resultsArea.classList.add('hidden');
+            errorArea.classList.add('hidden');
+            loadingArea.classList.remove('hidden');
+            decodeBtn.disabled = true;
+
+            let rawXml = '';
+
+            try {
+                const capUrl = buildCapUrl(baseUrl);
+                const fetchUrl = useProxy
+                    ? `https://api.allorigins.win/raw?url=${encodeURIComponent(capUrl)}`
+                    : capUrl;
+
+                const resp = await fetch(fetchUrl);
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+
+                rawXml = await resp.text();
+
+                // Check if response is actually XML
+                const trimmed = rawXml.trim();
+                if (!trimmed.startsWith('<')) {
+                    throw new Error(
+                        'Server did not return XML. It may be returning an HTML error page, ' +
+                        'or the URL is incorrect. Try toggling the CORS proxy on/off.'
+                    );
+                }
+
+                const parser = new DOMParser();
+                const xml = parser.parseFromString(rawXml, 'text/xml');
+
+                // Check for XML parse errors
+                if (xml.querySelector('parsererror')) {
+                    throw new Error('Failed to parse XML response. The response may be malformed.');
+                }
+
+                // Check for OGC service exceptions
+                const exc = xml.querySelector('ServiceException');
+                if (exc) {
+                    throw new Error(`WMS Service Exception: ${exc.textContent.trim()}`);
+                }
+
+                const root = xml.documentElement;
+                const version = root.getAttribute('version') || 'unknown';
+                const rootTag = localName(root);
+
+                // Determine WMS type
+                let wmsLabel = 'Unknown';
+                if (rootTag === 'WMT_MS_Capabilities') wmsLabel = 'WMS 1.1.1';
+                else if (rootTag === 'WMS_Capabilities') wmsLabel = 'WMS 1.3.0';
+
+                const isV13 = version.startsWith('1.3');
+                const crsTagName = isV13 ? 'CRS' : 'SRS';
+
+                // Service metadata
+                const serviceEl = root.querySelector('Service');
+                const serviceTitle = serviceEl ? qsText(serviceEl, 'Title') : '';
+                const serviceAbstract = serviceEl ? qsText(serviceEl, 'Abstract') : '';
+                const keywords = [];
+                if (serviceEl) {
+                    const kwRoot = qsDirect(serviceEl, 'KeywordList');
+                    if (kwRoot) {
+                        kwRoot.querySelectorAll('Keyword').forEach(kw => {
+                            const t = kw.textContent.trim();
+                            if (t) keywords.push(t);
+                        });
+                    }
+                }
+
+                // Parse layers
+                const capabilityEl = qsDirect(root, 'Capability');
+                const rootLayerEl = capabilityEl ? qsDirect(capabilityEl, 'Layer') : null;
+                const layerTree = rootLayerEl ? parseLayerTree(rootLayerEl) : { name: '', title: '', abstract: '', depth: 0, children: [] };
+                const flatLayers = flattenTree(layerTree);
+
+                // Collect all CRS values
+                const crsSet = new Set();
+                // Start from root layer (authoritative list)
+                if (rootLayerEl) {
+                    const rootCrsEl = qsDirect(rootLayerEl, crsTagName);
+                    if (rootCrsEl) {
+                        rootCrsEl.textContent.trim().split(/\s+/).forEach(c => { if (c) crsSet.add(c); });
+                    }
+                }
+                // Also scan all layers for any additional CRS
+                if (capabilityEl) {
+                    capabilityEl.querySelectorAll(crsTagName).forEach(el => {
+                        el.textContent.trim().split(/\s+/).forEach(c => { if (c) crsSet.add(c); });
+                    });
+                }
+
+                const allCrs = Array.from(crsSet).sort((a, b) => {
+                    // Sort highlighted CRS first, then alphabetically
+                    const priority = (c) => c === 'EPSG:4326' ? 0 : c === 'CRS:84' ? 1 : c === 'EPSG:3857' ? 2 : 3;
+                    return priority(a) - priority(b) || a.localeCompare(b);
+                });
+
+                const has4326 = crsSet.has('EPSG:4326');
+                const hasCRS84 = crsSet.has('CRS:84');
+
+                // Render results
+                renderResults({
+                    version, wmsLabel, rootTag,
+                    serviceTitle, serviceAbstract, keywords,
+                    layerTree, flatLayers,
+                    allCrs, has4326, hasCRS84,
+                    isV13, rawXml
+                });
+
+            } catch (err) {
+                errorArea.innerHTML = `<i class="fas fa-exclamation-triangle"></i>${escapeHtml(err.message)}`;
+                errorArea.classList.remove('hidden');
+                if (err.message.includes('Failed to fetch') || err.message.includes('NetworkError')) {
+                    errorArea.innerHTML += `<br><br><small>If this is a CORS issue, try toggling the proxy. You can also test the URL directly: <code>${escapeHtml(buildCapUrl(baseUrl))}</code></small>`;
+                }
+            } finally {
+                loadingArea.classList.add('hidden');
+                decodeBtn.disabled = false;
+            }
+        }
+
+        /* ===== Escape HTML ===== */
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        /* ===== Render results ===== */
+        function renderResults(data) {
+            const area = document.getElementById('resultsArea');
+            const { version, wmsLabel, serviceTitle, serviceAbstract, keywords,
+                    layerTree, flatLayers, allCrs, has4326, hasCRS84, isV13, rawXml } = data;
+
+            let html = '';
+
+            // Service info
+            if (serviceTitle || serviceAbstract || keywords.length) {
+                html += `<div class="service-info">`;
+                if (serviceTitle) html += `<div class="service-title">${escapeHtml(serviceTitle)}</div>`;
+                if (serviceAbstract) html += `<div class="service-abstract">${escapeHtml(serviceAbstract)}</div>`;
+                if (keywords.length) {
+                    html += `<div class="service-keywords">`;
+                    keywords.slice(0, 20).forEach(kw => {
+                        html += `<span class="keyword-tag">${escapeHtml(kw)}</span>`;
+                    });
+                    if (keywords.length > 20) html += `<span class="keyword-tag">+${keywords.length - 20} more</span>`;
+                    html += `</div>`;
+                }
+                html += `</div>`;
+            }
+
+            // Stat cards
+            html += `<div class="stat-grid">
+                <div class="stat-card">
+                    <div class="stat-value version">${escapeHtml(version)}</div>
+                    <div class="stat-label">${escapeHtml(wmsLabel)}</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value count">${flatLayers.length}</div>
+                    <div class="stat-label">Layers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value ${has4326 ? 'yes' : 'no'}">${has4326 ? '<i class="fas fa-check-circle"></i> Yes' : '<i class="fas fa-times-circle"></i> No'}</div>
+                    <div class="stat-label">EPSG:4326</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value ${hasCRS84 ? 'yes' : 'no'}">${hasCRS84 ? '<i class="fas fa-check-circle"></i> Yes' : '<i class="fas fa-times-circle"></i> No'}</div>
+                    <div class="stat-label">CRS:84</div>
+                </div>
+            </div>`;
+
+            // CRS explanation
+            if (isV13) {
+                html += `<div class="crs-note">
+                    <strong>WMS 1.3.0 axis order matters:</strong>
+                    <code>EPSG:4326</code> uses <strong>latitude-first</strong> axis order (lat, lon),
+                    while <code>CRS:84</code> uses <strong>longitude-first</strong> (lon, lat) — same datum, different axis order.
+                    If your client sends coordinates in lon/lat order, use <code>CRS:84</code> to avoid swapped axes.
+                    In WMS 1.1.1, <code>EPSG:4326</code> is always treated as lon/lat.
+                </div>`;
+            } else {
+                html += `<div class="crs-note">
+                    <strong>WMS 1.1.1 axis order:</strong>
+                    In version 1.1.1, <code>EPSG:4326</code> is conventionally interpreted as <strong>longitude-first</strong> (lon, lat),
+                    regardless of the official EPSG definition. The <code>CRS:84</code> identifier was introduced in WMS 1.3.0
+                    to explicitly declare lon/lat order without ambiguity.
+                </div>`;
+            }
+
+            // Layer names
+            html += `<div class="section">
+                <div class="section-head">
+                    <h2><i class="fas fa-list"></i> Layer Names</h2>
+                    <div class="section-actions">
+                        <input type="text" class="search-input" id="layerSearch" placeholder="Filter layers..." aria-label="Filter layers">
+                        <button class="btn-sm" id="copyAllBtn"><i class="fas fa-copy"></i> Copy All</button>
+                    </div>
+                </div>
+                <div class="layer-count-bar" id="layerCountBar">Showing ${flatLayers.length} layers</div>
+                <div class="layer-list" id="layerList">`;
+            flatLayers.forEach((layer, i) => {
+                html += `<div class="layer-item" data-name="${escapeHtml(layer.name)}" title="Click to copy">
+                    <span class="idx">${i + 1}</span>
+                    <span class="name">${escapeHtml(layer.name)}</span>
+                    <span class="copy-hint"><i class="fas fa-clipboard"></i></span>
+                </div>`;
+            });
+            html += `</div></div>`;
+
+            // Layer tree
+            html += `<div class="section">
+                <div class="section-head">
+                    <h2><i class="fas fa-sitemap"></i> Layer Tree</h2>
+                    <div class="section-actions">
+                        <button class="btn-sm" id="expandAllBtn"><i class="fas fa-expand-alt"></i> Expand All</button>
+                        <button class="btn-sm" id="collapseAllBtn"><i class="fas fa-compress-alt"></i> Collapse All</button>
+                    </div>
+                </div>
+                <div class="layer-tree" id="layerTree"></div>
+            </div>`;
+
+            // CRS list
+            html += `<div class="section">
+                <div class="section-head">
+                    <h2><i class="fas fa-globe"></i> Supported CRS / SRS</h2>
+                    <div class="section-actions">
+                        <button class="btn-sm" id="copyCrsBtn"><i class="fas fa-copy"></i> Copy All</button>
+                    </div>
+                </div>
+                <div class="crs-list">`;
+            allCrs.forEach(crs => {
+                const isHighlight = crs === 'EPSG:4326' || crs === 'CRS:84';
+                const desc = crsDescription(crs);
+                html += `<div class="crs-item">
+                    <span class="crs-badge ${isHighlight ? 'highlight' : 'normal'}">${escapeHtml(crs)}</span>
+                    ${desc ? `<span class="crs-desc">${escapeHtml(desc)}</span>` : ''}
+                </div>`;
+            });
+            html += `</div></div>`;
+
+            // Raw XML
+            const truncated = rawXml.length > 80000;
+            const displayXml = truncated ? rawXml.substring(0, 80000) + '\n\n... (truncated)' : rawXml;
+            html += `<div class="section">
+                <div class="section-head">
+                    <h2><i class="fas fa-code"></i> Raw GetCapabilities XML</h2>
+                    <div class="section-actions">
+                        ${truncated ? `<span style="font-size:11px;color:var(--text-muted);margin-right:6px">Truncated — ${(rawXml.length / 1024).toFixed(0)} KB total</span>` : `<span style="font-size:11px;color:var(--text-muted);margin-right:6px">${(rawXml.length / 1024).toFixed(1)} KB</span>`}
+                        <button class="btn-sm" id="toggleRawBtn"><i class="fas fa-chevron-down"></i> Show</button>
+                    </div>
+                </div>
+                <pre class="raw-xml hidden" id="rawXml">${escapeHtml(displayXml)}</pre>
+            </div>`;
+
+            area.innerHTML = html;
+            area.classList.remove('hidden');
+
+            // Post-render: attach event listeners
+
+            // Layer search
+            const searchInput = document.getElementById('layerSearch');
+            const layerList = document.getElementById('layerList');
+            const countBar = document.getElementById('layerCountBar');
+            searchInput.addEventListener('input', () => {
+                const q = searchInput.value.toLowerCase();
+                let visible = 0;
+                layerList.querySelectorAll('.layer-item').forEach(item => {
+                    const match = item.dataset.name.toLowerCase().includes(q);
+                    item.style.display = match ? '' : 'none';
+                    if (match) visible++;
+                });
+                countBar.textContent = `Showing ${visible} of ${flatLayers.length} layers`;
+            });
+
+            // Copy single layer name on click
+            layerList.querySelectorAll('.layer-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    navigator.clipboard.writeText(item.dataset.name).then(() => {
+                        toast(`Copied: ${item.dataset.name}`, 'success');
+                    }).catch(() => {
+                        toast('Copy failed — try manually', 'error');
+                    });
+                });
+            });
+
+            // Copy all layer names
+            document.getElementById('copyAllBtn').addEventListener('click', () => {
+                const allNames = flatLayers.map(l => l.name).join(',');
+                navigator.clipboard.writeText(allNames).then(() => {
+                    toast(`Copied ${flatLayers.length} layer names`, 'success');
+                }).catch(() => toast('Copy failed', 'error'));
+            });
+
+            // Copy all CRS
+            document.getElementById('copyCrsBtn').addEventListener('click', () => {
+                navigator.clipboard.writeText(allCrs.join(', ')).then(() => {
+                    toast(`Copied ${allCrs.length} CRS values`, 'success');
+                }).catch(() => toast('Copy failed', 'error'));
+            });
+
+            // Build layer tree DOM
+            buildTreeDOM(layerTree, document.getElementById('layerTree'));
+
+            // Expand / Collapse all
+            document.getElementById('expandAllBtn').addEventListener('click', () => {
+                document.querySelectorAll('#layerTree .tree-children').forEach(el => el.classList.remove('collapsed'));
+                document.querySelectorAll('#layerTree .tree-toggle').forEach(el => el.classList.remove('collapsed'));
+            });
+            document.getElementById('collapseAllBtn').addEventListener('click', () => {
+                document.querySelectorAll('#layerTree .tree-children').forEach(el => el.classList.add('collapsed'));
+                document.querySelectorAll('#layerTree .tree-toggle:not(.hidden-toggle)').forEach(el => el.classList.add('collapsed'));
+            });
+
+            // Toggle raw XML
+            document.getElementById('toggleRawBtn').addEventListener('click', () => {
+                const pre = document.getElementById('rawXml');
+                const btn = document.getElementById('toggleRawBtn');
+                const isHidden = pre.classList.contains('hidden');
+                pre.classList.toggle('hidden');
+                btn.innerHTML = isHidden
+                    ? '<i class="fas fa-chevron-up"></i> Hide'
+                    : '<i class="fas fa-chevron-down"></i> Show';
+            });
+        }
+
+        /* ===== Build layer tree DOM ===== */
+        function buildTreeDOM(node, container) {
+            const hasChildren = node.children && node.children.length > 0;
+            const isLeaf = !!node.name;
+            const isFolder = !isLeaf && hasChildren;
+
+            const row = document.createElement('div');
+            row.className = 'tree-row';
+
+            // Toggle arrow
+            const toggle = document.createElement('span');
+            toggle.className = 'tree-toggle' + ((hasChildren || isFolder) ? '' : ' hidden-toggle');
+            if (hasChildren) toggle.textContent = '\u25BC'; // ▼
+            row.appendChild(toggle);
+
+            // Icon
+            const icon = document.createElement('span');
+            icon.className = 'tree-icon ' + (isLeaf ? 'leaf' : 'folder');
+            icon.innerHTML = isLeaf
+                ? '<i class="fas fa-layer-group"></i>'
+                : '<i class="fas fa-folder"></i>';
+            row.appendChild(icon);
+
+            // Name
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'tree-name' + (isFolder ? ' folder-name' : '');
+            nameSpan.textContent = isLeaf ? node.name : (node.title || node.name || 'Root');
+            nameSpan.title = isLeaf ? node.name : (node.title || '');
+            row.appendChild(nameSpan);
+
+            // Click to copy for leaf nodes
+            if (isLeaf) {
+                row.style.cursor = 'pointer';
+                row.title = 'Click to copy layer name';
+                row.addEventListener('click', () => {
+                    navigator.clipboard.writeText(node.name).then(() => {
+                        toast(`Copied: ${node.name}`, 'success');
+                    });
+                });
+            }
+
+            container.appendChild(row);
+
+            // Children container
+            if (hasChildren) {
+                const childContainer = document.createElement('div');
+                childContainer.className = 'tree-children';
+
+                // Toggle click
+                toggle.style.cursor = 'pointer';
+                toggle.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    childContainer.classList.toggle('collapsed');
+                    toggle.classList.toggle('collapsed');
+                });
+
+                // Also toggle on row click for folders
+                row.addEventListener('click', (e) => {
+                    if (e.target.closest('.tree-name.leaf')) return;
+                    childContainer.classList.toggle('collapsed');
+                    toggle.classList.toggle('collapsed');
+                });
+
+                node.children.forEach(child => buildTreeDOM(child, childContainer));
+                container.appendChild(childContainer);
+            }
+        }
+
+        /* ===== Event listeners ===== */
+        document.getElementById('decodeBtn').addEventListener('click', decodeWMS);
+        document.getElementById('wmsUrl').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') decodeWMS();
+        });
+    </script>
+</body>
+</html>
