@@ -161,19 +161,7 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
     <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
       <a href="https://github.com/OSM-Plein-Air/OsmAnd-maps-IGN/releases"><img src="https://img.shields.io/badge/github-repository-blue?logo=github"></a> 
     </td>
-  </tr>
-  <tr>
-    <td style="border-right: 0px">set of maps (webpage in French)</td>    
-    <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
-      <a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-online"><img src="https://img.shields.io/badge/Gravel%20Roads%20Seeker-A155E8"></a> 
-    </td>
-  </tr>
-  <tr>
-    <td style="border-right: 0px">set of maps</td>    
-    <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
-      <a href="https://osmand-rendering.github.io/Online-Maps/index_EN.html"><img src="https://img.shields.io/badge/Web%20Page-A155E8"></a> 
-    </td>
-  </tr>  
+  </tr> 
   <tr>
     <td style="border-right: 0px"><a href="https://www.rainviewer.com/api/weather-maps-api.html"> RainViewer</a>  map with various <a href="https://www.rainviewer.com/api/color-schemes.html"> color schema</a> </td>    
     <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
@@ -206,14 +194,15 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
     </td>
   </tr>
   <tr>
-    <td style="border-right: 0px">set of maps </td>    
-    <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;"><a href="http://anygis.ru/Web/Html/Osmand_en"><img src="https://img.shields.io/badge/AnyGis-A155E8"></a> 
-    </td>
-  </tr>  
-  <tr>
     <td style="border-right: 0px">🇩🇪 dipul - Unmanned Aviation</td>    
     <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;">
       <a href="https://github.com/mariush444/Osmand-tools/raw/refs/heads/main/DE_dipul.osf"><img src="https://img.shields.io/badge/osmand-plugin-orange?logo=osmand"></a> 
+    </td>
+  </tr>
+  <tr>
+    <td style="border-right: 0px">🇸🇪 Skogsstyrelsen</td>    
+    <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;">
+      <a href="https://github.com/mariush444/Osmand-tools/raw/refs/heads/main/SE-skogsstyrelsen.osf"><img src="https://img.shields.io/badge/osmand-plugin-orange?logo=osmand"></a> 
     </td>
   </tr>
   <tr>
@@ -222,6 +211,23 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
       <a href="https://github.com/mariush444/Osmand-tools/raw/refs/heads/main/Strava_freemap.osf"><img src="https://img.shields.io/badge/osmand-plugin-orange?logo=osmand"></a> 
     </td>
   </tr>
+  <tr>
+    <td style="border-right: 0px">set of maps - AnyGis</td>    
+    <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;"><a href="http://anygis.ru/Web/Html/Osmand_en"><img src="https://img.shields.io/badge/AnyGis-A155E8"></a> 
+    </td>
+  </tr>
+  <tr>
+    <td style="border-right: 0px">set of maps (webpage in French)</td>    
+    <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
+      <a href="https://sites.google.com/view/gravel-roads-seeker/cartes-hors-route/cartes-online"><img src="https://img.shields.io/badge/Gravel%20Roads%20Seeker-A155E8"></a> 
+    </td>
+  </tr>
+  <tr>
+    <td style="border-right: 0px">set of maps</td>    
+    <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
+      <a href="https://osmand-rendering.github.io/Online-Maps/index_EN.html"><img src="https://img.shields.io/badge/Web%20Page-A155E8"></a> 
+    </td>
+  </tr> 
   <tr>
   <th colspan="2"><h3>Manuals</h3></th> 
   </tr>
