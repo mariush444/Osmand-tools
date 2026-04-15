@@ -77,7 +77,7 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
     </td>    
   </tr>
   <tr>
-  <th colspan="2"><h3>Map Styles - Rendering</h3></th>
+  <th colspan="2"><h3 id="Styles">Map Styles - Rendering</h3></th>
   </tr>
   <!-- tr>
     <td>map style</td>
@@ -130,7 +130,7 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
     <td><a href="https://github.com/Louis-LJ/OsmAnd_Cycling_Map/blob/main/README_EN.md"> github </a>  </td>
   </tr -->
   <tr>
-  <th colspan="2"><h3>Offline Maps</h3></th>
+  <th colspan="2"><h3 id="Offline">Offline Maps</h3></th>
   </tr>
   <tr>
     <td style="border-right: 0px">improved searching addresses for some countries </td>    
@@ -229,7 +229,7 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
     </td>
   </tr> 
   <tr>
-  <th colspan="2"><h3>Manuals</h3></th> 
+  <th colspan="2"><h3 id="Manuals">Manuals</h3></th> 
   </tr>
   <tr>
     <td style="border-right: 0px">🇮🇹 manual - 1st steps in Italian (manuale - primi passi in italiano)</td>    
@@ -239,7 +239,7 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
   </tr>
   
   <tr>
-    <th colspan="2" style="border-top: 5px solid black; text-align: center;"><h3> - hardware - barbuttons - </h3>
+    <th colspan="2" style="border-top: 5px solid black; text-align: center;"><h3 id="hardware"> - hardware - barbuttons - </h3>
     !!! there are commercial companies but the links are NOT affiliated !!!</th>    
   </tr>
   <tr>
