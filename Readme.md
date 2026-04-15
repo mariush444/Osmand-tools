@@ -77,6 +77,12 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
     </td>    
   </tr>
   <tr>
+    <td style="border-right: 0px">WMS decoder</td>    
+    <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
+      <a href="https://mariush444.github.io/Osmand-tools/WMS-decoder.html"><img src="https://img.shields.io/badge/WMS%20Decoder-A155E8"></a> 
+    </td>
+  </tr> 
+  <tr>
   <th colspan="2"><h3 id="Styles">Map Styles - Rendering</h3></th>
   </tr>
   <!-- tr>
@@ -227,7 +233,7 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
     <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
       <a href="https://osmand-rendering.github.io/Online-Maps/index_EN.html"><img src="https://img.shields.io/badge/Web%20Page-A155E8"></a> 
     </td>
-  </tr> 
+  </tr>
   <tr>
   <th colspan="2"><h3 id="Manuals">Manuals</h3></th> 
   </tr>
@@ -265,7 +271,7 @@ If you have no account on github just leave message in osmand group on <a href="
 <img src="https://img.shields.io/badge/reddit-grey?style=for-the-badge&logo=reddit"></a> ● --> <a href="https://www.facebook.com/groups/osmandusers/">
 <img src="https://img.shields.io/badge/facebook-grey?style=for-the-badge&logo=facebook"></a> <br> <br>
 <a href="https://github.com/mariush444/Osmand-tools/"><img src="https://avatars.githubusercontent.com/u/66887280?v=4&size=64" alt="Main Page" style="width:20px;height:20px;"></a>
-&nbsp;&nbsp;updated 07.04.2026  
+&nbsp;&nbsp;updated 15.04.2026  
 <!-- If you like it you can buy me <a href="https://buy.stripe.com/5kA5nP7B27OQdFK7sv"> 🍷 </a> or <a href="https://buy.stripe.com/5kA6rTcVm8SUeJOeUW"> ☕ </a>
 </h6>
 -->
