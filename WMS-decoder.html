@@ -79,6 +79,16 @@
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+        .logo-icon a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        .logo-icon img {
+            display: block; /* removes inline baseline weirdness */
+        }
         .subtitle { color: var(--text-muted); font-size: 15px; margin-left: 58px; margin-top: -4px; }
 
         .input-section {
@@ -448,7 +458,11 @@
     <main class="container">
         <header>
             <div class="logo">
-                <div class="logo-icon"><i class="fas fa-layer-group"></i></div>
+                <div class="logo-icon">
+                <a href="https://mariush444.github.io/Osmand-tools/">
+                <img src="https://avatars.githubusercontent.com/u/66887280?v=4&size=64" alt="Main Page" style="width:30px;height:30px;"></a>
+                </div>
+                <!-- div class="logo-icon"><i class="fas fa-layer-group"></i></div -->
                 <span class="logo-text">WMS Decoder</span>
             </div>
             <p class="subtitle">Parse GetCapabilities — extract layers, version &amp; CRS info from any WMS server</p>
