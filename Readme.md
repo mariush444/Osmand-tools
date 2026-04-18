@@ -1,6 +1,6 @@
 #  Tools , plugins, scripts, maps, manuals ... <br>created by users for Osmand 
 
-some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshooting/resources#converters"><img src="https://img.shields.io/badge/osmand-the%20official%20website-orange?logo=osmand"></a><br>
+some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshooting/resources#converters"><img src="https://img.shields.io/badge/osmand-the%20official%20web%20docs-orange?logo=osmand"></a><br>
 <table style="border: 1px">
   <tr>
     <th colspan="2"><h3>Converters</h3></th>
