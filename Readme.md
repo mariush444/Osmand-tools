@@ -11,7 +11,7 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
     <a href="https://github.com/mariush444/geo2cntr"><img src="https://img.shields.io/badge/github-repository-blue?logo=github"></a> 
       <!-- was for img style="height: 1.5em; vertical-align: middle;"-->
     <a href="https://github.com/mariush444/geo2cntr/blob/main/geo2cntr.py"><img src="https://img.shields.io/badge/python-script-yellow?logo=python&labelColor=lightgrey"></a>
-    <a href="https://mariush444.github.io/Osmand-tools/geo2cntr.html"><img src="https://img.shields.io/badge/Web%20Page-A155E8"></a>
+    <a href="https://mariush444.github.io/Osmand-tools/geo2cntr.html"><img src="https://img.shields.io/badge/On&ndash;line-A155E8"></a>
     </td>
   </tr>
   <tr>
@@ -19,6 +19,7 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
     <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
     <a href="https://github.com/mariush444/gmapIcons2osmand"><img src="https://img.shields.io/badge/github-repository-blue?logo=github"></a>
     <a href="https://github.com/mariush444/gmapIcons2osmand/blob/main/kmz2osmand.py"><img src="https://img.shields.io/badge/python-script-yellow?logo=python&labelColor=lightgrey"></a>
+    <a href="https://mariush444.github.io/gmapIcons2osmand/kmz2osmand-online.html"><img src="https://img.shields.io/badge/On&ndash;line-A155E8"></a>
     </td>
   </tr>
   <tr>
@@ -64,7 +65,7 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
     <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
     <a href="https://github.com/mariush444/fuelfr/blob/main/README.md"><img src="https://img.shields.io/badge/github-repository-blue?logo=github"></a>
     <a href="https://github.com/mariush444/fuelFR2Osmand_gpx/blob/main/Fuel_FR.py"><img src="https://img.shields.io/badge/python-script-yellow?logo=python&labelColor=lightgrey"></a>
-    <a href="https://mariush444.github.io/Osmand-tools/fuel_FR.html"><img src="https://img.shields.io/badge/Web%20Page-A155E8"></a>
+    <a href="https://mariush444.github.io/Osmand-tools/fuel_FR.html"><img src="https://img.shields.io/badge/On&ndash;line-A155E8"></a>
     <a href="https://github.com/mariush444/fuelfr/releases/"><img src="https://img.shields.io/badge/android-apk-darkgreen?logo=android"></a>
     </td>
   </tr>
@@ -72,7 +73,7 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
     <td style="border-right: 0px">🇪🇸 fuel prices at gas stations (classified by color icons in gpx/kmz file)</td> 
     <td  style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
       <a href="https://github.com/mariush444/fuelfr/blob/main/README.md"><img src="https://img.shields.io/badge/github-repository-blue?logo=github"></a>
-      <a href="https://mariush444.github.io/Osmand-tools/fuel_ES.html"><img src="https://img.shields.io/badge/Web%20Page-A155E8"></a>
+      <a href="https://mariush444.github.io/Osmand-tools/fuel_ES.html"><img src="https://img.shields.io/badge/On&ndash;line-A155E8"></a>
       <a href="https://github.com/mariush444/fuelfr/releases/"><img src="https://img.shields.io/badge/android-apk-darkgreen?logo=android"></a>
     </td>    
   </tr>
