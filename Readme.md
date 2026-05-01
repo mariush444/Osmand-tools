@@ -82,7 +82,14 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
     <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
       <a href="https://mariush444.github.io/Osmand-tools/WMS-decoder.html"><img src="https://img.shields.io/badge/WMS%20Decoder-A155E8"></a> 
     </td>
-  </tr> 
+  </tr>
+  <tr>
+    <td style="border-right: 0px">GEOshare - google address converter - multi map sharing</td> 
+    <td  style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
+      <a href="https://github.com/jakubvalenta/geoshare"><img src="https://img.shields.io/badge/github-repository-blue?logo=github"></a>
+      <a href="https://f-droid.org/en/packages/page.ooooo.geoshare/"><img src="https://img.shields.io/badge/android-apk-darkgreen?logo=android"></a>
+    </td>    
+  </tr>
   <tr>
   <th colspan="2"><h3 id="Styles">Map Styles - Rendering</h3></th>
   </tr>
@@ -205,6 +212,12 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
       <a href="https://github.com/mariush444/Osmand-tools/raw/refs/heads/main/DE_dipul.osf"><img src="https://img.shields.io/badge/osmand-plugin-orange?logo=osmand"></a> 
     </td>
   </tr>
+    <tr>
+    <td style="border-right: 0px">🇩🇪 Hamburg Forstkarten</td>    
+    <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;">
+      <a href="https://github.com/mariush444/Osmand-tools/raw/refs/heads/main/DE_HH.osf"><img src="https://img.shields.io/badge/osmand-plugin-orange?logo=osmand"></a> 
+    </td>
+  </tr>
   <tr>
     <td style="border-right: 0px">🇸🇪 Skogsstyrelsen</td>    
     <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;">
@@ -271,7 +284,7 @@ If you have no account on github just leave message in osmand group on <a href="
 <img src="https://img.shields.io/badge/reddit-grey?style=for-the-badge&logo=reddit"></a> ● <a href="https://www.facebook.com/groups/osmandusers/">
 <img src="https://img.shields.io/badge/facebook-grey?style=for-the-badge&logo=facebook"></a> <br> <br>
 <a href="https://github.com/mariush444/Osmand-tools/"><img src="https://avatars.githubusercontent.com/u/66887280?v=4&size=64" alt="Main Page" style="width:20px;height:20px;"></a>
-&nbsp;&nbsp;updated 22.04.2026  
+&nbsp;&nbsp;updated 01.05.2026  
 <!-- If you like it you can buy me <a href="https://buy.stripe.com/5kA5nP7B27OQdFK7sv"> 🍷 </a> or <a href="https://buy.stripe.com/5kA6rTcVm8SUeJOeUW"> ☕ </a>
 </h6>
 -->
