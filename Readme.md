@@ -159,6 +159,13 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
     </td>
   </tr>
   <tr>
+    <td style="border-right: 0px">LIDAR data for over 20 countries</td>    
+    <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >  
+      <a href="https://github.com//nico579/lidar2map"> <img src="https://img.shields.io/badge/github-repository-blue?logo=github"></a>
+      <a href="https://github.com//nico579/lidar2map"><img src="https://img.shields.io/badge/python-script-yellow?logo=python&labelColor=lightgrey"></a> 
+    </td>
+  </tr>
+  <tr>
     <td style="border-right: 0px">🇬🇧 Postal Codes</td>    
     <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
       <a href="https://github.com/hvdwolf/OsmAnd-UKpostcodes"><img src="https://img.shields.io/badge/github-repository-blue?logo=github"></a> 
@@ -289,7 +296,7 @@ If you have no account on github just leave message in osmand group on <a href="
 <img src="https://img.shields.io/badge/reddit-grey?style=for-the-badge&logo=reddit"></a> ● <a href="https://www.facebook.com/groups/osmandusers/">
 <img src="https://img.shields.io/badge/facebook-grey?style=for-the-badge&logo=facebook"></a> <br> <br>
 <a href="https://github.com/mariush444/Osmand-tools/"><img src="https://avatars.githubusercontent.com/u/66887280?v=4&size=64" alt="Main Page" style="width:20px;height:20px;"></a>
-&nbsp;&nbsp;updated 13.05.2026  
+&nbsp;&nbsp;updated 10.07.2026  
 <!-- If you like it you can buy me <a href="https://buy.stripe.com/5kA5nP7B27OQdFK7sv"> 🍷 </a> or <a href="https://buy.stripe.com/5kA6rTcVm8SUeJOeUW"> ☕ </a>
 </h6>
 -->
