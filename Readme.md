@@ -172,6 +172,12 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
     </td>
   </tr>
   <tr>
+    <td style="border-right: 0px">🇪🇺 🔥 - fire emergency based on EFFIS Copernicus</td>    
+    <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
+      <a href="https://github.com/mariush444/Osmand-tools/raw/refs/heads/main/EU_fire_emergency.osf"><img src="https://img.shields.io/badge/osmand-plugin-orange?logo=osmand"></a> 
+    </td>
+  </tr>
+  <tr>
     <td style="border-right: 0px">🇵🇱 <a href="https://ump.waw.pl/">UMP-pcPL </a> - alternative map of Poland </td>    
     <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
       <a href="https://github.com/mariush444/Osmand-tools/blob/main/UMP-PL-OsmAnd_v4_plugin.osf"><img src="https://img.shields.io/badge/osmand-plugin-orange?logo=osmand"></a> 
