@@ -288,7 +288,7 @@ const garminDictionary = {
 "park": ["park", "1010a0", "circle"],
 "forest": ["wood", "1010a0", "circle"],
 "dropoff": ["cliff", "eecc22", "circle"],
-"convenience store": ["fuel", "10c0f0", "circle"], //shop_convenience
+"convenience store": ["amenity_fuel", "10c0f0", "circle"], //shop_convenience
 "cemetery": ["cemetery", "000001", "circle"],
 "bar": ["amenity_bar", "a71de1", "circle"],
 "waypoint": ["special_marker", "eecc22", "circle"],
@@ -527,26 +527,38 @@ async function loadPreview() {
 
 // ── Icon picker (OsmAnd icons) ──────────────────────────────────────────────
 const IP_API = "https://api.github.com/repos/osmandapp/OsmAnd-resources/git/trees/master?recursive=1";
-const IP_FOLDER = "rendering_styles/style-icons/poi-icons-svg/";
+const IP_PNG_FOLDER = "rendering_styles/style-icons/poi-icons-png/drawable-hdpi/";
+const IP_SVG_FOLDER = "rendering_styles/style-icons/poi-icons-svg/";
 const IP_RAW = "https://raw.githubusercontent.com/osmandapp/OsmAnd-resources/master/";
-let _ipCache = null;
+let _ipCache = null;       // session cache: merged icon list, fetched once
 let _ipCards = null;
 let _ipCallback = null;
 let _ipCurrent = null;
 
+function stripMx(name) { return name.startsWith("mx_") ? name.slice(3) : name; }
+
+// PNGs are small/cheap to decode and cover the vast majority of icons, so they're
+// used as the primary source. SVGs are only pulled in for icons that have no PNG
+// (e.g. mx_seamark_anchorage), keeping the picker fast while staying complete.
 async function fetchIconList() {
-    if (_ipCache) return _ipCache;
+    if (_ipCache) return _ipCache; // already fetched this session
     const r = await fetch(IP_API, { headers: { Accept: "application/vnd.github+json" } });
     if (!r.ok) throw new Error(`GitHub API ${r.status}`);
     const { tree } = await r.json();
-    _ipCache = tree
-        .filter(i => i.type === "blob" && i.path.startsWith(IP_FOLDER) && i.path.endsWith(".svg"))
-        .map(i => {
-            let name = i.path.slice(IP_FOLDER.length).replace(/\.svg$/, "");
-            if (name.startsWith("mx_")) name = name.slice(3);
-            return { name, url: IP_RAW + i.path };
-        })
-        .sort((a, b) => a.name.localeCompare(b.name));
+
+    const byName = new Map(); // name -> { name, url }
+    tree.filter(i => i.type === "blob" && i.path.startsWith(IP_PNG_FOLDER) && i.path.endsWith(".png"))
+        .forEach(i => {
+            const name = stripMx(i.path.slice(IP_PNG_FOLDER.length).replace(/\.png$/, ""));
+            byName.set(name, { name, url: IP_RAW + i.path });
+        });
+    tree.filter(i => i.type === "blob" && i.path.startsWith(IP_SVG_FOLDER) && i.path.endsWith(".svg"))
+        .forEach(i => {
+            const name = stripMx(i.path.slice(IP_SVG_FOLDER.length).replace(/\.svg$/, ""));
+            if (!byName.has(name)) byName.set(name, { name, url: IP_RAW + i.path }); // PNG-missing fallback
+        });
+
+    _ipCache = [...byName.values()].sort((a, b) => a.name.localeCompare(b.name));
     return _ipCache;
 }
 function buildPickerCards(icons) {
