@@ -292,7 +292,7 @@ const garminDictionary = {
 "cemetery": ["cemetery", "000001", "circle"],
 "bar": ["amenity_bar", "a71de1", "circle"],
 "waypoint": ["special_marker", "eecc22", "circle"],
-"triangle, red": ["special_marker", "d00d0d", "circle"],
+"triangle, red": ["arrow_triangle_black_big", "d00d0d", "circle"],
 "toll booth": ["toll_booth", "eecc22", "octagon"],
 "tall tower": ["man_made_tower", "000001", "circle"],
 "swimming area": ["sport_swimming", "10c0f0", "circle"],
@@ -312,8 +312,8 @@ const garminDictionary = {
 "parking": ["amenity_parking", "a71de1", "circle"],
 "long-term parking": ["amenity_parking", "a71de1", "circle"],
 "geocache": ["special_marker", "1010a0", "circle"],
-"anchor": ["special_marker", "10c0f0", "circle"],
-"anchor prohibited": ["special_symbol_exclamation_mark", "d00d0d", "octagon"],
+"anchor": ["seamark_anchorage", "10c0f0", "circle"],
+"anchor prohibited": ["seamark_notice_prohibition_noanchoring", "d00d0d", "octagon"],
 "marina": ["leisure_marina", "10c0f0", "circle"],
 "boat ramp": ["water_transport", "10c0f0", "circle"],
 "beach": ["beach", "eecc22", "circle"],
@@ -527,7 +527,8 @@ async function loadPreview() {
 
 // ── Icon picker (OsmAnd icons) ──────────────────────────────────────────────
 const IP_API = "https://api.github.com/repos/osmandapp/OsmAnd-resources/git/trees/master?recursive=1";
-const IP_PNG_FOLDER = "rendering_styles/style-icons/poi-icons-png/drawable-hdpi/";
+const IP_POI_PNG_FOLDER = "rendering_styles/style-icons/poi-icons-png/drawable-hdpi/";
+const IP_MAP_PNG_FOLDER = "rendering_styles/style-icons/map-icons-png/drawable-xhdpi/";
 const IP_SVG_FOLDER = "rendering_styles/style-icons/poi-icons-svg/";
 const IP_RAW = "https://raw.githubusercontent.com/osmandapp/OsmAnd-resources/master/";
 let _ipCache = null;       // session cache: merged icon list, fetched once
@@ -535,28 +536,34 @@ let _ipCards = null;
 let _ipCallback = null;
 let _ipCurrent = null;
 
-function stripMx(name) { return name.startsWith("mx_") ? name.slice(3) : name; }
+// Icon files use either an "mx_" (poi-icons) or "mm_" (map-icons) prefix; neither
+// is meaningful to the user or valid in the exported GPX, so it's always stripped.
+function stripIconPrefix(name) {
+    return name.replace(/^m[xm]_/, "");
+}
 
-// PNGs are small/cheap to decode and cover the vast majority of icons, so they're
-// used as the primary source. SVGs are only pulled in for icons that have no PNG
-// (e.g. mx_seamark_anchorage), keeping the picker fast while staying complete.
+// PNGs are small/cheap to decode, so they're preferred for the picker grid:
+// 1) poi-icons-png (mx_, drawable-hdpi) — the main, most complete PNG set
+// 2) map-icons-png (mm_, drawable-xhdpi) — fills in PNGs missing from (1)
+// 3) poi-icons-svg (mx_) — last-resort fallback for icons with no PNG at all
+// (e.g. mx_seamark_anchorage). Merged once per session and cached in _ipCache.
 async function fetchIconList() {
     if (_ipCache) return _ipCache; // already fetched this session
     const r = await fetch(IP_API, { headers: { Accept: "application/vnd.github+json" } });
     if (!r.ok) throw new Error(`GitHub API ${r.status}`);
     const { tree } = await r.json();
 
-    const byName = new Map(); // name -> { name, url }
-    tree.filter(i => i.type === "blob" && i.path.startsWith(IP_PNG_FOLDER) && i.path.endsWith(".png"))
-        .forEach(i => {
-            const name = stripMx(i.path.slice(IP_PNG_FOLDER.length).replace(/\.png$/, ""));
-            byName.set(name, { name, url: IP_RAW + i.path });
-        });
-    tree.filter(i => i.type === "blob" && i.path.startsWith(IP_SVG_FOLDER) && i.path.endsWith(".svg"))
-        .forEach(i => {
-            const name = stripMx(i.path.slice(IP_SVG_FOLDER.length).replace(/\.svg$/, ""));
-            if (!byName.has(name)) byName.set(name, { name, url: IP_RAW + i.path }); // PNG-missing fallback
-        });
+    const byName = new Map(); // name (prefix stripped) -> { name, url }
+    const addFrom = (folder, ext) => {
+        tree.filter(i => i.type === "blob" && i.path.startsWith(folder) && i.path.endsWith(ext))
+            .forEach(i => {
+                const name = stripIconPrefix(i.path.slice(folder.length).replace(new RegExp(`\\${ext}$`), ""));
+                if (!byName.has(name)) byName.set(name, { name, url: IP_RAW + i.path });
+            });
+    };
+    addFrom(IP_POI_PNG_FOLDER, ".png"); // primary
+    addFrom(IP_MAP_PNG_FOLDER, ".png"); // fills PNG gaps
+    addFrom(IP_SVG_FOLDER, ".svg");     // fills whatever's left
 
     _ipCache = [...byName.values()].sort((a, b) => a.name.localeCompare(b.name));
     return _ipCache;
