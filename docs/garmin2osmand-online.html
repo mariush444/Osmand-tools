@@ -527,7 +527,7 @@ async function loadPreview() {
 
 // ── Icon picker (OsmAnd icons) ──────────────────────────────────────────────
 const IP_API = "https://api.github.com/repos/osmandapp/OsmAnd-resources/git/trees/master?recursive=1";
-const IP_FOLDER = "rendering_styles/style-icons/poi-icons-png/drawable-hdpi/";
+const IP_FOLDER = "rendering_styles/style-icons/poi-icons-svg/";
 const IP_RAW = "https://raw.githubusercontent.com/osmandapp/OsmAnd-resources/master/";
 let _ipCache = null;
 let _ipCards = null;
@@ -540,9 +540,9 @@ async function fetchIconList() {
     if (!r.ok) throw new Error(`GitHub API ${r.status}`);
     const { tree } = await r.json();
     _ipCache = tree
-        .filter(i => i.type === "blob" && i.path.startsWith(IP_FOLDER) && i.path.endsWith(".png"))
+        .filter(i => i.type === "blob" && i.path.startsWith(IP_FOLDER) && i.path.endsWith(".svg"))
         .map(i => {
-            let name = i.path.slice(IP_FOLDER.length).replace(/\.png$/, "");
+            let name = i.path.slice(IP_FOLDER.length).replace(/\.svg$/, "");
             if (name.startsWith("mx_")) name = name.slice(3);
             return { name, url: IP_RAW + i.path };
         })
