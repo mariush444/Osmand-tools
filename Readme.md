@@ -32,6 +32,8 @@ some tools are mentioned on <a href="https://osmand.net/docs/user/troubleshootin
     <td style="border-right: 0px">Garmin Basecamp to Osmand </td>    
     <td style="padding: 2px; margin: 0; border-left: 0px; min-width: 100px;" >
       <a href="https://github.com/maurizioandreotti/GPX-Basecamp-2-OsmAnd"> <img src="https://img.shields.io/badge/github-repository-blue?logo=github"></a>
+      <a href="https://mariush444.github.io/Osmand-tools/docs/garmin2osmand-online.html"><img src="https://img.shields.io/badge/On&ndash;line-A155E8"></a>
+    </td>
     </td>
   </tr>
   <tr>
