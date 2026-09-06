@@ -165,7 +165,7 @@ header { margin-bottom: 36px; }
 .osmand-bg.pickable:hover { filter: brightness(1.25); }
 .ip-overlay { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.75); backdrop-filter: blur(4px); align-items: center; justify-content: center; }
 .ip-overlay.open { display: flex; }
-.ip-modal { background: var(--card); border: 1px solid var(--border-light); border-radius: 14px; width: min(820px, 95vw); max-height: 80vh; display: flex; flex-direction: column; box-shadow: 0 24px 80[...]
+.ip-modal { background: var(--card); border: 1px solid var(--border-light); border-radius: 14px; width: min(820px, 95vw); max-height: 80vh; display: flex; flex-direction: column; box-shadow: 0 24px 80px rgba(0,0,0,0.6); overflow: hidden; }
 .ip-header { display: flex; align-items: center; gap: 12px; padding: 18px 20px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
 .ip-title { font-size: 14px; font-weight: 700; color: var(--text-dim); white-space: nowrap; }
 .ip-search { flex: 1; background: var(--bg2); border: 1px solid var(--border); border-radius: 7px; padding: 7px 12px; color: var(--text); font-family: var(--mono); font-size: 13px; }
@@ -175,11 +175,11 @@ header { margin-bottom: 36px; }
 .ip-status { padding: 24px; text-align: center; color: var(--text-muted); font-size: 13px; font-family: var(--mono); }
 .ip-status:empty { display: none; }
 .ip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(76px, 1fr)); gap: 4px; padding: 12px; overflow-y: auto; flex: 1; }
-.ip-card { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 8px 4px; border-radius: 8px; border: 1px solid transparent; cursor: pointer; transition: all 0.12s; text: '[TRUNCATED FOR BREVITY]'; }
+.ip-card { display: flex; flex-direction: column; align-items: center; gap: 5px; padding: 8px 4px; border-radius: 8px; border: 1px solid transparent; cursor: pointer; transition: all 0.12s; text-align: center; background: var(--bg2); }
 .ip-card:hover { border-color: var(--border-light); background: var(--bg); }
 .ip-card.selected { border-color: var(--accent); background: var(--accent-dim); }
 .ip-card img { width: 32px; height: 32px; object-fit: contain; }
-.ip-card span { font-family: var(--mono); font-size: 9px; color: var(--text-muted); word-break: break-all; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; [...]; }
+.ip-card span { font-family: var(--mono); font-size: 9px; color: var(--text-muted); word-break: break-all; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .ip-card.selected span { color: var(--accent); }
 tr.overridden td { background: rgba(0,229,176,0.04); }
 .count-badge {
@@ -216,7 +216,7 @@ tr.overridden td { background: rgba(0,229,176,0.04); }
                 <button class="convert-btn" onclick="convert()">Convert GPX → GPX (OsmAnd icons)</button>
             </div>
             <div id="status" class="status"></div>
-            <div class="hint">Defaults: <code>Gas Station</code> → <code>fuel</code>, <code>Lodging</code> → <code>tourism_hostel</code>. Click any OsmAnd icon bubble below to browse and override [...]
+            <div class="hint">Defaults: <code>Gas Station</code> → <code>fuel</code>, <code>Lodging</code> → <code>tourism_hostel</code>. Click any OsmAnd icon bubble below to browse and override it.</div>
         </div>
         <div class="preview-section" id="previewSection">
             <div class="section-label" id="previewLabel">Icon conversion preview</div>
@@ -264,6 +264,8 @@ const garminDictionary = {
 "truck stop": ["fuel", "a71de1", "circle"],
 "lodging": ["tourism_hostel", "1010a0", "circle"],
 "lodge": ["tourism_hotel", "1010a0", "circle"],
+
+// -- from the sample TET-TRwpt-org.gpx --
 "campground": ["tourism_camp_site", "1010a0", "circle"],
 "scenic area": ["tourism_viewpoint", "d00d0d", "circle"],
 "flag, blue": ["special_flag_stroke", "1010a0", "circle"],
@@ -605,7 +607,7 @@ function closeIconPicker() {
 }
 document.addEventListener("keydown", e => { if (e.key === "Escape") closeIconPicker(); });
 
-// ── buildRow ────────────────────────────────────────────────────────────�[...]
+// ── buildRow ─────────────────────────────────────────────────────────────────
 function buildRow(key, displaySym, count) {
     const safeId = key.replace(/[^a-z0-9]+/gi, "_");
     const tr = document.createElement("tr");
@@ -788,7 +790,7 @@ function buildRow(key, displaySym, count) {
     return tr;
 }
 
-// ── Converter ────────────────────────────────────────────────────────────[...]
+// ── Converter ────────────────────────────────────────────────────────────────
 function textOf(parent, tag) {
     const el = parent.getElementsByTagName(tag)[0];
     return el ? el.textContent.trim() : "";
